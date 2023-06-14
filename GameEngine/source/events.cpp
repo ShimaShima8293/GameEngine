@@ -52,7 +52,7 @@ void processEvents()
         {
             keyPressed[event.key.keysym.sym] = false;
         }
-        if (event.type == 8192)
+        if (event.type == 8192 || event.window.event == SDL_WINDOWEVENT_SHOWN)
         {
             SDL_GetWindowSize(window, &windowWidth, &windowHeight);
         }
