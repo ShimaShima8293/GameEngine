@@ -163,22 +163,18 @@ void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _win
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         printFatalError("Failed to initialize SDL... SDL Error: " << SDL_GetError());
-        exit(-1);
     }
     if (IMG_Init(0) < 0)
     {
         printFatalError("Failed to initialize SDL_Image... SDL_image Error: " << IMG_GetError());
-        exit(-1);
     }
     if (TTF_Init() < 0)
     {
         printFatalError("Failed to initialize SDL_TTF... SDL_ttf Error: " << TTF_GetError());
-        exit(-1);
     }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) != 0)
     {
         printFatalError("Failed to initialize SDL_Mixer... SDL_mixer Error: " << Mix_GetError());
-        exit(-1);
     }
 
     if (_windowFlags & SDL_WINDOW_FULLSCREEN)
