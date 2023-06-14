@@ -4,11 +4,8 @@
 #include <iostream>
 #include <math.h>
 
+// \returns It returns "On" when true, "Off" when false.
 std::string bool2string(bool _bool);
-
-
-//#define linearEq(x, m, b) ((m * x) + b)
-//#define expoEq(x, e, b) (std::exp()
 
 // Calculate a simple linear expression. I recommend using this for transitions in update functions.
 // \param beg The beginning value (the output when frame = 0).
@@ -30,8 +27,12 @@ bool between(float target, float min, float max);
 // \param max The maximum output number.
 int randomRange(int min, int max);
 
+// Returns a random number centered at the `center` parameter.
+// \param center The center of the random number.
+// \param difference The maximum offset from the center.
 int randomCentered(int center, int difference);
 
+// This is a combination of `randomRange()` and `randomCentered()`.
 int randomEx(int center, int difference, int min, int max);
 
 // Vector2
