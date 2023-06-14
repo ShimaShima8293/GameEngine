@@ -179,9 +179,12 @@ int getWindowHeight()
 
 bool fullscreenLocked = false;
 
-void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _windowFlags, bool _debug, bool renderQuality)
+void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
 {
     debug = _debug;
+    gameWidth = _gameWidth;
+    gameHeight = _gameHeight;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         printFatalError("Failed to initialize SDL... SDL Error: " << SDL_GetError());
@@ -206,7 +209,7 @@ void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _win
     }
 
 
-    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _windowWidth, _windowHeight, _windowFlags);
+    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, _windowFlags);
 
 #ifdef NDEBUG
     if (!fullscreenLocked)
