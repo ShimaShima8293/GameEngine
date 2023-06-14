@@ -1,9 +1,12 @@
 #include "resource.h"
 
-
-std::vector<TTF_Font*> fontList = {};
-std::vector<Mix_Music*> musicList = {};
-std::vector<Mix_Chunk*> chunkList = {};
+namespace GameEngine
+{
+    std::vector<TTF_Font*> fontList = {};
+    std::vector<Mix_Music*> musicList = {};
+    std::vector<Mix_Chunk*> chunkList = {};
+}
+using namespace GameEngine;
 
 TTF_Font* openFont(std::string path, int size)
 {

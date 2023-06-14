@@ -44,7 +44,7 @@
 //    // \param vector The vector to multiply.
 //    void changeSize(Vec2 vector);
 //
-//    // Set the texture size to (getWindowWidth(), getWindowHeight()).
+//    // Set the texture size to (getGameWidth(), getGameHeight()).
 //    void stretchToWindow();
 //
 //    void fitToWindow();

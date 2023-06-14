@@ -1,6 +1,9 @@
 #include "audio.h"
 #include "vars.h"
 
+using namespace GameEngine;
+
+
 void playMusicSet(MusicSet& set)
 {
     playMusicSet(set.intro, set.loop, set.fade);

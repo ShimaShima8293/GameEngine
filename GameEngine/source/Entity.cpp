@@ -8,6 +8,8 @@
 #include PATH_SDL_TTF
 #include PATH_SDL_MIXER
 
+using namespace GameEngine;
+
 Entity::Entity()
 {
     free();
@@ -285,12 +287,12 @@ void Entity::setScale(Vec2 vector)
 }
 void Entity::stretchToWindow()
 {
-    setSize(getWindowWidth(), getWindowHeight());
+    setSize(getGameWidth(), getGameHeight());
     setPos(0, 0);
 }
 void Entity::fitToWindow()
 {
-    if (getWindowHeight() / getWindowWidth() > getH() / getW())
+    if (getGameHeight() / getGameWidth() > getH() / getW())
     {
         
     }
@@ -357,11 +359,11 @@ void Entity::clipNext()
 }
 int Entity::getWindowCenterX()
 {
-    return getWindowWidth() / 2 - getW() / 2;
+    return getGameWidth() / 2 - getW() / 2;
 }
 int Entity::getWindowCenterY()
 {
-    return getWindowHeight() / 2 - getH() / 2;
+    return getGameHeight() / 2 - getH() / 2;
 }
 std::string Entity::getName()
 {

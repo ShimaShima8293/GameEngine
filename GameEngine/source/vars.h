@@ -9,26 +9,28 @@
 #include PATH_SDL_MIXER
 #include PATH_SDL_TTF
 
+namespace GameEngine
+{
+    extern Entity debugText;
 
-extern Entity debugText;
+    extern SDL_Window* window;
+    extern SDL_Renderer* renderer;
 
-extern SDL_Window* window;
-extern SDL_Renderer* renderer;
+    extern const std::string DEFAULT_TEXT;
 
-extern const std::string DEFAULT_TEXT;
+    extern int gameWidth;
+    extern int gameHeight;
 
-extern int windowWidth;
-extern int windowHeight;
+    extern bool antialiasing;
 
-extern bool antialiasing;
+    extern bool debug;
 
-extern bool debug;
+    extern int windowWidth;
+    extern int windowHeight;
 
-extern int screenWidth;
-extern int screenHeight;
+    extern bool fullscreen;
 
-extern bool fullscreen;
-
-extern std::string windowMode;
-extern bool mute;
-extern bool vsync;
+    extern std::string windowMode;
+    extern bool mute;
+    extern bool vsync;
+}

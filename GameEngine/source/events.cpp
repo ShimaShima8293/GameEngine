@@ -4,17 +4,22 @@
 #include "audio.h"
 #include "scene.h"
 
-bool focused = false;
-bool mouseMoved = false;
-std::map<SDL_Keycode, bool> keyPressed;
-std::map<SDL_Keycode, bool> keyPressedPulse;
-std::map<Uint8, bool> buttonPressed;
-std::map<Uint8, bool> buttonPressedPulse;
-std::map<Uint8, bool> joyPressed;
-std::map<Uint8, bool> joyPressedPulse;
-int mouseX = 0, mouseY = 0;
-bool running = true;
-int globalFrame = 0;
+namespace GameEngine
+{
+    bool focused = false;
+    bool mouseMoved = false;
+    std::map<SDL_Keycode, bool> keyPressed;
+    std::map<SDL_Keycode, bool> keyPressedPulse;
+    std::map<Uint8, bool> buttonPressed;
+    std::map<Uint8, bool> buttonPressedPulse;
+    std::map<Uint8, bool> joyPressed;
+    std::map<Uint8, bool> joyPressedPulse;
+    int mouseX = 0, mouseY = 0;
+    bool running = true;
+    int globalFrame = 0;
+}
+using namespace GameEngine;
+
 
 void processEvents()
 {
@@ -49,7 +54,7 @@ void processEvents()
         }
         if (event.type == 8192)
         {
-            SDL_GetWindowSize(window, &screenWidth, &screenHeight);
+            SDL_GetWindowSize(window, &windowWidth, &windowHeight);
         }
         if (event.type == SDL_MOUSEMOTION)
         {
@@ -127,23 +132,50 @@ bool getRunning()
     return running;
 }
 
-void close()
+void endMainloop()
 {
     running = false;
+}
+
+void close()
+{
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
+int getGameWidth()
+{
+    return gameWidth;
+}
+
+int getGameHeight()
+{
+    return gameHeight;
+}
+
+SDL_Window* getWindow()
+{
+    return window;
+}
+
+SDL_Renderer* getRenderer()
+{
+    return renderer;
+}
+
 int getWindowWidth()
 {
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     return windowWidth;
 }
 
 int getWindowHeight()
 {
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     return windowHeight;
 }
+
 
 bool fullscreenLocked = false;
 
@@ -230,5 +262,4 @@ void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _win
     debugText.setPos(0, 0);
 
     running = true;
-    SDL_GetWindowSize(window, &screenWidth, &screenHeight);
 }

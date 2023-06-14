@@ -9,11 +9,15 @@
 #include "events.h"
 #include "update.h"
 
-SDL_Texture* gamePlayTexture;
-SDL_Surface* surface;
-Timer renderTimer;
-Timer gameTimer;
-std::vector<Entity*> mainLayer;
+namespace GameEngine
+{
+    SDL_Texture* gamePlayTexture;
+    SDL_Surface* surface;
+    Timer renderTimer;
+    Timer gameTimer;
+    std::vector<Entity*> mainLayer;
+}
+using namespace GameEngine;
 
 void renderEverything()
 {
@@ -22,24 +26,24 @@ void renderEverything()
 
     SDL_Rect destRect = {};
 
-    double gameRatio = (double)getWindowWidth() / (double)getWindowHeight(); // Calculate the ratio of the game view
-    double screenRatio = (double)screenWidth / (double)screenHeight; // Calculate the ratio of the window
+    double gameRatio = (double)getGameWidth() / (double)getGameHeight(); // Calculate the ratio of the game view
+    double screenRatio = (double)windowWidth / (double)windowHeight; // Calculate the ratio of the window
     if (gameRatio == screenRatio)
     {
-        destRect = { 0, 0, screenWidth, screenHeight };
+        destRect = { 0, 0, windowWidth, windowHeight };
     }
     else if (gameRatio > screenRatio)
     {
-        destRect = { 0, (screenHeight - getWindowHeight() * screenWidth / getWindowWidth()) / 2, screenWidth, getWindowHeight() * screenWidth / getWindowWidth() };
+        destRect = { 0, (windowHeight - getGameHeight() * windowWidth / getGameWidth()) / 2, windowWidth, getGameHeight() * windowWidth / getGameWidth() };
     }
     else
     {
-        destRect = { (screenWidth - getWindowWidth() * screenHeight / getWindowHeight()) / 2, 0, getWindowWidth() * screenHeight / getWindowHeight(), screenHeight };
+        destRect = { (windowWidth - getGameWidth() * windowHeight / getGameHeight()) / 2, 0, getGameWidth() * windowHeight / getGameHeight(), windowHeight };
     }
 
 
     SDL_DestroyTexture(gamePlayTexture);
-    gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, getWindowWidth(), getWindowHeight());
+    gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, getGameWidth(), getGameHeight());
 
     SDL_RenderClear(renderer);
     SDL_SetRenderTarget(renderer, gamePlayTexture);

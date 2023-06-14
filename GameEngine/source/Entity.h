@@ -116,7 +116,7 @@ public:
     // \param vector The vector to multiply.
     void changeSize(Vec2 vector);
 
-    // Set the size to (getWindowWidth(), getWindowHeight()).
+    // Set the size to (getGameWidth(), getGameHeight()).
     void stretchToWindow();
 
     // Similar to `stretchToWindow` but this doesn't change the ratio.

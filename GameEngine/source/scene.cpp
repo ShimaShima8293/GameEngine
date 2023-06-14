@@ -6,8 +6,13 @@
 #include "render.h"
 #include "update.h"
 
-Scene* queue;
-Scene* current;
+namespace GameEngine
+{
+    Scene* queue;
+    Scene* current;
+}
+
+using namespace GameEngine;
 
 void loadScene(Scene* scene)
 {
