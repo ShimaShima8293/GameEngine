@@ -13,8 +13,6 @@ void setWindowFocus(bool _focused);
 bool getKeyPressed(SDL_KeyCode code);
 bool getKeyPressedPulse(SDL_KeyCode code);
 bool getRunning();
-void beginMainloop();
-void endMainloop();
 // Frees things and quits SDL.
 void close();
 int getWindowWidth();

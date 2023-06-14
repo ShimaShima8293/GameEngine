@@ -137,19 +137,9 @@ bool getRunning()
     return running;
 }
 
-void beginMainloop()
-{
-    running = true;
-    SDL_GetWindowSize(window, &screenWidth, &screenHeight);
-}
-
-void endMainloop()
-{
-    running = false;
-}
-
 void close()
 {
+    running = false;
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -252,4 +242,7 @@ void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _win
     debugText.setName("debugText");
     debugText.loadFromText(DEFAULT_TEXT, debugFont);
     debugText.setPos(0, 0);
+
+    running = true;
+    SDL_GetWindowSize(window, &screenWidth, &screenHeight);
 }
