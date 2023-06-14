@@ -29,10 +29,20 @@ void fadeOutMusic(int fade)
 
 bool getMuteState()
 {
-    return musicOff;
+    return mute;
 }
 
 void setMuteState(bool _mute)
 {
-    musicOff = _mute;
+    mute = _mute;
+    if (mute)
+    {
+        Mix_Volume(CH_ALL, 0);
+        Mix_VolumeMusic(0);
+    }
+    else
+    {
+        Mix_VolumeMusic(MIX_MAX_VOLUME);
+        Mix_Volume(CH_ALL, MIX_MAX_VOLUME);
+    }
 }

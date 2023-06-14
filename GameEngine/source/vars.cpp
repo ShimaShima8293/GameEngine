@@ -24,5 +24,5 @@ bool fullscreen = false;
 std::string windowMode = "Windowed";
 #endif
 
-bool musicOff = false;
+bool mute = false;
 bool vsync = true;

@@ -30,5 +30,5 @@ extern int screenHeight;
 extern bool fullscreen;
 
 extern std::string windowMode;
-extern bool musicOff;
+extern bool mute;
 extern bool vsync;

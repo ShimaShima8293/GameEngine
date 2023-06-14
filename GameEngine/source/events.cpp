@@ -2,6 +2,7 @@
 #include <map>
 #include "vars.h"
 #include "audio.h"
+#include "scene.h"
 
 bool focused = false;
 bool mouseMoved = false;
@@ -98,17 +99,11 @@ void processEvents()
     if (getKeyPressedPulse(SDLK_m))
     {
         setMuteState(!getMuteState());
-        if (getMuteState())
-        {
-            //Mix_VolumeMusic(0);
-            Mix_HaltChannel(CH_INTRO);
-            Mix_HaltChannel(CH_LOOP);
-        }
-        else
-        {
-            //Mix_VolumeMusic(MIX_MAX_VOLUME);
+    }
 
-        }
+    if (getKeyPressedPulse(SDLK_F4))
+    {
+        reloadCurrentScene();
     }
 }
 

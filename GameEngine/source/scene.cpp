@@ -27,10 +27,7 @@ void processScene()
         current = queue;
         queue = nullptr;
     }
-    if (getKeyPressedPulse(SDLK_F4))
-    {
-        queue = current;
-    }
+
 }
 
 void initScene()
@@ -42,6 +39,11 @@ void initScene()
 Scene* getCurrentScene()
 {
     return current;
+}
+
+void reloadCurrentScene()
+{
+    loadScene(current);
 }
 
 void Scene::start()

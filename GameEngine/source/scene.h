@@ -20,3 +20,5 @@ void processScene();
 Scene* getCurrentScene();
 // Initializes lists. Call this function every time you start a scene.
 void initScene();
+// Reload the current scene.
+void reloadCurrentScene();
