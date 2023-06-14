@@ -9,7 +9,6 @@ extern int globalFrame;
 // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
 void processEvents();
 bool getWindowFocus();
-void setWindowFocus(bool _focused);
 bool getKeyPressed(SDL_KeyCode code);
 bool getKeyPressedPulse(SDL_KeyCode code);
 bool getRunning();

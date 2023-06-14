@@ -112,11 +112,6 @@ bool getWindowFocus()
     return focused;
 }
 
-void setWindowFocus(bool _focused)
-{
-    focused = _focused;
-}
-
 bool getKeyPressed(SDL_KeyCode code)
 {
     return keyPressed[code];
