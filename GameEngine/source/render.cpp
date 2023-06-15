@@ -48,9 +48,6 @@ void renderEverything()
     SDL_RenderClear(renderer);
     SDL_SetRenderTarget(renderer, gamePlayTexture);
 
-
-
-    int entityCount = 0;
     int clipCount = 0;
     Entity* currentEntity;
     for (int i = 0; i < mainLayer.size(); i++)
@@ -61,8 +58,6 @@ void renderEverything()
         {
             clipCount++;
         }
-        entityCount++;
-
     }
 
 
@@ -76,7 +71,7 @@ void renderEverything()
 
         std::string debugStr =
             std::to_string(fps) + " fps\n" +
-            std::to_string(entityCount) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
+            std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
             std::to_string(getUpdateCount()) + " updates\n"
             "VSync: " + bool2string(vsync) + "\n"
             "Mute: " + bool2string(getMuteState()) + "\n"
