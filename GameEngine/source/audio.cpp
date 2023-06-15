@@ -18,6 +18,11 @@ void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
     Mix_FadeInChannel(CH_LOOP, loop, -1, fade);
 }
 
+void playSoundEffect(Mix_Chunk* chunk)
+{
+    Mix_PlayChannel(CH_FX, chunk, 0);
+}
+
 void haltMusic()
 {
     Mix_HaltChannel(CH_INTRO);

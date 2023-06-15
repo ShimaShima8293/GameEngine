@@ -20,6 +20,7 @@ struct MusicSet
 
 void playMusicSet(MusicSet& set);
 void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade = 5000);
+void playSoundEffect(Mix_Chunk* chunk);
 
 void haltMusic();
 
