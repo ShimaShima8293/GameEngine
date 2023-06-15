@@ -21,9 +21,6 @@ typedef enum EntityType
 class Entity
 {
 public:
-    double speed = 0;
-    int angle = 0;
-
     Entity();
     ~Entity();
 
@@ -78,13 +75,7 @@ public:
     // Clear alpha modulation. By calling this, the render function will bypass the alpha modulation part.
     void clearAlpha();
 
-    void setAngle(int _angle);
-
-    void changeAngle(int _angle);
-
     void moveTo(int _speed, int _angle);
-
-    void moveFoward(int multiple = 1);
 
     // Get the top border. This is same as `getY`.
     int getTopB();

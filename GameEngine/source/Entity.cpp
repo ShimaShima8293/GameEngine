@@ -25,8 +25,6 @@ void Entity::free()
         SDL_DestroyTexture(texture);
         texture = NULL;
     }
-    speed = 0;
-    angle = 0;
     texture = NULL;
     scaleH = 1;
     scaleW = 1;
@@ -143,45 +141,47 @@ void Entity::setTexture(SDL_Texture* _texture)
 }
 void Entity::render()
 {
-    if (getVisibility() == true)
+    if (getVisibility() == false)
     {
-        if (useAlphaMod)
-        {
-            if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
-            {
-                printError("Failed to set alpha modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
-            }
-        }
-        if (useColorMod)
-        {
-            if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
-            {
-                printError("Failed to set color modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
-            }
-        }
-        int _width = static_cast<int>(std::round((double)width * scaleW));
-        int _height = static_cast<int>(std::round((double)height * scaleH));
-        rect = { position.x, position.y, _width, _height };
-        if (doClip)
-        {
-            clipRect = { clipW * clipI, 0, clipW, height };
-            rect.w = (int)(clipRect.w * scaleW);
+        return;
+    }
 
-            if (SDL_RenderCopyEx(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
-            {
-                printError("Failed to render... Clip: True Entity name: " << name << " SDL Error: " << SDL_GetError());
-            }
-        }
-        else
+    if (useAlphaMod)
+    {
+        if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
         {
-            if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
-            {
-                printError("Failed to render... Clip: False Entity name: " << name << " SDL Error: " << SDL_GetError());
-            }
+            printError("Failed to set alpha modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        }
+    }
+    if (useColorMod)
+    {
+        if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
+        {
+            printError("Failed to set color modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        }
+    }
+
+    int _width = static_cast<int>(std::round((double)width * scaleW));
+    int _height = static_cast<int>(std::round((double)height * scaleH));
+    rect = { position.x, position.y, _width, _height };
+    if (doClip)
+    {
+        clipRect = { clipW * clipI, 0, clipW, height };
+        rect.w = (int)(clipRect.w * scaleW);
+
+        if (SDL_RenderCopyEx(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        {
+            printError("Failed to render... Clip: True Entity name: " << name << " SDL Error: " << SDL_GetError());
+        }
+    }
+    else
+    {
+        if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        {
+            printError("Failed to render... Clip: False Entity name: " << name << " SDL Error: " << SDL_GetError());
         }
     }
 }
-
 
 void Entity::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
 {
@@ -216,29 +216,9 @@ void Entity::clearAlpha()
 {
     useAlphaMod = false;
 }
-// Sets the entity's angle.
-// \param angle The new entity's angle. (0-359)
-void Entity::setAngle(int _angle)
-{
-    angle = _angle;
-    angle = angle % 360;
-    if (angle < 0)
-    {
-        angle = 360 - (angle * -1);
-    }
-}
-void Entity::changeAngle(int _angle)
-{
-    // angle = (_angle + angle) % 360;
-    setAngle(angle + _angle);
-}
-void Entity::moveTo(int _speed, int _angle)
+void Entity::moveTo(int speed, int angle)
 {
     changePos((int)(std::round(speed * std::sin(angle * 3.14 / 180))), (int)(std::round(speed * std::cos(angle * 3.14 / 180))));
-}
-void Entity::moveFoward(int multiple)
-{
-    changePos((int)(std::round(speed * multiple * std::sin(angle * 3.1415 / 180))), (int)(std::round(speed * multiple * std::cos(angle * 3.14 / 180))));
 }
 int Entity::getTopB()
 {
@@ -294,7 +274,7 @@ void Entity::fitToWindow()
 {
     if (getGameHeight() / getGameWidth() > getH() / getW())
     {
-        
+
     }
 }
 void Entity::setPos(int _x, int _y)
