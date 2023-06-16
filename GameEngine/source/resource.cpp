@@ -48,21 +48,82 @@ Mix_Chunk* openWAV(std::string path)
     return _chunk;
 }
 
+void closeFont(TTF_Font* font)
+{
+    if (font == nullptr)
+    {
+        printError("closeFont: nullptr passed");
+        return;
+    }
+    for (int i = 0; i < fontList.size(); i++)
+    {
+        if (font = fontList[i])
+        {
+            TTF_CloseFont(fontList[i]);
+            fontList.erase(fontList.begin() + i);
+            i--;
+            printInfo("closeFont: Closed a font");
+        }
+    }
+}
+
+void closeMusic(Mix_Music* music)
+{
+    if (music == nullptr)
+    {
+        printError("closeMusic: nullptr passed");
+        return;
+    }
+    for (int i = 0; i < musicList.size(); i++)
+    {
+        if (music = musicList[i])
+        {
+            Mix_FreeMusic(musicList[i]);
+            musicList.erase(musicList.begin() + i);
+            i--;
+            printInfo("closeMusic: Closed a music");
+        }
+    }
+}
+
+void closeWAV(Mix_Chunk* chunk)
+{
+    if (chunk == nullptr)
+    {
+        printError("closeWAV: nullptr passed");
+        return;
+    }
+    for (int i = 0; i < chunkList.size(); i++)
+    {
+        if (chunk = chunkList[i])
+        {
+            Mix_FreeChunk(chunkList[i]);
+            chunkList.erase(chunkList.begin() + i);
+            i--;
+            printInfo("closeWAV: Closed a WAV chunk");
+        }
+    }
+}
+
+
 void closeResources()
 {
     for (int i = 0; i < fontList.size(); i++)
     {
         TTF_CloseFont(fontList[i]);
-        printInfo("Closed a font");
+        printInfo("closeResources: Closed a font");
     }
+    fontList.clear();
     for (int i = 0; i < musicList.size(); i++)
     {
         Mix_FreeMusic(musicList[i]);
-        printInfo("Closed a music");
+        printInfo("closeResources: Closed a music");
     }
+    musicList.clear();
     for (int i = 0; i < chunkList.size(); i++)
     {
         Mix_FreeChunk(chunkList[i]);
-        printInfo("Closed a WAV chunk");
+        printInfo("closeResources: Closed a WAV chunk");
     }
+    chunkList.clear();
 }

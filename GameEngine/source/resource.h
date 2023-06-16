@@ -21,5 +21,12 @@ Mix_Music* openMusic(std::string path);
 // \returns Returns a pointer to Mix_Chunk, which is required for `playMusicSet()`
 Mix_Chunk* openWAV(std::string path);
 
+void closeFont(TTF_Font* font);
+
+void closeMusic(Mix_Music* music);
+
+void closeWAV(Mix_Chunk* chunk);
+
+
 // Close all the resources opened by `openFont()`, `openMusic()`, and `openWAV`. Call this function after finishing the main loop.
 void closeResources();
