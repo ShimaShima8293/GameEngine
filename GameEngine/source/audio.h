@@ -26,9 +26,11 @@ void haltMusic();
 
 void fadeOutMusic(int fade = 5000);
 
-// Plays music with loop on. It will Print out an error message if it failed to play.
-// [DEPRECATED]
-//void playMusic(Mix_Music* music, int loops = -1);
-
 bool getMuteState();
 void setMuteState(bool _mute);
+
+//int getMusicVolume();
+//int getSoundEffectVolume();
+//
+//void setMusicVolume();
+//void setSoundEffectVolume();

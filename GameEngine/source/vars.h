@@ -31,6 +31,5 @@ namespace GameEngine
     extern bool fullscreen;
 
     extern std::string windowMode;
-    extern bool mute;
     extern bool vsync;
 }

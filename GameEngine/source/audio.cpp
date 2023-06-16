@@ -1,6 +1,11 @@
 #include "audio.h"
 #include "vars.h"
 
+namespace GameEngine
+{
+    bool mute = false;
+}
+
 using namespace GameEngine;
 
 

@@ -26,6 +26,5 @@ namespace GameEngine
     std::string windowMode = "Windowed";
 #endif
 
-    bool mute = false;
     bool vsync = true;
 }
