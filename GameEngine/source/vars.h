@@ -18,9 +18,6 @@ namespace GameEngine
 
     extern const std::string DEFAULT_TEXT;
 
-    extern int gameWidth;
-    extern int gameHeight;
-
     extern bool antialiasing;
 
     extern bool debug;

@@ -8,8 +8,7 @@ namespace GameEngine
     SDL_Renderer* renderer;
 
     const std::string DEFAULT_TEXT = "Error";
-    int gameWidth = 1920;
-    int gameHeight = 1080;
+
 
     bool antialiasing;
 

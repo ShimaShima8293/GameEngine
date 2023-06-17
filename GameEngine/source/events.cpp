@@ -17,6 +17,8 @@ namespace GameEngine
     int mouseX = 0, mouseY = 0;
     bool running = true;
     int globalFrame = 0;
+    int gameWidth = 1920;
+    int gameHeight = 1080;
 }
 using namespace GameEngine;
 
