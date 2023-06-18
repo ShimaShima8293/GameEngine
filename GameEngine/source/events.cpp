@@ -19,6 +19,7 @@ namespace GameEngine
     int globalFrame = 0;
     int gameWidth = 1920;
     int gameHeight = 1080;
+    bool fullscreenLocked = false;
 }
 using namespace GameEngine;
 
@@ -177,9 +178,6 @@ int getWindowHeight()
     SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     return windowHeight;
 }
-
-
-bool fullscreenLocked = false;
 
 void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
 {

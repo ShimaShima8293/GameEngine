@@ -1,15 +1,15 @@
-//#pragma once
-//
-//#include "macros.h"
-//#include PATH_SDL
-//#include "Entity.h"
-//#include <vector>
-//
-//class EntityGroup
-//{
+#pragma once
+
+#include "macros.h"
+#include PATH_SDL
+#include "Entity.h"
+#include <vector>
+
+class EntityGroup
+{
 //public:
 //    void addChild(Entity* entity);
-//    //void addChildGroup(EntityGroup* entity);
+//    void addChildGroup(EntityGroup* entity);
 //    std::vector<Entity*> getChildList();
 //    void setChild(std::vector<Entity*> _list);
 //    int getSize();
@@ -74,4 +74,4 @@
 //private:
 //    std::vector<Entity*> entityList;
 //    SDL_Point position;
-//};
+};

@@ -4,8 +4,6 @@
 #include PATH_SDL
 #include <string>
 
-extern int globalFrame;
-
 // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
 void processEvents();
 bool getWindowFocus();
@@ -21,8 +19,6 @@ SDL_Window* getWindow();
 SDL_Renderer* getRenderer();
 int getWindowWidth();
 int getWindowHeight();
-
-extern bool fullscreenLocked;
 
 // Initialize everything.
 void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _windowFlags, bool _debug, bool renderQuality);
