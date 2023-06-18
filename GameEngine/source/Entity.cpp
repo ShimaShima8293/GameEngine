@@ -284,7 +284,7 @@ void Entity::setPos(int _x, int _y)
 }
 void Entity::setPos(Vec2 vector)
 {
-    setPos(vector.x, vector.y);
+    setPos((int)vector.x, (int)vector.y);
 }
 void Entity::setPosCentered()
 {
@@ -297,7 +297,7 @@ void Entity::changePos(int _x, int _y)
 }
 void Entity::changePos(Vec2 vector)
 {
-    changePos(vector.x, vector.y);
+    changePos((int)vector.x, (int)vector.y);
 }
 int Entity::getX()
 {

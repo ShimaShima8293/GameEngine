@@ -115,7 +115,7 @@ void addEntity(Entity* entity)
 
 int getEntityCount()
 {
-    return mainLayer.size();
+    return (int)mainLayer.size();
 }
 
 Entity* getEntity(int index)
