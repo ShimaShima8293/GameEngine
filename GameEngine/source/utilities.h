@@ -4,6 +4,9 @@
 #include <iostream>
 #include <math.h>
 
+// Round a float value to nearest integer.
+int roundToInt(float input);
+
 // \returns It returns "On" when true, "Off" when false.
 std::string bool2string(bool _bool);
 

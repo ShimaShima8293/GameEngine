@@ -4,6 +4,11 @@
 #include "utilities.h"
 #include <vector>
 
+int roundToInt(float input)
+{
+    return static_cast<int>(std::round(input));
+}
+
 std::string bool2string(bool _bool)
 {
     return _bool ? "On" : "Off";
