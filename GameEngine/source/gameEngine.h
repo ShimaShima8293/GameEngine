@@ -10,6 +10,7 @@
 #pragma once
 
 // Core headers
+#include "animation.h"
 #include "audio.h"
 #include "Entity.h"
 #include "events.h"

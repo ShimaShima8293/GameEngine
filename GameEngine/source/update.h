@@ -4,14 +4,6 @@
 
 typedef int (*UpdateFunc)();
 
-struct UpdateData
-{
-    UpdateFunc func = nullptr;
-    bool enabled = false;
-    int frame = 0;
-    int len = 60;
-};
-
 enum UpdateState
 {
     UPDATE_CONTINUE,
@@ -28,7 +20,3 @@ void removeUpdate(UpdateFunc _func);
 void processUpdates();
 // Clear the list. Call this when loading a scene. It's automatically called in the `initScene` function.
 void clearUpdates();
-void createUpdate(UpdateFunc _func, int len, int* frame);
-void resetUpdate(UpdateFunc _func);
-UpdateData getUpdateData(UpdateFunc _func);
-

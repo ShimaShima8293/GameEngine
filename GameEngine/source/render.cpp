@@ -8,6 +8,7 @@
 #include "audio.h"
 #include "events.h"
 #include "update.h"
+#include "animation.h"
 
 namespace GameEngine
 {
@@ -72,7 +73,8 @@ void renderEverything()
         std::string debugStr =
             std::to_string(fps) + " fps\n" +
             std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
-            std::to_string(getUpdateCount()) + " updates\n"
+            std::to_string(getUpdateCount()) + " updates\n" +
+            std::to_string(getAnimationCount()) + " animations\n"
             "VSync: " + bool2string(vsync) + "\n"
             "Mute: " + bool2string(getMuteState()) + "\n"
             "Window mode: " + windowMode + "\n"

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\animation.cpp" />
     <ClCompile Include="source\audio.cpp" />
     <ClCompile Include="source\Entity.cpp" />
     <ClCompile Include="source\EntityGroup.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="source\vars.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="source\animation.h" />
     <ClInclude Include="source\audio.h" />
     <ClInclude Include="source\Entity.h" />
     <ClInclude Include="source\EntityGroup.h" />

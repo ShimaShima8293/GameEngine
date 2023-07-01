@@ -48,6 +48,9 @@
     <ClCompile Include="source\vars.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\audio.h">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\vars.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

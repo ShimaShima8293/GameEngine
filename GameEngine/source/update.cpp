@@ -7,12 +7,11 @@
 bool addUpdateDirect(UpdateFunc _func, bool replace = true);
 bool removeUpdateDirect(UpdateFunc _func);
 
-std::vector<int (*)()> updateList;
+std::vector<UpdateFunc> updateList;
 
-std::vector<int (*)()> addQueue;
-std::vector<int (*)()> removeQueue;
+std::vector<UpdateFunc> addQueue;
+std::vector<UpdateFunc> removeQueue;
 
-std::map<int (*)(), UpdateData> dataList;
 
 size_t getUpdateCount()
 {
@@ -102,19 +101,4 @@ void processUpdates()
         }
     }
 }
-void createUpdate(UpdateFunc _func, int len, int* frame)
-{
-    resetUpdate(_func);
-    dataList[_func].len = len;
-    dataList[_func].enabled = true;
-    frame = &dataList[_func].frame;
-}
-void resetUpdate(UpdateFunc _func)
-{
-    dataList[_func].enabled = false;
-    dataList[_func].frame = 0;
-}
-UpdateData getUpdateData(UpdateFunc _func)
-{
-    return dataList[_func];
-}
+
