@@ -43,7 +43,7 @@ bool Entity::loadFromImage(std::string path)
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Failed to create image texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::loadFromImage: Failed to create image texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -56,33 +56,39 @@ bool Entity::loadFromImage(std::string path)
 }
 bool Entity::loadFromText(std::string _text, TTF_Font* _font)
 {
+    if (_font == NULL)
+    {
+        printError("Entity::loadFromText: font is nullptr.");
+        return false;
+    }
+
     text = _text;
     font = _font;
     textColor = { 255, 255, 255, 255 };
     free();
-    SDL_Color bg = { 0, 0, 0 };
-    SDL_Texture* newTexture = NULL;
+
     SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
     if (textSurface == NULL)
     {
-        printError("Failed to create text surface... Entity name: " << name << " SDL_TTF Error: " << TTF_GetError());
+        printError("Entity::loadFromText: Failed to create surface... Entity name: " << name << " SDL_TTF Error: " << TTF_GetError());
+        return false;
     }
-    else
+
+    SDL_Texture* newTexture = NULL;
+    newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    if (newTexture == NULL)
     {
-        newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-        if (newTexture == NULL)
-        {
-            printError("Failed to create text texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
-        }
-        else
-        {
-            width = textSurface->w;
-            height = textSurface->h;
-            texture = newTexture;
-            type = ENTITY_TEXT;
-        }
-        SDL_FreeSurface(textSurface);
+        printError("Entity::loadFromText: Failed to create texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        return false;
     }
+
+    width = textSurface->w;
+    height = textSurface->h;
+    texture = newTexture;
+    type = ENTITY_TEXT;
+
+    SDL_FreeSurface(textSurface);
+
 
     return newTexture != NULL;
 }
@@ -94,7 +100,7 @@ bool Entity::loadFromSurface(SDL_Surface* _surface, bool _free)
     if (newTexture == NULL)
     {
         success = false;
-        printError("Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::loadFromSurface: Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -150,14 +156,14 @@ void Entity::render()
     {
         if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
         {
-            printError("Failed to set alpha modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to set alpha modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
         }
     }
     if (useColorMod)
     {
         if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
         {
-            printError("Failed to set color modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to set color modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
         }
     }
 
@@ -171,14 +177,14 @@ void Entity::render()
 
         if (SDL_RenderCopyEx(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
-            printError("Failed to render... Clip: True Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to render... Clip: True Entity name: " << name << " SDL Error: " << SDL_GetError());
         }
     }
     else
     {
         if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
-            printError("Failed to render... Clip: False Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to render... Clip: False Entity name: " << name << " SDL Error: " << SDL_GetError());
         }
     }
 }
