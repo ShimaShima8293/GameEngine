@@ -14,8 +14,21 @@ void processAnimations()
     {
         AnimationData* currentData = &dataList[i];
         currentData->func(currentData->frame, currentData->len);
-        currentData->frame++;
-        if (currentData->frame > currentData->len)
+        if (currentData->reversed)
+        {
+            currentData->frame--;
+        }
+        else
+        {
+            currentData->frame++;
+        }
+
+        if (!currentData->reversed && currentData->frame > currentData->len)
+        {
+            dataList.erase(dataList.begin() + i);
+        }
+
+        if (currentData->reversed && currentData->frame < 0)
         {
             dataList.erase(dataList.begin() + i);
         }
@@ -23,14 +36,22 @@ void processAnimations()
 }
 
 
-void playAnimation(AnimationFunc func, int len)
+void playAnimation(AnimationFunc func, int len, bool reversed)
 {
     stopAnimation(func);
 
     AnimationData newData;
     newData.func = func;
+    if (!reversed)
+    {
+        newData.frame = 0;
+    }
+    else
+    {
+        newData.frame = len;
+    }
     newData.len = len;
-    newData.frame = 0;
+    newData.reversed = reversed;
     dataList.push_back(newData);
 }
 
