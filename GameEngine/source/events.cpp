@@ -3,6 +3,9 @@
 #include "vars.h"
 #include "audio.h"
 #include "scene.h"
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 namespace GameEngine
 {
@@ -20,6 +23,7 @@ namespace GameEngine
     int gameWidth = 1920;
     int gameHeight = 1080;
     bool fullscreenLocked = false;
+    SDL_DisplayMode mode;
 }
 using namespace GameEngine;
 
@@ -181,6 +185,11 @@ int getWindowHeight()
 
 void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
 {
+#ifdef _WIN32
+    // DPI Aware
+    SetProcessDPIAware();
+#endif
+
     debug = _debug;
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
@@ -223,8 +232,9 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
 
     antialiasing = renderQuality;
 
-
-    SDL_DisplayMode mode;
+    SDL_GetWindowDisplayMode(window, &mode);
+    mode.refresh_rate = 60;
+    SDL_SetWindowDisplayMode(window, &mode);
 
     SDL_GetWindowDisplayMode(window, &mode);
     if (mode.refresh_rate == 60)
@@ -265,4 +275,9 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
     debugText.setPos(0, 0);
 
     running = true;
+}
+
+SDL_DisplayMode getDisplayMode()
+{
+    return mode;
 }

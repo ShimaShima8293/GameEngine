@@ -22,3 +22,5 @@ int getWindowHeight();
 
 // Initialize everything.
 void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _windowFlags, bool _debug, bool renderQuality);
+
+SDL_DisplayMode getDisplayMode();
