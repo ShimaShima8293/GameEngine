@@ -19,7 +19,7 @@ namespace GameEngine
 
 #ifdef NDEBUG
     bool fullscreen = true;
-    std::string windowMode = "Full screen";
+    std::string windowMode = "Fullscreen";
 #else
     bool fullscreen = false;
     std::string windowMode = "Windowed";

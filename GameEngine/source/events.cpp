@@ -90,7 +90,7 @@ void processEvents()
         SDL_SetWindowFullscreen(window, fullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
         fullscreen = !fullscreen;
         printInfo((fullscreen ? "Entered fullscreen" : "Exited fullscreen"));
-        windowMode = fullscreen ? "Full screen" : "Windowed";
+        windowMode = fullscreen ? "Fullscreen" : "Windowed";
     }
     if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT) && !fullscreenLocked)
     {
@@ -205,7 +205,7 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
     if (_windowFlags & SDL_WINDOW_FULLSCREEN)
     {
         fullscreenLocked = true;
-        windowMode = "Full screen (locked)";
+        windowMode = "Fullscreen (locked)";
     }
 
 
