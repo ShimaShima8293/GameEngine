@@ -24,7 +24,9 @@ void processScene()
     if (queue != nullptr)
     {
         if (current != nullptr)
+        {
             current->free();
+        }
 
         initScene();
         queue->start();
@@ -33,6 +35,10 @@ void processScene()
         queue = nullptr;
     }
 
+    if (getCurrentScene() != nullptr)
+    {
+        getCurrentScene()->update();
+    }
 }
 
 void initScene()
