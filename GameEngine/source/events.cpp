@@ -59,7 +59,7 @@ void processEvents()
         {
             keyPressed[event.key.keysym.sym] = false;
         }
-        if (event.type == 8192 || event.window.event == SDL_WINDOWEVENT_SHOWN)
+        if (event.type == 8192 || event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
         {
             SDL_GetWindowSize(window, &windowWidth, &windowHeight);
             printInfo("Window resolution changed to " + std::to_string(windowWidth) + "x" + std::to_string(windowHeight));

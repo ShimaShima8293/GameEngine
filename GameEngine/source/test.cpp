@@ -8,7 +8,7 @@ int main(int argc, char* args[])
     int windowWidth = 1920;
     int windowHeight = 1080;
 
-    init("", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
+    init("Test", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
 
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, windowWidth, windowHeight, 32, SDL_PIXELFORMAT_RGBA32);
     Uint32* pixels = (Uint32*)surface->pixels;
