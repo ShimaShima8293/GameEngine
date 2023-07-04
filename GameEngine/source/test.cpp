@@ -3,6 +3,11 @@
 
 Entity bg;
 
+void anmTest(int frame, int len)
+{
+    bg.setPos(randomRange(-10, 10), randomRange(-10, 10));
+}
+
 int main(int argc, char* args[])
 {
     int windowWidth = 1920;
@@ -29,6 +34,8 @@ int main(int argc, char* args[])
     bg.loadFromSurface(surface);
     bg.stretchToWindow();
     addEntity(&bg);
+
+    playAnimation(anmTest, 60, false);
 
     while (getRunning())
     {

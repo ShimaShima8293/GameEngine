@@ -2,7 +2,13 @@
 #include "macros.h"
 #include <vector>
 
-std::vector<AnimationData> dataList;
+namespace GameEngine
+{
+    std::vector<AnimationData> dataList;
+    std::vector<AnimationData> playQueue;
+    std::vector<AnimationFunc> stopQueue;
+}
+using namespace GameEngine;
 
 size_t getAnimationCount()
 {
@@ -11,6 +17,25 @@ size_t getAnimationCount()
 
 void processAnimations()
 {
+    for (int i = 0; i < playQueue.size(); i++)
+    {
+        dataList.push_back(playQueue[i]);
+    }
+    playQueue.clear();
+
+    for (int i = 0; i < stopQueue.size(); i++)
+    {
+        for (int j = 0; j < dataList.size(); j++)
+        {
+            if (dataList[j].func == stopQueue[i])
+            {
+                dataList.erase(dataList.begin() + j);
+                j--;
+            }
+        }
+    }
+    stopQueue.clear();
+
     for (int i = 0; i < dataList.size(); i++)
     {
         AnimationData* currentData = &dataList[i];
@@ -51,7 +76,14 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
         return;
     }
 
-    stopAnimation(func);
+    for (int i = 0; i < dataList.size(); i++)
+    {
+        if (dataList[i].func == func)
+        {
+            dataList.erase(dataList.begin() + i);
+            i--;
+        }
+    }
 
     AnimationData newData;
     newData.func = func;
@@ -65,7 +97,7 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
     }
     newData.len = len;
     newData.reversed = reversed;
-    dataList.push_back(newData);
+    playQueue.push_back(newData);
 }
 
 void stopAnimation(AnimationFunc func)
@@ -76,14 +108,9 @@ void stopAnimation(AnimationFunc func)
         return;
     }
 
-    for (int i = 0; i < dataList.size(); i++)
-    {
-        if (dataList[i].func == func)
-        {
-            dataList.erase(dataList.begin() + i);
-            i--;
-        }
-    }
+    stopQueue.push_back(func);
+
+
 }
 
 void clearAnimations()
