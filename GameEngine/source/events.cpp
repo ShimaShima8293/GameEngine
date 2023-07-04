@@ -62,6 +62,7 @@ void processEvents()
         if (event.type == 8192 || event.window.event == SDL_WINDOWEVENT_SHOWN)
         {
             SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+            printInfo("Window resolution changed to " + std::to_string(windowWidth) + "x" + std::to_string(windowHeight));
         }
         if (event.type == SDL_MOUSEMOTION)
         {

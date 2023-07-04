@@ -54,6 +54,11 @@ void renderEverything()
     for (int i = 0; i < mainLayer.size(); i++)
     {
         currentEntity = mainLayer[i];
+        if (currentEntity == nullptr)
+        {
+            printError("renderEverything: currentEntity was nullptr.");
+            continue;
+        }
         currentEntity->render();
         if (currentEntity->getClip())
         {
@@ -111,6 +116,11 @@ void renderEverything()
 
 void addEntity(Entity* entity)
 {
+    if (entity == nullptr)
+    {
+        printError("addEntity: parameter entity was nullptr.");
+        return;
+    }
     mainLayer.push_back(entity);
 }
 
