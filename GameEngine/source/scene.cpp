@@ -56,15 +56,3 @@ void reloadCurrentScene()
 {
     loadScene(current);
 }
-
-void Scene::start()
-{
-}
-
-void Scene::update()
-{
-}
-
-void Scene::free()
-{
-}

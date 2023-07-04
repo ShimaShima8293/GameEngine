@@ -8,11 +8,11 @@ class Scene
 {
 public:
     // This virtual function will be called when `processScene()` is called after `loadScene()` is called.
-    virtual void start();
+    virtual void start() {}
     // This virtual function will be called every frame when `processScene()` is called.
-    virtual void update();
+    virtual void update() {}
     // This virtual function will be called when another scene is loaded.
-    virtual void free();
+    virtual void free() {}
 };
 
 // Use this function to load a scene. Don't use Scene::start() manually...
