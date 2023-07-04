@@ -1,4 +1,5 @@
 #include "animation.h"
+#include "macros.h"
 #include <vector>
 
 std::vector<AnimationData> dataList;
@@ -13,6 +14,12 @@ void processAnimations()
     for (int i = 0; i < dataList.size(); i++)
     {
         AnimationData* currentData = &dataList[i];
+        if (currentData->func == nullptr)
+        {
+            printError("processAnimations: currentData->func was nullptr");
+            continue;
+        }
+
         currentData->func(currentData->frame, currentData->len);
         if (currentData->reversed)
         {
@@ -38,6 +45,12 @@ void processAnimations()
 
 void playAnimation(AnimationFunc func, int len, bool reversed)
 {
+    if (func == nullptr)
+    {
+        printError("playAnimation: parameter func was nullptr.");
+        return;
+    }
+
     stopAnimation(func);
 
     AnimationData newData;
@@ -57,6 +70,12 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
 
 void stopAnimation(AnimationFunc func)
 {
+    if (func == nullptr)
+    {
+        printError("stopAnimation: parameter func was nullptr.");
+        return;
+    }
+
     for (int i = 0; i < dataList.size(); i++)
     {
         if (dataList[i].func == func)
