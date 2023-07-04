@@ -70,7 +70,7 @@ void renderEverything()
     {
         int fps = static_cast<int>(std::round(1.0f / renderDuration));
 
-        std::string debugStr =
+        debugText.setText(
             std::to_string(fps) + " fps\n" +
             std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
             std::to_string(getUpdateCount()) + " updates\n" +
@@ -79,9 +79,8 @@ void renderEverything()
             "Mute: " + bool2string(getMuteState()) + "\n"
             "Window mode: " + windowMode + "\n"
             "Anti-aliasing: " + bool2string(antialiasing) + "\n"
-            "Press F3 to hide";
-
-        debugText.setText(debugStr);
+            "Press F3 to hide"
+        );
 
         debugText.render();
     }
@@ -93,7 +92,7 @@ void renderEverything()
     if (!vsync)
     {
         float ms = gameDuration * 1000.0f;
-        float x = 0.0f;
+        float x;
 
         // 16 = ms + x
         // vvvvvvvvvvv
