@@ -19,3 +19,7 @@ void playAnimation(AnimationFunc func, int len, bool reversed = false);
 void stopAnimation(AnimationFunc func);
 
 void clearAnimations();
+
+void setGlobalAnimationSpeed(float speed);
+
+float getGlobalAnimationSpeed();

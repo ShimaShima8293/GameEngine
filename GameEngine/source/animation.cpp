@@ -1,5 +1,6 @@
 #include "animation.h"
 #include "macros.h"
+#include "utilities.h"
 #include <vector>
 
 namespace GameEngine
@@ -7,6 +8,7 @@ namespace GameEngine
     std::vector<AnimationData> dataList;
     std::vector<AnimationData> playQueue;
     std::vector<AnimationFunc> stopQueue;
+    float animationSpeed = 1.0f;
 }
 using namespace GameEngine;
 
@@ -93,9 +95,9 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
     }
     else
     {
-        newData.frame = len;
+        newData.frame = len * animationSpeed;
     }
-    newData.len = len;
+    newData.len = roundToInt(len * animationSpeed);
     newData.reversed = reversed;
     playQueue.push_back(newData);
 }
@@ -116,4 +118,14 @@ void stopAnimation(AnimationFunc func)
 void clearAnimations()
 {
     dataList.clear();
+}
+
+void setGlobalAnimationSpeed(float speed)
+{
+    animationSpeed = speed;
+}
+
+float getGlobalAnimationSpeed()
+{
+    return animationSpeed;
 }
