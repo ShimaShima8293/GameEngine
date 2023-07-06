@@ -31,7 +31,7 @@ int main(int argc, char* args[])
     //    }
     //}
 
-    bg.createGradient(0, {128, 30, 30, 255}, {0, 0, 0, 255}, VERTICAL);
+    bg.createGradient(windowWidth, {128, 30, 30, 255}, {0, 0, 0, 255}, VERTICAL);
     bg.stretchToWindow();
     addEntity(&bg);
 

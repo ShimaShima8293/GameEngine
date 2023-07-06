@@ -195,6 +195,8 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
 
+    printInfo("Game Engine Version " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << "." << GE_VERSION_PATCH);
+
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
         printFatalError("Failed to initialize SDL... SDL Error: " << SDL_GetError());
