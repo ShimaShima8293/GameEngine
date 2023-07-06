@@ -95,7 +95,7 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
     }
     else
     {
-        newData.frame = len * animationSpeed;
+        newData.frame = roundToInt(len * animationSpeed);
     }
     newData.len = roundToInt(len * animationSpeed);
     newData.reversed = reversed;

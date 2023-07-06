@@ -173,10 +173,10 @@ bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orie
     {
         pixels[x] = SDL_MapRGBA(
             surface->format,
-            roundToInt(linear(color1.r, color2.r, length, x)),
-            roundToInt(linear(color1.g, color2.g, length, x)),
-            roundToInt(linear(color1.b, color2.b, length, x)),
-            roundToInt(linear(color1.a, color2.a, length, x))
+            roundToInt(linear((float)color1.r, (float)color2.r, (float)length, (float)x)),
+            roundToInt(linear((float)color1.g, (float)color2.g, (float)length, (float)x)),
+            roundToInt(linear((float)color1.b, (float)color2.b, (float)length, (float)x)),
+            roundToInt(linear((float)color1.a, (float)color2.a, (float)length, (float)x))
         );
     }
     createFromSurface(surface);
