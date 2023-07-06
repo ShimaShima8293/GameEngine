@@ -15,27 +15,27 @@ int main(int argc, char* args[])
 
     init("Test", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
 
-    SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, windowWidth, windowHeight, 32, SDL_PIXELFORMAT_RGBA32);
-    Uint32* pixels = (Uint32*)surface->pixels;
-    for (int y = 0; y < windowHeight; y++)
-    {
-        for (int x = 0; x < windowWidth; x++)
-        {
-            pixels[y * windowWidth + x] = SDL_MapRGBA(
-                surface->format,
-                roundToInt((float)y / windowHeight * 255),
-                roundToInt(255 - (float)x / windowWidth * 255),
-                roundToInt((float)x / windowWidth * 255),
-                255
-            );
-        }
-    }
+    //SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, windowWidth, windowHeight, 32, SDL_PIXELFORMAT_RGBA32);
+    //Uint32* pixels = (Uint32*)surface->pixels;
+    //for (int y = 0; y < windowHeight; y++)
+    //{
+    //    for (int x = 0; x < windowWidth; x++)
+    //    {
+    //        pixels[y * windowWidth + x] = SDL_MapRGBA(
+    //            surface->format,
+    //            roundToInt((float)y / windowHeight * 255),
+    //            roundToInt(255 - (float)x / windowWidth * 255),
+    //            roundToInt((float)x / windowWidth * 255),
+    //            255
+    //        );
+    //    }
+    //}
 
-    bg.loadFromSurface(surface);
-    bg.stretchToWindow();
+    bg.createGradient(windowHeight, {0, 255, 255, 255}, {255, 0, 0, 255});
+    bg.setRotation(90);
+    //bg.setPos(
+    bg.setSize(windowHeight, windowWidth);
     addEntity(&bg);
-
-    playAnimation(anmTest, 60, false);
 
     while (getRunning())
     {

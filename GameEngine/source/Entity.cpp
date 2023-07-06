@@ -95,12 +95,11 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
 bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
 {
     free();
-    bool success = true;
     SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
     if (newTexture == NULL)
     {
-        success = false;
         printError("Entity::createFromSurface: Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        return false;
     }
     else
     {
@@ -113,7 +112,7 @@ bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
     {
         SDL_FreeSurface(_surface);
     }
-    return success;
+    return true;
 }
 bool Entity::createSolid(int width, int height, SDL_Color color)
 {
@@ -131,17 +130,32 @@ bool Entity::createSolid(int width, int height, SDL_Color color)
         pixels[i] = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
     }
 
-    if (!createFromSurface(surface, false))
+    if (!createFromSurface(surface))
     {
         return false;
     }
 
-    SDL_FreeSurface(surface);
-
     return true;
 }
-bool Entity::createGradient(int width, int height, SDL_Color color00, SDL_Color color01, SDL_Color color10, SDL_Color color11)
+bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation)
 {
+    SDL_Surface* surface = orientation == HORIZONTAL ?
+        SDL_CreateRGBSurfaceWithFormat(0, length, 1, 32, SDL_PIXELFORMAT_RGBA32) :
+        SDL_CreateRGBSurfaceWithFormat(0, 1, length, 32, SDL_PIXELFORMAT_RGBA32);
+
+    Uint32* pixels = (Uint32*)surface->pixels;
+    for (int x = 0; x < length; x++)
+    {
+        pixels[x] = SDL_MapRGBA(
+            surface->format,
+            roundToInt(linear(color1.r, color2.r, length, x)),
+            roundToInt(linear(color1.g, color2.g, length, x)),
+            roundToInt(linear(color1.b, color2.b, length, x)),
+            roundToInt(linear(color1.a, color2.a, length, x))
+        );
+    }
+    createFromSurface(surface);
+
     return false;
 }
 void Entity::setTexture(SDL_Texture* _texture)

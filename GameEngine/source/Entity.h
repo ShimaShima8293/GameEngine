@@ -16,6 +16,12 @@ typedef enum EntityType
     ENTITY_CUSTOM
 } EntityType;
 
+typedef enum Orientation
+{
+    VERTICAL,
+    HORIZONTAL
+} Orientation;
+
 #define loadFromImage createFromImage
 #define loadFromText createFromText
 #define loadFromSurface createFromSurface
@@ -50,9 +56,9 @@ public:
     // Creates texture from pixels. This will create a surface with white pixels and internally call `loadFromSurface` so you don't need to manually create/free the surface.
     // \param width The width of the pixels
     // \param height The height of the pixels
-    bool createSolid(int width, int height);
+    bool createSolid(int width, int height, SDL_Color color = {255, 255, 255, 255});
 
-    bool createGradient(int width, int height, SDL_Color color00, SDL_Color color01, SDL_Color color10, SDL_Color color11);
+    bool createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation);
 
     // Replace the current texture with another one. This will automatically free the old texture.
     // \param texture A pointer to SDL_Texture.
