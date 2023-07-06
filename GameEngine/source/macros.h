@@ -6,6 +6,10 @@
 #include <Windows.h>
 #endif
 
+#define GE_VERSION_MAJOR 0
+#define GE_VERSION_MINOR 2
+#define GE_VERSION_PATCH 2
+
 // Print functions will ignored in release build to maximize the performance.
 #ifdef NCONSOLE
 // if release:
