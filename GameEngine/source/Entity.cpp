@@ -43,7 +43,7 @@ bool Entity::createFromImage(std::string path)
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Entity::createFromImage: Failed to create image texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromImage: Failed to create image texture. SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -58,7 +58,13 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
 {
     if (_font == NULL)
     {
-        printError("Entity::createFromText: font is nullptr.");
+        printError("Entity::createFromText: font was nullptr.");
+        return false;
+    }
+
+    if (_text == "")
+    {
+        printError("Entity::createFromText: text was empty.");
         return false;
     }
 
@@ -70,7 +76,7 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
     SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
     if (textSurface == NULL)
     {
-        printError("Entity::createFromText: Failed to create surface... Entity name: " << name << " SDL_TTF Error: " << TTF_GetError());
+        printError("Entity::createFromText: Failed to create surface. SDL_TTF Error: " << TTF_GetError());
         return false;
     }
 
@@ -78,7 +84,7 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
     newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     if (newTexture == NULL)
     {
-        printError("Entity::createFromText: Failed to create texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromText: Failed to create texture. SDL Error: " << SDL_GetError());
         return false;
     }
 
@@ -94,11 +100,17 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
 }
 bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
 {
+    if (_surface == nullptr)
+    {
+        printError("Entity::createFromSurface: Parameter surface was nullptr.");
+        return false;
+    }
+
     free();
     SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
     if (newTexture == NULL)
     {
-        printError("Entity::createFromSurface: Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromSurface: Failed to create texture. SDL Error: " << SDL_GetError());
         return false;
     }
     else
@@ -116,6 +128,12 @@ bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
 }
 bool Entity::createSolid(int width, int height, SDL_Color color)
 {
+    if (width < 1 || height < 1)
+    {
+        printError("Entity::createSolid: width or height cannot be smaller than 1.");
+        return false;
+    }
+
     free();
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
     if (surface == NULL)
@@ -139,6 +157,13 @@ bool Entity::createSolid(int width, int height, SDL_Color color)
 }
 bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation)
 {
+    if (length < 1)
+    {
+        printError("Entity::createGradient: length cannot be smaller than 1.");
+        return false;
+    }
+
+    free();
     SDL_Surface* surface = orientation == HORIZONTAL ?
         SDL_CreateRGBSurfaceWithFormat(0, length, 1, 32, SDL_PIXELFORMAT_RGBA32) :
         SDL_CreateRGBSurfaceWithFormat(0, 1, length, 32, SDL_PIXELFORMAT_RGBA32);
@@ -174,14 +199,14 @@ void Entity::render()
     {
         if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
         {
-            printError("Entity::render: Failed to set alpha modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to set alpha modulation. SDL Error: " << SDL_GetError());
         }
     }
     if (useColorMod)
     {
         if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
         {
-            printError("Entity::render: Failed to set color modulation... Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to set color modulation. SDL Error: " << SDL_GetError());
         }
     }
 
@@ -195,14 +220,14 @@ void Entity::render()
 
         if (SDL_RenderCopyEx(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
-            printError("Entity::render: Failed to render... Clip: True Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
     else
     {
         if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
-            printError("Entity::render: Failed to render... Clip: False Entity name: " << name << " SDL Error: " << SDL_GetError());
+            printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
 }
@@ -234,10 +259,12 @@ void Entity::setAlpha(Uint8 _alpha)
 }
 void Entity::clearColor()
 {
+    setColor(255, 255, 255);
     useColorMod = false;
 }
 void Entity::clearAlpha()
 {
+    setAlpha(255);
     useAlphaMod = false;
 }
 void Entity::moveTo(int speed, int angle)
@@ -262,6 +289,11 @@ int Entity::getRightB()
 }
 void Entity::setSize(double _w, double _h)
 {
+    if (_w < 0 || _h < 0)
+    {
+        printError("Entity::setSize: width or height was smaller than 0.");
+        return;
+    }
     // width * scaleW = _w
     scaleW = _w / width;
     scaleH = _h / height;
