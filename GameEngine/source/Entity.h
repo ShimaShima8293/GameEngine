@@ -16,6 +16,10 @@ typedef enum EntityType
     ENTITY_CUSTOM
 } EntityType;
 
+#define loadFromImage createFromImage
+#define loadFromText createFromText
+#define loadFromSurface createFromSurface
+#define loadFromPixel createSolid
 
 // A higher-level abstraction of texture and rendering.
 class Entity
@@ -30,23 +34,25 @@ public:
     // Loads a image and set as the texture of the entity.
     // \param path The path of the image to load.
     // \returns Returns true if the image successfully is loaded, false if not.
-    bool loadFromImage(std::string path);
+    bool createFromImage(std::string path);
 
     // Creates text texture from a font and text color.
     // \param text The text to render.
     // \param font The font to render text with.
     // \returns Returns true if the texture was successfully created, false if not.
-    bool loadFromText(std::string _text, TTF_Font* _font);
+    bool createFromText(std::string _text, TTF_Font* _font);
 
     // Creates texture from custom SDL_Surface.
     // \param surface The SDL_Surface struct for the texture
     // \param free (Optional) Pass false if you don't want to free the surface.
-    bool loadFromSurface(SDL_Surface* _surface, bool free = true);
+    bool createFromSurface(SDL_Surface* _surface, bool free = true);
 
     // Creates texture from pixels. This will create a surface with white pixels and internally call `loadFromSurface` so you don't need to manually create/free the surface.
     // \param width The width of the pixels
     // \param height The height of the pixels
-    bool loadFromPixel(int width, int height);
+    bool createSolid(int width, int height);
+
+    bool createGradient(int width, int height, SDL_Color color00, SDL_Color color01, SDL_Color color10, SDL_Color color11);
 
     // Replace the current texture with another one. This will automatically free the old texture.
     // \param texture A pointer to SDL_Texture.

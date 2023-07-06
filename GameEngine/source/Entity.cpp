@@ -36,14 +36,14 @@ void Entity::free()
     blue = 255;
     alpha = 255;
 }
-bool Entity::loadFromImage(std::string path)
+bool Entity::createFromImage(std::string path)
 {
     free();
     SDL_Texture* newTexture = NULL;
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Entity::loadFromImage: Failed to create image texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromImage: Failed to create image texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -54,11 +54,11 @@ bool Entity::loadFromImage(std::string path)
 
     return newTexture != NULL;
 }
-bool Entity::loadFromText(std::string _text, TTF_Font* _font)
+bool Entity::createFromText(std::string _text, TTF_Font* _font)
 {
     if (_font == NULL)
     {
-        printError("Entity::loadFromText: font is nullptr.");
+        printError("Entity::createFromText: font is nullptr.");
         return false;
     }
 
@@ -70,7 +70,7 @@ bool Entity::loadFromText(std::string _text, TTF_Font* _font)
     SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
     if (textSurface == NULL)
     {
-        printError("Entity::loadFromText: Failed to create surface... Entity name: " << name << " SDL_TTF Error: " << TTF_GetError());
+        printError("Entity::createFromText: Failed to create surface... Entity name: " << name << " SDL_TTF Error: " << TTF_GetError());
         return false;
     }
 
@@ -78,7 +78,7 @@ bool Entity::loadFromText(std::string _text, TTF_Font* _font)
     newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     if (newTexture == NULL)
     {
-        printError("Entity::loadFromText: Failed to create texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromText: Failed to create texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
         return false;
     }
 
@@ -92,7 +92,7 @@ bool Entity::loadFromText(std::string _text, TTF_Font* _font)
 
     return newTexture != NULL;
 }
-bool Entity::loadFromSurface(SDL_Surface* _surface, bool _free)
+bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
 {
     free();
     bool success = true;
@@ -100,7 +100,7 @@ bool Entity::loadFromSurface(SDL_Surface* _surface, bool _free)
     if (newTexture == NULL)
     {
         success = false;
-        printError("Entity::loadFromSurface: Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
+        printError("Entity::createFromSurface: Failed to create custom texture... Entity name: " << name << " SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -115,7 +115,7 @@ bool Entity::loadFromSurface(SDL_Surface* _surface, bool _free)
     }
     return success;
 }
-bool Entity::loadFromPixel(int width, int height)
+bool Entity::createSolid(int width, int height, SDL_Color color)
 {
     free();
     SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
@@ -128,10 +128,10 @@ bool Entity::loadFromPixel(int width, int height)
 
     for (int i = 0; i < width * height; i++)
     {
-        pixels[i] = SDL_MapRGBA(surface->format, 255, 255, 255, 255);
+        pixels[i] = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
     }
 
-    if (!loadFromSurface(surface, false))
+    if (!createFromSurface(surface, false))
     {
         return false;
     }
@@ -139,6 +139,10 @@ bool Entity::loadFromPixel(int width, int height)
     SDL_FreeSurface(surface);
 
     return true;
+}
+bool Entity::createGradient(int width, int height, SDL_Color color00, SDL_Color color01, SDL_Color color10, SDL_Color color11)
+{
+    return false;
 }
 void Entity::setTexture(SDL_Texture* _texture)
 {
@@ -371,12 +375,12 @@ SDL_Color Entity::getColor()
 {
     return { red, green, blue, alpha };
 }
-// Use this if you are only changing the text. Its lighter than `loadFromText`
+// Use this if you are only changing the text. Its lighter than `createFromText`
 void Entity::setText(std::string _text)
 {
     if (text != _text)
     {
-        loadFromText(_text, font);
+        createFromText(_text, font);
         text = _text;
     }
 }
