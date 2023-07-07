@@ -24,6 +24,7 @@ namespace GameEngine
     int gameHeight = 1080;
     bool fullscreenLocked = false;
     SDL_DisplayMode mode;
+    WindowMode windowMode;
 }
 using namespace GameEngine;
 
@@ -90,20 +91,27 @@ void processEvents()
         }
     }
 
-    if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT) && !fullscreenLocked)
+    if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
     {
-        SDL_SetWindowFullscreen(window, fullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
-        fullscreen = !fullscreen;
-        printInfo((fullscreen ? "Entered fullscreen" : "Exited fullscreen"));
-        windowMode = fullscreen ? "Fullscreen" : "Windowed";
+        if (getWindowMode() != WINDOW_FULLSCREEN)
+        {
+            setWindowMode(WINDOW_FULLSCREEN);
+        }
+        else
+        {
+            setWindowMode(WINDOW_WINDOWED);
+        }
     }
-    if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT) && !fullscreenLocked)
+    if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
     {
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN_DESKTOP);
-        fullscreen = true;
-        printInfo("Maximized window");
-        windowMode = "Maximized";
-
+        if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
+        {
+            setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
+        }
+        else
+        {
+            setWindowMode(WINDOW_WINDOWED);
+        }
     }
     if (getKeyPressedPulse(SDLK_F3))
     {
@@ -184,6 +192,17 @@ int getWindowHeight()
     return windowHeight;
 }
 
+void setWindowMode(WindowMode mode)
+{
+    SDL_SetWindowFullscreen(window, mode);
+    windowMode = mode;
+}
+
+WindowMode getWindowMode()
+{
+    return windowMode;
+}
+
 void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
 {
 #ifdef _WIN32
@@ -215,13 +234,6 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
     {
         printFatalError("Failed to initialize SDL_Mixer... SDL_mixer Error: " << Mix_GetError());
     }
-
-    //if (_windowFlags & SDL_WINDOW_FULLSCREEN)
-    //{
-    //    fullscreenLocked = true;
-    //    windowMode = "Fullscreen (locked)";
-    //}
-
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, _windowFlags);
 

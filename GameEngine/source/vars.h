@@ -25,8 +25,5 @@ namespace GameEngine
     extern int windowWidth;
     extern int windowHeight;
 
-    extern bool fullscreen;
-
-    extern std::string windowMode;
     extern bool vsync;
 }

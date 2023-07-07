@@ -17,13 +17,5 @@ namespace GameEngine
     int windowWidth;
     int windowHeight;
 
-#ifdef NDEBUG
-    bool fullscreen = true;
-    std::string windowMode = "Fullscreen";
-#else
-    bool fullscreen = false;
-    std::string windowMode = "Windowed";
-#endif
-
     bool vsync = true;
 }

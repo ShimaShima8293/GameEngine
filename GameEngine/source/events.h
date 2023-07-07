@@ -4,6 +4,13 @@
 #include PATH_SDL
 #include <string>
 
+typedef enum WindowMode
+{
+    WINDOW_WINDOWED = 0,
+    WINDOW_FULLSCREEN = 1,
+    WINDOW_FULLSCREEN_DESKTOP = 4097
+} WindowMode;
+
 // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
 void processEvents();
 bool getWindowFocus();
@@ -19,6 +26,8 @@ SDL_Window* getWindow();
 SDL_Renderer* getRenderer();
 int getWindowWidth();
 int getWindowHeight();
+void setWindowMode(WindowMode mode);
+WindowMode getWindowMode();
 
 // Initialize everything.
 void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _windowFlags, bool _debug, bool renderQuality);
