@@ -1,7 +1,70 @@
-#ifdef TEST
+﻿#ifdef TEST
 #include "gameEngine.h"
 
 Entity bg;
+Entity bg2;
+
+int windowWidth = 1920;
+int windowHeight = 1080;
+
+static class SceneTest : public Scene
+{
+public:
+    void start()
+    {
+        Uint8 r1 = (Uint8)randomRange(0, 255);
+        Uint8 g1 = (Uint8)randomRange(0, 255);
+        Uint8 b1 = (Uint8)randomRange(0, 255);
+        Uint8 r2 = (Uint8)randomRange(0, 255);
+        Uint8 g2 = (Uint8)randomRange(0, 255);
+        Uint8 b2 = (Uint8)randomRange(0, 255);
+
+        bg.createGradient(
+            4,
+            { r1, g1, b1, 255 },
+            { r2, g2, b2, 255 },
+            VERTICAL
+        );
+
+        bg.stretchToWindow();
+        addEntity(&bg);
+
+        Uint8 r3 = (Uint8)randomRange(0, 255);
+        Uint8 g3 = (Uint8)randomRange(0, 255);
+        Uint8 b3 = (Uint8)randomRange(0, 255);
+        Uint8 r4 = (Uint8)randomRange(0, 255);
+        Uint8 g4 = (Uint8)randomRange(0, 255);
+        Uint8 b4 = (Uint8)randomRange(0, 255);
+
+        bg2.createGradient(
+            4,
+            { r3, g3, b3, 255 },
+            { r4, g4, b4, 255 },
+            HORIZONTAL
+        );
+        bg2.setAlpha(128);
+        bg2.stretchToWindow();
+        addEntity(&bg2);
+
+        SDL_SetWindowTitle(
+            getWindow(),
+            ("グラデ～ション (" +
+                std::to_string((int)r1) + ", " +
+                std::to_string((int)g1) + ", " +
+                std::to_string((int)b1) + ") -> (" +
+                std::to_string((int)r2) + ", " +
+                std::to_string((int)g2) + ", " +
+                std::to_string((int)b2) + ") and (" +
+                std::to_string((int)r3) + ", " +
+                std::to_string((int)g3) + ", " +
+                std::to_string((int)b3) + ") -> (" +
+                std::to_string((int)r4) + ", " +
+                std::to_string((int)g4) + ", " +
+                std::to_string((int)b4) + ")"
+                ).c_str()
+        );
+    }
+} sceneTest;
 
 void anmTest(int frame, int len)
 {
@@ -10,30 +73,10 @@ void anmTest(int frame, int len)
 
 int main(int argc, char* args[])
 {
-    int windowWidth = 1920;
-    int windowHeight = 1080;
+    srand((unsigned int)(std::time(nullptr)));
+    init("グラデ～ション", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
 
-    init("Test", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
-
-    //SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, windowWidth, windowHeight, 32, SDL_PIXELFORMAT_RGBA32);
-    //Uint32* pixels = (Uint32*)surface->pixels;
-    //for (int y = 0; y < windowHeight; y++)
-    //{
-    //    for (int x = 0; x < windowWidth; x++)
-    //    {
-    //        pixels[y * windowWidth + x] = SDL_MapRGBA(
-    //            surface->format,
-    //            roundToInt((float)y / windowHeight * 255),
-    //            roundToInt(255 - (float)x / windowWidth * 255),
-    //            roundToInt((float)x / windowWidth * 255),
-    //            255
-    //        );
-    //    }
-    //}
-
-    bg.createGradient(windowWidth, {128, 30, 30, 255}, {0, 0, 0, 255}, VERTICAL);
-    bg.stretchToWindow();
-    addEntity(&bg);
+    loadScene(&sceneTest);
 
     while (getRunning())
     {

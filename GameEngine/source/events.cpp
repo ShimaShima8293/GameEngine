@@ -223,13 +223,6 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, _windowFlags);
 
-#ifdef NDEBUG
-    if (!fullscreenLocked)
-    {
-        SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-    }
-#endif
-
     if (renderQuality)
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
 
