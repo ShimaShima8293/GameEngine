@@ -28,6 +28,8 @@ int getWindowWidth();
 int getWindowHeight();
 void setWindowMode(WindowMode mode);
 WindowMode getWindowMode();
+void setSystemCursor(SDL_SystemCursor _cursor);
+void hideCursor();
 
 // Initialize everything.
 void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _windowFlags, bool _debug, bool renderQuality);

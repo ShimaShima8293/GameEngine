@@ -20,7 +20,7 @@ public:
         Uint8 b2 = (Uint8)randomRange(0, 255);
 
         bg.createGradient(
-            4,
+            windowHeight,
             { r1, g1, b1, 255 },
             { r2, g2, b2, 255 },
             VERTICAL
@@ -37,7 +37,7 @@ public:
         Uint8 b4 = (Uint8)randomRange(0, 255);
 
         bg2.createGradient(
-            4,
+            windowWidth,
             { r3, g3, b3, 255 },
             { r4, g4, b4, 255 },
             HORIZONTAL
@@ -74,6 +74,7 @@ void anmTest(int frame, int len)
 int main(int argc, char* args[])
 {
     init("グラデ～ション", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
+    setWindowMode(WINDOW_FULLSCREEN);
 
     loadScene(&sceneTest);
 

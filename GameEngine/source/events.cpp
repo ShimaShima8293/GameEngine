@@ -25,6 +25,7 @@ namespace GameEngine
     bool fullscreenLocked = false;
     SDL_DisplayMode mode;
     WindowMode windowMode;
+    SDL_Cursor* cursor;
 }
 using namespace GameEngine;
 
@@ -201,6 +202,37 @@ void setWindowMode(WindowMode mode)
 WindowMode getWindowMode()
 {
     return windowMode;
+}
+
+void setSystemCursor(SDL_SystemCursor _cursor)
+{
+    if (cursor != nullptr)
+    {
+        SDL_FreeCursor(cursor);
+    }
+    cursor = SDL_CreateSystemCursor(_cursor);
+    if (cursor == nullptr)
+    {
+        printError("setSystemCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
+        return;
+    }
+    SDL_SetCursor(cursor);
+}
+
+void hideCursor()
+{
+    if (cursor != nullptr)
+    {
+        SDL_FreeCursor(cursor);
+    }
+    int32_t cursorData[2] = { 0, 0 };
+    cursor = SDL_CreateCursor((Uint8*)cursorData, (Uint8*)cursorData, 8, 8, 4, 4);
+    if (cursor == nullptr)
+    {
+        printError("hideCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
+        return;
+    }
+    SDL_SetCursor(cursor);
 }
 
 void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
