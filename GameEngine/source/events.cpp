@@ -191,6 +191,8 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
     SetProcessDPIAware();
 #endif
 
+    srand((unsigned int)(std::time(nullptr)));
+
     debug = _debug;
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
@@ -214,11 +216,11 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
         printFatalError("Failed to initialize SDL_Mixer... SDL_mixer Error: " << Mix_GetError());
     }
 
-    if (_windowFlags & SDL_WINDOW_FULLSCREEN)
-    {
-        fullscreenLocked = true;
-        windowMode = "Fullscreen (locked)";
-    }
+    //if (_windowFlags & SDL_WINDOW_FULLSCREEN)
+    //{
+    //    fullscreenLocked = true;
+    //    windowMode = "Fullscreen (locked)";
+    //}
 
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, _windowFlags);

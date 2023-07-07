@@ -73,7 +73,6 @@ void anmTest(int frame, int len)
 
 int main(int argc, char* args[])
 {
-    srand((unsigned int)(std::time(nullptr)));
     init("グラデ～ション", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
 
     loadScene(&sceneTest);
