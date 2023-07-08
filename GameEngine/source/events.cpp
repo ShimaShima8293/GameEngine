@@ -3,6 +3,10 @@
 #include "vars.h"
 #include "audio.h"
 #include "scene.h"
+#include "update.h"
+#include "animation.h"
+#include "render.h"
+#include "resource.h"
 #ifdef _WIN32
 #include <Windows.h>
 #endif
@@ -322,4 +326,29 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
 SDL_DisplayMode getDisplayMode()
 {
     return mode;
+}
+
+void startMainloop()
+{
+    while (getRunning())
+    {
+        processEvents();
+
+        if (!getWindowFocus())
+        {
+            SDL_Delay(1000 / 60);
+            continue;
+        }
+
+        processScene();
+
+        processUpdates();
+
+        processAnimations();
+
+        renderEverything();
+    }
+
+    closeResources();
+    close();
 }

@@ -1,6 +1,5 @@
 ﻿#ifdef TEST
 #include "gameEngine.h"
-
 Entity bg;
 Entity bg2;
 
@@ -78,27 +77,7 @@ int main(int argc, char* args[])
 
     loadScene(&sceneTest);
 
-    while (getRunning())
-    {
-        processEvents();
-
-        if (!getWindowFocus())
-        {
-            SDL_Delay(1000 / 60);
-            continue;
-        }
-
-        processScene();
-
-        processUpdates();
-
-        processAnimations();
-
-        renderEverything();
-    }
-
-    closeResources();
-    close();
+    startMainloop();
 
     return 0;
 }

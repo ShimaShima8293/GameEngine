@@ -7,10 +7,14 @@
 void addUpdateDirect(UpdateFunc _func);
 void removeUpdateDirect(UpdateFunc _func);
 
-std::vector<UpdateFunc> updateList;
+namespace GameEngine
+{
+    std::vector<UpdateFunc> updateList;
 
-std::vector<UpdateFunc> addQueue;
-std::vector<UpdateFunc> removeQueue;
+    std::vector<UpdateFunc> addQueue;
+    std::vector<UpdateFunc> removeQueue;
+}
+using namespace GameEngine;
 
 size_t getUpdateCount()
 {
