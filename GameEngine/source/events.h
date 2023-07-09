@@ -36,4 +36,6 @@ void init(std::string windowTitle, int _windowWidth, int _windowHeight, int _win
 
 SDL_DisplayMode getDisplayMode();
 
+void setFullscreenResolution(int w, int h);
+
 void startMainloop();

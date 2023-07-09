@@ -325,7 +325,23 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
 
 SDL_DisplayMode getDisplayMode()
 {
+    SDL_GetWindowDisplayMode(window, &mode);
     return mode;
+}
+
+void setFullscreenResolution(int w, int h)
+{
+    if (w <= 0 || h <= 0)
+    {
+        printError("setFullscreenResolution: w or h cannot be smaller than 1.");
+    }
+    SDL_DisplayMode mode = getDisplayMode();
+    mode.w = w;
+    mode.h = h;
+    if (SDL_SetWindowDisplayMode(window, &mode) != 0)
+    {
+        printError("setFullscreenResolution: failed to set window display mode. SDL error: " << SDL_GetError());
+    }
 }
 
 void startMainloop()
