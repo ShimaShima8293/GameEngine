@@ -88,9 +88,12 @@ void renderEverything()
         {
             modeText = "Windowed";
         }
-
+        SDL_DisplayMode mode = getDisplayMode();
         debugText.setText(
-            std::to_string(fps) + " fps\n" +
+            std::to_string(fps) + " fps\n"
+            "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
+            "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
+            "Fullscreen resolution: " + std::to_string(mode.w) + "x" + std::to_string(mode.h) + "\n" +
             std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
             std::to_string(getUpdateCount()) + " updates\n" +
             std::to_string(getAnimationCount()) + " animations\n"
