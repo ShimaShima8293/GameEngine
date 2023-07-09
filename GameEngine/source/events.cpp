@@ -326,8 +326,10 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
     }
 
     debugText.setName("debugText");
-    debugText.loadFromText(DEFAULT_TEXT, debugFont);
+    debugText.createFromText(DEFAULT_TEXT, debugFont);
     debugText.setPos(0, 0);
+
+    setFullscreenResolution(_gameWidth, _gameHeight);
 
     running = true;
 }

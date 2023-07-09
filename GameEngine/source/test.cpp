@@ -72,7 +72,7 @@ void anmTest(int frame, int len)
 
 int main(int argc, char* args[])
 {
-    init("グラデ～ション", windowWidth, windowHeight, 0);
+    init("グラデ～ション", windowWidth, windowHeight, INIT_ANTIALIASING);
     
     setFullscreenResolution(2880, 1800);
 
