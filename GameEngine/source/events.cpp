@@ -30,6 +30,7 @@ namespace GameEngine
     SDL_DisplayMode mode;
     WindowMode windowMode;
     SDL_Cursor* cursor;
+    bool disableDefaultKeyBindings = false;
 }
 using namespace GameEngine;
 
@@ -95,41 +96,43 @@ void processEvents()
             printInfo(event.jbutton.button);
         }
     }
+    if (!disableDefaultKeyBindings)
+    {
+        if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
+        {
+            if (getWindowMode() != WINDOW_FULLSCREEN)
+            {
+                setWindowMode(WINDOW_FULLSCREEN);
+            }
+            else
+            {
+                setWindowMode(WINDOW_WINDOWED);
+            }
+        }
+        if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
+        {
+            if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
+            {
+                setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
+            }
+            else
+            {
+                setWindowMode(WINDOW_WINDOWED);
+            }
+        }
+        if (getKeyPressedPulse(SDLK_F3))
+        {
+            debug = !debug;
+        }
+        if (getKeyPressedPulse(SDLK_m))
+        {
+            setMuteState(!getMuteState());
+        }
 
-    if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
-    {
-        if (getWindowMode() != WINDOW_FULLSCREEN)
+        if (getKeyPressedPulse(SDLK_F4))
         {
-            setWindowMode(WINDOW_FULLSCREEN);
+            reloadCurrentScene();
         }
-        else
-        {
-            setWindowMode(WINDOW_WINDOWED);
-        }
-    }
-    if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
-    {
-        if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
-        {
-            setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
-        }
-        else
-        {
-            setWindowMode(WINDOW_WINDOWED);
-        }
-    }
-    if (getKeyPressedPulse(SDLK_F3))
-    {
-        debug = !debug;
-    }
-    if (getKeyPressedPulse(SDLK_m))
-    {
-        setMuteState(!getMuteState());
-    }
-
-    if (getKeyPressedPulse(SDLK_F4))
-    {
-        reloadCurrentScene();
     }
 }
 
@@ -239,7 +242,7 @@ void hideCursor()
     SDL_SetCursor(cursor);
 }
 
-void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowFlags, bool _debug, bool renderQuality)
+void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
 {
 #ifdef _WIN32
     // DPI Aware
@@ -248,7 +251,7 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
 
     srand((unsigned int)(std::time(nullptr)));
 
-    debug = _debug;
+    debug = false;
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
 
@@ -271,12 +274,18 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int _windowF
         printFatalError("Failed to initialize SDL_Mixer... SDL_mixer Error: " << Mix_GetError());
     }
 
-    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, _windowFlags);
+    window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
 
-    if (renderQuality)
+    if (initFlags & INIT_ANTIALIASING)
+    {
         SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
+        antialiasing = true;
+    }
 
-    antialiasing = renderQuality;
+    if (initFlags & INIT_DISABLE_DEFAULT_KEYBINDINGS)
+    {
+        disableDefaultKeyBindings = true;
+    }
 
     SDL_GetWindowDisplayMode(window, &mode);
     mode.refresh_rate = 60;

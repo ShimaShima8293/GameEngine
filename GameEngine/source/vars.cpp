@@ -10,7 +10,7 @@ namespace GameEngine
     const std::string DEFAULT_TEXT = "Error";
 
 
-    bool antialiasing;
+    bool antialiasing = false;
 
     bool debug;
 

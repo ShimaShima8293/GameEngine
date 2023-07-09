@@ -72,10 +72,9 @@ void anmTest(int frame, int len)
 
 int main(int argc, char* args[])
 {
-    init("グラデ～ション", windowWidth, windowHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE, true, false);
+    init("グラデ～ション", windowWidth, windowHeight, 0);
     
     setFullscreenResolution(2880, 1800);
-    setWindowMode(WINDOW_FULLSCREEN);
 
     loadScene(&sceneTest);
 
