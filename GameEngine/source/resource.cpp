@@ -65,6 +65,7 @@ void closeFont(TTF_Font* font)
             printInfo("closeFont: Closed a font");
         }
     }
+    font = nullptr;
 }
 
 void closeMusic(Mix_Music* music)
@@ -84,6 +85,7 @@ void closeMusic(Mix_Music* music)
             printInfo("closeMusic: Closed a music");
         }
     }
+    music = nullptr;
 }
 
 void closeWAV(Mix_Chunk* chunk)
@@ -103,6 +105,7 @@ void closeWAV(Mix_Chunk* chunk)
             printInfo("closeWAV: Closed a WAV chunk");
         }
     }
+    chunk = nullptr;
 }
 
 
