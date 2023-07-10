@@ -14,6 +14,11 @@ std::string bool2string(bool _bool)
     return _bool ? "On" : "Off";
 }
 
+int linear(int beg, int end, int len, int frame)
+{
+    return roundToInt(linear((float)beg, (float)end, (float)len, (float)frame));
+}
+
 float linear(float beg, float end, float len, float frame)
 {
     if (frame == 0)
