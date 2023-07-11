@@ -103,7 +103,8 @@ void renderEverything()
             "Anti-aliasing: " + bool2string(antialiasing) + "\n"
             "Press F3 to hide"
         );
-
+        debugBg.setSize(debugText.getW() + 10, debugText.getH() + 10);
+        debugBg.render();
         debugText.render();
     }
 

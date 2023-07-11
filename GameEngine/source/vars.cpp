@@ -3,6 +3,7 @@
 namespace GameEngine
 {
     Entity debugText;
+    Entity debugBg;
 
     SDL_Window* window;
     SDL_Renderer* renderer;

@@ -322,12 +322,14 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
     TTF_Font* debugFont = TTF_OpenFont("/Windows/Fonts/arial.ttf", 40);
     if (debugFont == NULL)
     {
-        printFatalError("Failed to create debugFont");
+        printFatalError("Failed to create debugFont. SDL error: " << TTF_GetError());
     }
 
     debugText.setName("debugText");
     debugText.createFromText(DEFAULT_TEXT, debugFont);
     debugText.setPos(0, 0);
+
+    debugBg.createSolid(1, 1, {0, 0, 0, 128});
 
     setFullscreenResolution(_gameWidth, _gameHeight);
 

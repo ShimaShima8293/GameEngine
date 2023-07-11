@@ -12,6 +12,7 @@
 namespace GameEngine
 {
     extern Entity debugText;
+    extern Entity debugBg;
 
     extern SDL_Window* window;
     extern SDL_Renderer* renderer;
