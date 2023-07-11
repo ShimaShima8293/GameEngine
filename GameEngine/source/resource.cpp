@@ -13,7 +13,7 @@ TTF_Font* openFont(std::string path, int size)
     TTF_Font* _font = TTF_OpenFont(path.c_str(), size);
     if (_font == NULL)
     {
-        printError("Could not open a font... SDL_TTF Error: " << TTF_GetError());
+        printError("openFont: Could not open a font... SDL_TTF Error: " << TTF_GetError());
     }
     else
     {
@@ -26,7 +26,7 @@ Mix_Music* openMusic(std::string path)
     Mix_Music* _music = Mix_LoadMUS(path.c_str());
     if (_music == NULL)
     {
-        printError("Could not open an audio... SDL_MIX Error: " << Mix_GetError());
+        printError("openMusic: Could not open an audio... SDL_MIX Error: " << Mix_GetError());
     }
     else
     {
@@ -39,7 +39,7 @@ Mix_Chunk* openWAV(std::string path)
     Mix_Chunk* _chunk = Mix_LoadWAV(path.c_str());
     if (_chunk == NULL)
     {
-        printError("Could not open an WAV chunk... SDL_MIX Error: " << Mix_GetError());
+        printError("openWAV: Could not open an WAV chunk... SDL_MIX Error: " << Mix_GetError());
     }
     else
     {
