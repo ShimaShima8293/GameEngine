@@ -134,6 +134,10 @@ public:
     // \param vector The new position vector.
     void setPos(Vec2 vector);
 
+    void setX(int _x);
+
+    void setY(int _y);
+
     // Set the entity's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
     void setPosCentered();
 

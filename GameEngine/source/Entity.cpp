@@ -342,6 +342,14 @@ void Entity::setPos(Vec2 vector)
 {
     setPos((int)vector.x, (int)vector.y);
 }
+void Entity::setX(int _x)
+{
+    position.x = _x;
+}
+void Entity::setY(int _y)
+{
+    position.y = _y;
+}
 void Entity::setPosCentered()
 {
     setPos(getWindowCenterX(), getWindowCenterY());
