@@ -24,9 +24,7 @@ int getEntityCount();
 Entity* getEntity(int index);
 
 // Remove an entity from the rendering list.
-// \param index The index of the entity to remove.
-// \returns Returns 0 if it succeeded, -1 if it didn't.
-int removeEntity(int index);
+void removeEntity(Entity* entity);
 
 // Remove all entities from the rendering list. This doesn't free or modify the entities.
 void clearEntities();

@@ -319,7 +319,7 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
     SDL_RenderClear(renderer);
 
-    TTF_Font* debugFont = TTF_OpenFont("/Windows/Fonts/arial.ttf", 40);
+    TTF_Font* debugFont = TTF_OpenFont("/Windows/Fonts/arial.ttf", 24);
     if (debugFont == NULL)
     {
         printFatalError("Failed to create debugFont. SDL error: " << TTF_GetError());

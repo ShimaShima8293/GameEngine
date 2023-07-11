@@ -160,17 +160,14 @@ Entity* getEntity(int index)
     }
 }
 
-int removeEntity(int index)
+void removeEntity(Entity* entity)
 {
-    if (index <= getEntityCount())
+    for (int i = 0; i < mainLayer.size(); i++)
     {
-        mainLayer.erase(mainLayer.begin() + index);
-        return 0;
-    }
-    else
-    {
-        printError("removeEntity: index is too large");
-        return -1;
+        if (mainLayer[i] == entity)
+        {
+            mainLayer.erase(mainLayer.begin() + i);
+        }
     }
 }
 
