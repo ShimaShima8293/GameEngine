@@ -1,4 +1,5 @@
 #include "resource.h"
+#include "events.h"
 
 namespace GameEngine
 {
@@ -46,6 +47,18 @@ Mix_Chunk* openWAV(std::string path)
         chunkList.push_back(_chunk);
     }
     return _chunk;
+}
+
+SDL_Texture* createFromImage(std::string path)
+{
+    SDL_Texture* texture = nullptr;
+    texture = IMG_LoadTexture(getRenderer(), path.c_str());
+    if (texture == nullptr)
+    {
+        printError("createFromImage: Failed to create image texture. SDL Error: " << SDL_GetError());
+    }
+
+    return texture;
 }
 
 void closeFont(TTF_Font* font)

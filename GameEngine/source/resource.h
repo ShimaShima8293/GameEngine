@@ -3,6 +3,7 @@
 #include PATH_SDL
 #include PATH_SDL_TTF
 #include PATH_SDL_MIXER
+#include PATH_SDL_IMAGE
 #include <string>
 #include <vector>
 
@@ -20,6 +21,8 @@ Mix_Music* openMusic(std::string path);
 // \param _chunk The loaded chunk to check.
 // \returns Returns a pointer to Mix_Chunk, which is required for `playMusicSet()`
 Mix_Chunk* openWAV(std::string path);
+
+SDL_Texture* createFromImage(std::string path);
 
 void closeFont(TTF_Font* font);
 

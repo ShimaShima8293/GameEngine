@@ -62,7 +62,7 @@ public:
 
     // Replace the current texture with another one. This will automatically free the old texture.
     // \param texture A pointer to SDL_Texture.
-    void setTexture(SDL_Texture* _texture);
+    void setTexture(SDL_Texture* _texture, bool free = true);
 
     // Renders the entity. This will automatically called if you use layer features.
     void render();
@@ -242,5 +242,6 @@ private:
     double rotation = 0.0;
     bool visible = true;
     bool doClip = false;
+    bool useCommonTexture = false;
 
 };

@@ -20,7 +20,7 @@ Entity::~Entity()
 }
 void Entity::free()
 {
-    if (texture != NULL)
+    if (texture != NULL && !useCommonTexture)
     {
         SDL_DestroyTexture(texture);
         texture = NULL;
@@ -190,10 +190,18 @@ bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orie
 
     return false;
 }
-void Entity::setTexture(SDL_Texture* _texture)
+void Entity::setTexture(SDL_Texture* _texture, bool _free)
 {
+    if (_texture == nullptr)
+    {
+        printError("Entity::setTexture: texture was nullptr.");
+        return;
+    }
+
     free();
     texture = _texture;
+    useCommonTexture = !_free;
+    SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
 }
 void Entity::render()
 {
