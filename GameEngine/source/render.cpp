@@ -98,9 +98,9 @@ void renderEverything()
             std::to_string(getUpdateCount()) + " updates\n" +
             std::to_string(getAnimationCount()) + " animations\n"
             "VSync: " + bool2string(vsync) + "\n"
+            "Anti-aliasing: " + bool2string(antialiasing) + "\n"
             "Mute: " + bool2string(getMuteState()) + "\n"
             "Window mode: " + modeText + "\n"
-            "Anti-aliasing: " + bool2string(antialiasing) + "\n"
             "Press F3 to hide"
         );
         debugBg.setSize(debugText.getW() + 10, debugText.getH() + 10);

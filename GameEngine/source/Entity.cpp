@@ -35,6 +35,13 @@ void Entity::free()
     green = 255;
     blue = 255;
     alpha = 255;
+    doClip = false;
+    clipI = 0;
+    clipW = 0;
+    rotation = 0.0;
+    width = 0, height = 0;
+    useColorMod = false;
+    useAlphaMod = false;
 }
 bool Entity::createFromImage(std::string path)
 {
@@ -267,9 +274,9 @@ void Entity::clearAlpha()
     setAlpha(255);
     useAlphaMod = false;
 }
-void Entity::moveTo(int speed, int angle)
+void Entity::moveTo(float speed, float angle)
 {
-    changePos((int)(std::round(speed * std::sin(angle * 3.14 / 180))), (int)(std::round(speed * std::cos(angle * 3.14 / 180))));
+    changePos((int)(std::round(speed * std::sin(angle * 3.14f / 180.0f))), (int)(std::round(speed * std::cos(angle * 3.14f / 180.0f))));
 }
 int Entity::getTopB()
 {

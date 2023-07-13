@@ -325,7 +325,6 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
         printFatalError("Failed to create debugFont. SDL error: " << TTF_GetError());
     }
 
-    debugText.setName("debugText");
     debugText.createFromText(DEFAULT_TEXT, debugFont);
     debugText.setPos(0, 0);
 

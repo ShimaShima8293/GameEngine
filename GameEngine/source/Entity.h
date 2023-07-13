@@ -87,7 +87,7 @@ public:
     // Clear alpha modulation. By calling this, the render function will bypass the alpha modulation part.
     void clearAlpha();
 
-    void moveTo(int _speed, int _angle);
+    void moveTo(float _speed, float _angle);
 
     // Get the top border. This is same as `getY`.
     int getTopB();
@@ -223,7 +223,7 @@ public:
 
 private:
     std::string name = "Unnamed";
-    SDL_Point position;
+    SDL_Point position = {0, 0};
     SDL_Texture* texture = nullptr;
     SDL_Rect rect = {};
     SDL_Rect clipRect = {};
@@ -239,7 +239,7 @@ private:
     std::string text = "";
     TTF_Font* font = NULL;
     SDL_Color textColor = { 255, 255, 255 };
-    double rotation;
+    double rotation = 0.0;
     bool visible = true;
     bool doClip = false;
 
