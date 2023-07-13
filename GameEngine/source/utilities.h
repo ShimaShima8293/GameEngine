@@ -28,7 +28,7 @@ float linear(float beg, float end, float len, float frame);
 // \param target (output) The number to limit
 // \param min The minimum
 // \param max The maximum
-void limit(float& target, float min, float max);
+float limit(float input, float min, float max);
 void wrap(float& target, float min, float max);
 bool between(float target, float min, float max);
 

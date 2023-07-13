@@ -32,16 +32,17 @@ float linear(float beg, float end, float len, float frame)
     return (((end - beg) / len) * frame) + beg;
 }
 
-void limit(float& target, float min, float max)
+float limit(float input, float min, float max)
 {
-    if (target < min)
+    if (input < min)
     {
-        target = min;
+        return min;
     }
-    if (target > max)
+    if (input > max)
     {
-        target = max;
+        return max;
     }
+    return input;
 }
 
 void wrap(float& target, float min, float max)
