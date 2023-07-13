@@ -225,9 +225,9 @@ void Entity::render()
         }
     }
 
-    int _width = static_cast<int>(std::round((double)width * scaleW));
-    int _height = static_cast<int>(std::round((double)height * scaleH));
-    rect = { position.x, position.y, _width, _height };
+    int _width = static_cast<int>(std::round((float)width * scaleW));
+    int _height = static_cast<int>(std::round((float)height * scaleH));
+    rect = { roundToInt(position.x), roundToInt(position.y), _width, _height };
     if (doClip)
     {
         clipRect = { clipW * clipI, 0, clipW, height };
@@ -284,25 +284,25 @@ void Entity::clearAlpha()
 }
 void Entity::moveTo(float speed, float angle)
 {
-    changePos((int)(std::round(speed * std::sin(angle * 3.14f / 180.0f))), (int)(std::round(speed * std::cos(angle * 3.14f / 180.0f))));
+    changePos(speed * std::sin(angle * 3.14f / 180.0f), speed * std::cos(angle * 3.14f / 180.0f));
 }
-int Entity::getTopB()
+float Entity::getTopB()
 {
     return position.y;
 }
-int Entity::getBottomB()
+float Entity::getBottomB()
 {
     return position.y + getH();
 }
-int Entity::getLeftB()
+float Entity::getLeftB()
 {
     return position.x;
 }
-int Entity::getRightB()
+float Entity::getRightB()
 {
     return position.x + getW();
 }
-void Entity::setSize(double _w, double _h)
+void Entity::setSize(float _w, float _h)
 {
     if (_w < 0 || _h < 0)
     {
@@ -318,7 +318,7 @@ void Entity::setSize(Vec2 vector)
 {
     setSize(vector.x, vector.y);
 }
-void Entity::changeSize(double _w, double _h)
+void Entity::changeSize(float _w, float _h)
 {
     scaleW += _w;
     scaleH += _h;
@@ -327,7 +327,7 @@ void Entity::changeSize(Vec2 vector)
 {
     changeSize(vector.x, vector.y);
 }
-void Entity::setScale(double _w, double _h)
+void Entity::setScale(float _w, float _h)
 {
     scaleW = _w;
     scaleH = _h;
@@ -338,7 +338,7 @@ void Entity::setScale(Vec2 vector)
 }
 void Entity::stretchToWindow()
 {
-    setSize(getGameWidth(), getGameHeight());
+    setSize((float)getGameWidth(), (float)getGameHeight());
     setPos(0, 0);
 }
 void Entity::fitToWindow()
@@ -348,20 +348,20 @@ void Entity::fitToWindow()
 
     }
 }
-void Entity::setPos(int _x, int _y)
+void Entity::setPos(float _x, float _y)
 {
     position.x = _x;
     position.y = _y;
 }
 void Entity::setPos(Vec2 vector)
 {
-    setPos((int)vector.x, (int)vector.y);
+    setPos(vector.x, vector.y);
 }
-void Entity::setX(int _x)
+void Entity::setX(float _x)
 {
     position.x = _x;
 }
-void Entity::setY(int _y)
+void Entity::setY(float _y)
 {
     position.y = _y;
 }
@@ -369,30 +369,30 @@ void Entity::setPosCentered()
 {
     setPos(getWindowCenterX(), getWindowCenterY());
 }
-void Entity::changePos(int _x, int _y)
+void Entity::changePos(float _x, float _y)
 {
     position.x += _x;
     position.y += _y;
 }
 void Entity::changePos(Vec2 vector)
 {
-    changePos((int)vector.x, (int)vector.y);
+    changePos(vector.x, vector.y);
 }
-int Entity::getX()
+float Entity::getX()
 {
     return position.x;
 }
-int Entity::getY()
+float Entity::getY()
 {
     return position.y;
 }
 int Entity::getW()
 {
-    return static_cast<int>(static_cast<double>(width) * scaleW);
+    return static_cast<int>(static_cast<float>(width) * scaleW);
 }
 int Entity::getH()
 {
-    return static_cast<int>(static_cast<double>(height) * scaleH);
+    return static_cast<int>(static_cast<float>(height) * scaleH);
 }
 
 int Entity::getTextureW()
@@ -416,13 +416,13 @@ void Entity::clipNext()
 {
     clipI++;
 }
-int Entity::getWindowCenterX()
+float Entity::getWindowCenterX()
 {
-    return getGameWidth() / 2 - getW() / 2;
+    return getGameWidth() / 2.0f - getW() / 2.0f;
 }
-int Entity::getWindowCenterY()
+float Entity::getWindowCenterY()
 {
-    return getGameHeight() / 2 - getH() / 2;
+    return getGameHeight() / 2.0f - getH() / 2.0f;
 }
 std::string Entity::getName()
 {
@@ -432,11 +432,11 @@ void Entity::setName(std::string _name)
 {
     name = _name;
 }
-double Entity::getScaleW()
+float Entity::getScaleW()
 {
     return scaleW;
 }
-double Entity::getScaleH()
+float Entity::getScaleH()
 {
     return scaleH;
 }
@@ -455,15 +455,15 @@ void Entity::setText(std::string _text)
 }
 
 // Rotation
-void Entity::setRotation(double _rotation)
+void Entity::setRotation(float _rotation)
 {
     rotation = _rotation;
 }
-void Entity::changeRotation(double _rotation)
+void Entity::changeRotation(float _rotation)
 {
     setRotation(getRotation() + _rotation);
 }
-double Entity::getRotation()
+float Entity::getRotation()
 {
     return rotation;
 }

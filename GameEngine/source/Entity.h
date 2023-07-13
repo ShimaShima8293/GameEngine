@@ -90,21 +90,21 @@ public:
     void moveTo(float _speed, float _angle);
 
     // Get the top border. This is same as `getY`.
-    int getTopB();
+    float getTopB();
 
     // Get the bottom border. This is a more readable shortcut for y-axis + height.
-    int getBottomB();
+    float getBottomB();
 
     // Get the left border. This is same as `getX`.
-    int getLeftB();
+    float getLeftB();
 
     // Get the right border. This is a more readable shortcut for x-axis + width.
-    int getRightB();
+    float getRightB();
 
     // Set the size of the texture. This changes the scale internally instead of changing the texture size.
     // \param w The new width.
     // \param h The new height.
-    void setSize(double _w, double _h);
+    void setSize(float _w, float _h);
 
     // Set the size of the texture. This changes the scale internally instead of changing the texture size.
     // \param vector The new size vector.
@@ -113,7 +113,7 @@ public:
     // Changes the size of the texture. This will do `current size * new size`. This is NOT same as `setSize` function.
     // \param w The width to multiply.
     // \param h The height to multiply.
-    void changeSize(double _w, double _h);
+    void changeSize(float _w, float _h);
 
     // Changes the size of the texture. This will do `current size * new size`. This is NOT same as `setSize` function.
     // \param vector The vector to multiply.
@@ -128,15 +128,15 @@ public:
     // Set the entity's position.
     // \param x The new x-axis
     // \param y The new y-axis
-    void setPos(int _x, int _y);
+    void setPos(float _x, float _y);
 
     // Set the entity's position.
     // \param vector The new position vector.
     void setPos(Vec2 vector);
 
-    void setX(int _x);
+    void setX(float _x);
 
-    void setY(int _y);
+    void setY(float _y);
 
     // Set the entity's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
     void setPosCentered();
@@ -144,17 +144,17 @@ public:
     // Set the entity's position relative to the current position.
     // \param x How many pixels to move horizontally.
     // \param y How many pixels to move vertically.
-    void changePos(int _x, int _y);
+    void changePos(float _x, float _y);
 
     // Set the entity's position relative to the current position.
     // \param vector How many pixels to move horizontally/vertically.
     void changePos(Vec2 vector);
 
     // Returns the entity's current x-axis.
-    int getX();
+    float getX();
 
     // Returns the entity's current y-axis.
-    int getY();
+    float getY();
 
     // Returns the entity's current width.
     int getW();
@@ -182,19 +182,19 @@ public:
     // Set the entity's scale. When rendering, the entity's size will be multiplied by the scale variables.
     // \param w The scale for the width.
     // \param h The scale for the height.
-    void setScale(double _w, double _h);
+    void setScale(float _w, float _h);
 
     // Set the entity's scale. When rendering, the entity's size will be multiplied by the scale variables.
     // \param vector The scale for the width/height.
     void setScale(Vec2 vector);
 
-    int getWindowCenterX();
+    float getWindowCenterX();
 
-    int getWindowCenterY();
+    float getWindowCenterY();
 
-    double getScaleW();
+    float getScaleW();
 
-    double getScaleH();
+    float getScaleH();
 
     std::string getName();
 
@@ -206,11 +206,11 @@ public:
 
     void setText(std::string _text);
 
-    void setRotation(double _rotation);
+    void setRotation(float _rotation);
 
-    void changeRotation(double _rotation);
+    void changeRotation(float _rotation);
 
-    double getRotation();
+    float getRotation();
 
     void setVisibility(bool _visible);
 
@@ -223,12 +223,12 @@ public:
 
 private:
     std::string name = "Unnamed";
-    SDL_Point position = {0, 0};
+    Vec2 position = {0.0f, 0.0f};
     SDL_Texture* texture = nullptr;
     SDL_Rect rect = {};
     SDL_Rect clipRect = {};
     int clipW = 0, clipI = 0;
-    double scaleW = 1, scaleH = 1;
+    float scaleW = 1, scaleH = 1;
     int width = 0, height = 0;
     Uint8 red = 255;
     Uint8 green = 255;
@@ -239,7 +239,7 @@ private:
     std::string text = "";
     TTF_Font* font = NULL;
     SDL_Color textColor = { 255, 255, 255 };
-    double rotation = 0.0;
+    float rotation = 0.0;
     bool visible = true;
     bool doClip = false;
     bool useCommonTexture = false;

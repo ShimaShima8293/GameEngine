@@ -103,7 +103,7 @@ void renderEverything()
             "Window mode: " + modeText + "\n"
             "Press F3 to hide"
         );
-        debugBg.setSize(debugText.getW() + 10, debugText.getH() + 10);
+        debugBg.setSize(debugText.getW() + 10.0f, debugText.getH() + 10.0f);
         debugBg.render();
         debugText.render();
     }
