@@ -138,6 +138,14 @@ public:
 
     void setY(float _y);
 
+    void setCPos(float _x, float _y);
+
+    void setCPos(Vec2 vector);
+
+    void setCX(float _x);
+
+    void setCY(float _y);
+
     // Set the entity's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
     void setPosCentered();
 
@@ -150,11 +158,19 @@ public:
     // \param vector How many pixels to move horizontally/vertically.
     void changePos(Vec2 vector);
 
+    Vec2 getPos();
+
     // Returns the entity's current x-axis.
     float getX();
 
     // Returns the entity's current y-axis.
     float getY();
+
+    // Returns the entity's current x-axis.
+    float getCX();
+
+    // Returns the entity's current y-axis.
+    float getCY();
 
     // Returns the entity's current width.
     int getW();

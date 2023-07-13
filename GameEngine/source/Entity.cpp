@@ -365,6 +365,23 @@ void Entity::setY(float _y)
 {
     position.y = _y;
 }
+void Entity::setCPos(float _x, float _y)
+{
+    position.x = _x - (getW() / 2);
+    position.y = _y - (getH() / 2);
+}
+void Entity::setCPos(Vec2 vector)
+{
+    setCPos(vector.x, vector.y);
+}
+void Entity::setCX(float _x)
+{
+    position.x = _x - (getW() / 2);
+}
+void Entity::setCY(float _y)
+{
+    position.y = _y - (getH() / 2);
+}
 void Entity::setPosCentered()
 {
     setPos(getWindowCenterX(), getWindowCenterY());
@@ -378,6 +395,10 @@ void Entity::changePos(Vec2 vector)
 {
     changePos(vector.x, vector.y);
 }
+Vec2 Entity::getPos()
+{
+    return position;
+}
 float Entity::getX()
 {
     return position.x;
@@ -385,6 +406,14 @@ float Entity::getX()
 float Entity::getY()
 {
     return position.y;
+}
+float Entity::getCX()
+{
+    return position.x + (getW() / 2);
+}
+float Entity::getCY()
+{
+    return position.y + (getH() / 2);
 }
 int Entity::getW()
 {
