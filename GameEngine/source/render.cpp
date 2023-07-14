@@ -17,6 +17,7 @@ namespace GameEngine
     Timer renderTimer;
     Timer gameTimer;
     std::vector<Entity*> mainLayer;
+    std::vector<std::vector<Entity*>*> layers = {};
 }
 using namespace GameEngine;
 
@@ -51,6 +52,25 @@ void renderEverything()
 
     int clipCount = 0;
     Entity* currentEntity;
+
+    for (int i = 0; i < layers.size(); i++)
+    {
+        for (int j = 0; j < layers[i]->size(); j++)
+        {
+            currentEntity = (*layers[i])[j];
+            if (currentEntity == nullptr)
+            {
+                printError("renderEverything: currentEntity was nullptr.");
+                continue;
+            }
+            currentEntity->render();
+            if (currentEntity->getClip())
+            {
+                clipCount++;
+            }
+        }
+    }
+
     for (int i = 0; i < mainLayer.size(); i++)
     {
         currentEntity = mainLayer[i];
@@ -142,6 +162,11 @@ void addEntity(Entity* entity)
     mainLayer.push_back(entity);
 }
 
+void setLayers(std::vector<std::vector<Entity*>*> _layers)
+{
+    layers = _layers;
+}
+
 int getEntityCount()
 {
     return (int)mainLayer.size();
@@ -169,9 +194,25 @@ void removeEntity(Entity* entity)
             mainLayer.erase(mainLayer.begin() + i);
         }
     }
+    for (int i = 0; i < layers.size(); i++)
+    {
+        for (int j = 0; j < layers[i]->size(); j++)
+        {
+            if ((*layers[i])[j] == entity)
+            {
+                layers[i]->erase(layers[i]->begin() + j);
+            }
+        }
+    }
 }
 
 void clearEntities()
 {
+    for (int i = 0; i < layers.size(); i++)
+    {
+        layers[i]->clear();
+    }
+
+    layers.clear();
     mainLayer.clear();
 }

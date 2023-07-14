@@ -14,6 +14,8 @@ void renderEverything();
 // \param entity A pointer to an entity.
 void addEntity(Entity* entity);
 
+void setLayers(std::vector<std::vector<Entity*>*> _layers);
+
 // Get the total number of entities in the rendering list.
 // \returns Returns the number of entities in the rendering list.
 int getEntityCount();
