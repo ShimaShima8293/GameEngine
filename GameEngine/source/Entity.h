@@ -243,8 +243,6 @@ private:
     std::string name = "Unnamed";
     Vec2 position = {0.0f, 0.0f};
     SDL_Texture* texture = nullptr;
-    SDL_Rect rect = {};
-    SDL_Rect clipRect = {};
     int clipW = 0, clipI = 0;
     float scaleW = 1, scaleH = 1;
     int width = 0, height = 0;

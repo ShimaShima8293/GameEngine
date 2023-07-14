@@ -225,25 +225,30 @@ void Entity::render()
         }
     }
 
-    int _width = static_cast<int>(std::round((float)width * scaleW));
-    int _height = static_cast<int>(std::round((float)height * scaleH));
-    rect = { roundToInt(position.x), roundToInt(position.y), _width, _height };
+    float _width = (float)width * scaleW;
+    float _height = (float)height * scaleH;
+    SDL_FRect rect = { position.x, position.y, _width, _height };
     if (doClip)
     {
-        clipRect = { clipW * clipI, 0, clipW, height };
-        rect.w = (int)(clipRect.w * scaleW);
+        SDL_Rect clipRect = { clipW * clipI, 0, clipW, height };
+        rect.w = clipRect.w * scaleW;
 
-        if (SDL_RenderCopyEx(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
     else
     {
-        if (SDL_RenderCopyEx(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
         {
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
+    }
+    if (debug)
+    {
+        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+        SDL_RenderDrawRectF(renderer, &rect);
     }
 }
 
