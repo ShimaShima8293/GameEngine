@@ -17,10 +17,18 @@ void playMusicSet(MusicSet& set)
 void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 {
     haltMusic();
-    Mix_PlayChannel(CH_INTRO, intro, 0);
+    if (Mix_PlayChannel(CH_INTRO, intro, 0) == -1)
+    {   
+        printError("playMusicSet: couldn't play a intro chunk SDL_error: " << SDL_GetError());
+        return;
+    }
     Mix_FadeOutChannel(CH_INTRO, fade);
 
-    Mix_FadeInChannel(CH_LOOP, loop, -1, fade);
+    if (Mix_FadeInChannel(CH_LOOP, loop, -1, fade) == -1)
+    {
+        printError("playMusicSet: couldn't play a loop chunk SDL_error: " << SDL_GetError());
+        return;
+    };
 }
 
 void playSoundEffect(Mix_Chunk* chunk)
