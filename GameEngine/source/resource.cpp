@@ -15,11 +15,11 @@ TTF_Font* openFont(std::string path, int size)
     if (_font == NULL)
     {
         printError("openFont: Could not open a font... SDL_TTF Error: " << TTF_GetError());
+        return nullptr;
     }
-    else
-    {
-        fontList.push_back(_font);
-    }
+
+    fontList.push_back(_font);
+    printInfo("openFont: opened a font at " << path << " (" << _font << ")");
     return _font;
 }
 Mix_Music* openMusic(std::string path)
@@ -28,11 +28,11 @@ Mix_Music* openMusic(std::string path)
     if (_music == NULL)
     {
         printError("openMusic: Could not open an audio... SDL_MIX Error: " << Mix_GetError());
+        return nullptr;
     }
-    else
-    {
-        musicList.push_back(_music);
-    }
+
+    musicList.push_back(_music);
+    printInfo("openMusic: opened a music at " << path << " (" << _music << ")");
     return _music;
 }
 Mix_Chunk* openWAV(std::string path)
@@ -41,11 +41,11 @@ Mix_Chunk* openWAV(std::string path)
     if (_chunk == NULL)
     {
         printError("openWAV: Could not open an WAV chunk... SDL_MIX Error: " << Mix_GetError());
+        return nullptr;
     }
-    else
-    {
-        chunkList.push_back(_chunk);
-    }
+
+    chunkList.push_back(_chunk);
+    printInfo("openWAV: opened a WAV chunk at " << path << " (" << _chunk << ")");
     return _chunk;
 }
 
@@ -70,12 +70,12 @@ void closeFont(TTF_Font* font)
     }
     for (int i = 0; i < fontList.size(); i++)
     {
-        if (font = fontList[i])
+        if (font == fontList[i])
         {
             TTF_CloseFont(fontList[i]);
             fontList.erase(fontList.begin() + i);
             i--;
-            printInfo("closeFont: Closed a font");
+            printInfo("closeFont: Closed a font (" << font << ")");
         }
     }
     font = nullptr;
@@ -90,12 +90,12 @@ void closeMusic(Mix_Music* music)
     }
     for (int i = 0; i < musicList.size(); i++)
     {
-        if (music = musicList[i])
+        if (music == musicList[i])
         {
             Mix_FreeMusic(musicList[i]);
             musicList.erase(musicList.begin() + i);
             i--;
-            printInfo("closeMusic: Closed a music");
+            printInfo("closeMusic: Closed a music (" << music << ")");
         }
     }
     music = nullptr;
@@ -110,12 +110,12 @@ void closeWAV(Mix_Chunk* chunk)
     }
     for (int i = 0; i < chunkList.size(); i++)
     {
-        if (chunk = chunkList[i])
+        if (chunk == chunkList[i])
         {
             Mix_FreeChunk(chunkList[i]);
             chunkList.erase(chunkList.begin() + i);
             i--;
-            printInfo("closeWAV: Closed a WAV chunk");
+            printInfo("closeWAV: Closed a WAV chunk (" << chunk << ")");
         }
     }
     chunk = nullptr;

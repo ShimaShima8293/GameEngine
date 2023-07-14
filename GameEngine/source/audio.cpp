@@ -25,7 +25,11 @@ void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 
 void playSoundEffect(Mix_Chunk* chunk)
 {
-    Mix_PlayChannel(CH_FX, chunk, 0);
+    if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)
+    {
+        printError("playSoundEffect: couldn't play a audio chunk SDL_error: " << SDL_GetError());
+        return;
+    }
 }
 
 void haltMusic()
