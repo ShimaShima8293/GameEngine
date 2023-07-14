@@ -169,7 +169,13 @@ void setLayers(std::vector<std::vector<Entity*>*> _layers)
 
 int getEntityCount()
 {
-    return (int)mainLayer.size();
+    int size = (int)mainLayer.size();
+
+    for (int i = 0; i < layers.size(); i++)
+    {
+        size += (int)layers[i]->size();
+    }
+    return size;
 }
 
 Entity* getEntity(int index)
