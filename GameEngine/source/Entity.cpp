@@ -399,6 +399,10 @@ Vec2 Entity::getPos()
 {
     return position;
 }
+Vec2 Entity::getCPos()
+{
+    return { position.x + (getW() / 2), position.y + (getH() / 2) };
+}
 float Entity::getX()
 {
     return position.x;

@@ -160,6 +160,8 @@ public:
 
     Vec2 getPos();
 
+    Vec2 getCPos();
+
     // Returns the entity's current x-axis.
     float getX();
 
