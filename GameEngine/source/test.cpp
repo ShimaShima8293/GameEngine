@@ -6,6 +6,8 @@ Entity bg2;
 int windowWidth = 1920;
 int windowHeight = 1080;
 
+int anmTest(Entity* entity, int frame, int len);
+
 static class SceneTest : public Scene
 {
 public:
@@ -43,7 +45,7 @@ public:
         );
         bg2.setAlpha(128);
         bg2.stretchToWindow();
-        addEntity(&bg2);
+        //addEntity(&bg2);
 
         SDL_SetWindowTitle(
             getWindow(),
@@ -62,12 +64,15 @@ public:
                 std::to_string((int)b4) + ")"
                 ).c_str()
         );
+
+        playEntityAnimation(&bg, anmTest);
     }
 } sceneTest;
 
-void anmTest(int frame, int len)
+int anmTest(Entity* entity, int frame, int len)
 {
-    bg.setPos(randomRange(-10, 10), randomRange(-10, 10));
+    entity->setPos(randomRange(-10, 10), randomRange(-10, 10));
+    return 0;
 }
 
 int main(int argc, char* args[])
