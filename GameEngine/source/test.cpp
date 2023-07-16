@@ -71,7 +71,7 @@ public:
 
 int anmTest(Entity* entity, int frame, int len)
 {
-    entity->setPos(randomRange(-10, 10), randomRange(-10, 10));
+    entity->changePos(0.1, 0.1);
     return 0;
 }
 

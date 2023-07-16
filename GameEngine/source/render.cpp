@@ -47,6 +47,7 @@ void renderEverything()
     SDL_DestroyTexture(gamePlayTexture);
     gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, getGameWidth(), getGameHeight());
 
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderTarget(renderer, gamePlayTexture);
 
