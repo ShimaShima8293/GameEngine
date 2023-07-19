@@ -16,17 +16,21 @@
 #ifdef _WIN32
 #define printError(anything)
 #define printFatalError(anything)\
+{\
 std::stringstream ss;\
 ss << anything;\
 MessageBoxA(NULL, ss.str().c_str(), "Fatal Error Occurred...", MB_ICONERROR | MB_OK);\
-exit(-1)
+exit(-1);\
+}
 #define printInfo(anything)
 #define printErrorW(anything)
 #define printFatalErrorW(anything)\
-std::wstringstream ss; \
-ss << anything; \
-MessageBoxW(NULL, ss.str().c_str(), L"Fatal Error Occurred...", MB_ICONERROR | MB_OK);\
-exit(-1)
+{\
+std::stringstream ss;\
+ss << anything;\
+MessageBoxA(NULL, ss.str().c_str(), "Fatal Error Occurred...", MB_ICONERROR | MB_OK);\
+exit(-1);\
+}
 #define printInfoW(anything)
 #else
 #define printError(anything)
