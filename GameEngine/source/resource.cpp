@@ -127,19 +127,19 @@ void closeResources()
     for (int i = 0; i < fontList.size(); i++)
     {
         TTF_CloseFont(fontList[i]);
-        printInfo("closeResources: Closed a font");
+        printInfo("closeResources: Closed a font (" << fontList[i] << ")");
     }
     fontList.clear();
     for (int i = 0; i < musicList.size(); i++)
     {
         Mix_FreeMusic(musicList[i]);
-        printInfo("closeResources: Closed a music");
+        printInfo("closeResources: Closed a music (" << musicList[i] << ")");
     }
     musicList.clear();
     for (int i = 0; i < chunkList.size(); i++)
     {
         Mix_FreeChunk(chunkList[i]);
-        printInfo("closeResources: Closed a WAV chunk");
+        printInfo("closeResources: Closed a WAV chunk (" << chunkList[i] << ")");
     }
     chunkList.clear();
 }

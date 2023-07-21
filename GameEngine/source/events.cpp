@@ -164,7 +164,9 @@ void endMainloop()
 void close()
 {
     SDL_DestroyRenderer(renderer);
+    renderer = nullptr;
     SDL_DestroyWindow(window);
+    window = nullptr;
     SDL_Quit();
 }
 
