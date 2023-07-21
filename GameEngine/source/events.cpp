@@ -211,7 +211,7 @@ WindowMode getWindowMode()
     return windowMode;
 }
 
-void setSystemCursor(SDL_SystemCursor _cursor)
+int setSystemCursor(SDL_SystemCursor _cursor)
 {
     if (cursor != nullptr)
     {
@@ -221,12 +221,12 @@ void setSystemCursor(SDL_SystemCursor _cursor)
     if (cursor == nullptr)
     {
         printError("setSystemCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
-        return;
+        return -1;
     }
     SDL_SetCursor(cursor);
 }
 
-void hideCursor()
+int hideCursor()
 {
     if (cursor != nullptr)
     {
@@ -237,12 +237,12 @@ void hideCursor()
     if (cursor == nullptr)
     {
         printError("hideCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
-        return;
+        return -1;
     }
     SDL_SetCursor(cursor);
 }
 
-void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
+int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
 {
 #ifdef _WIN32
     // DPI Aware
@@ -259,27 +259,42 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
-        printFatalError("Failed to initialize SDL... SDL Error: " << SDL_GetError());
+        printFatalError("init: Failed to initialize SDL. SDL Error: " << SDL_GetError());
+        return -1;
     }
     if (IMG_Init(0) < 0)
     {
-        printFatalError("Failed to initialize SDL_Image... SDL_image Error: " << IMG_GetError());
+        printFatalError("init: Failed to initialize SDL_Image. SDL_image Error: " << IMG_GetError());
+        return -1;
     }
     if (TTF_Init() < 0)
     {
-        printFatalError("Failed to initialize SDL_TTF... SDL_ttf Error: " << TTF_GetError());
+        printFatalError("init: Failed to initialize SDL_TTF. SDL_ttf Error: " << TTF_GetError());
+        return -1;
     }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) != 0)
     {
-        printFatalError("Failed to initialize SDL_Mixer... SDL_mixer Error: " << Mix_GetError());
+        printFatalError("init: Failed to initialize SDL_Mixer. SDL_mixer Error: " << Mix_GetError());
+        return -1;
     }
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+    if (window == nullptr)
+    {
+        printFatalError("init: Failed to create a window. SDL Error: " << SDL_GetError());
+        return -1;
+    }
 
     if (initFlags & INIT_ANTIALIASING)
     {
-        SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1");
-        antialiasing = true;
+        if (SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") != SDL_TRUE)
+        {
+            printError("init: Failed to set antialiasing. SDL Error: " << SDL_GetError());
+        }
+        else
+        {
+            antialiasing = true;
+        }
     }
 
     if (initFlags & INIT_DISABLE_DEFAULT_KEYBINDINGS)
@@ -322,17 +337,22 @@ void init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlag
     TTF_Font* debugFont = TTF_OpenFont("/Windows/Fonts/arial.ttf", 24);
     if (debugFont == NULL)
     {
-        printFatalError("Failed to create debugFont. SDL error: " << TTF_GetError());
+        printError("init: Failed to create debugFont. SDL error: " << TTF_GetError());
     }
 
     debugText.createFromText(DEFAULT_TEXT, debugFont);
     debugText.setPos(0, 0);
 
-    debugBg.createSolid(1, 1, {0, 0, 0, 128});
+    debugBg.createSolid(1, 1, { 0, 0, 0, 128 });
 
-    setFullscreenResolution(_gameWidth, _gameHeight);
+    if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
+    {
+        printFatalError("init: Failed to set fullscreen resolution.");
+    }
 
     running = true;
+
+    return 0;
 }
 
 SDL_DisplayMode getDisplayMode()
@@ -341,11 +361,12 @@ SDL_DisplayMode getDisplayMode()
     return mode;
 }
 
-void setFullscreenResolution(int w, int h)
+int setFullscreenResolution(int w, int h)
 {
     if (w <= 0 || h <= 0)
     {
         printError("setFullscreenResolution: w or h cannot be smaller than 1.");
+        return -1;
     }
     SDL_DisplayMode mode = getDisplayMode();
     mode.w = w;
@@ -353,7 +374,9 @@ void setFullscreenResolution(int w, int h)
     if (SDL_SetWindowDisplayMode(window, &mode) != 0)
     {
         printError("setFullscreenResolution: failed to set window display mode. SDL error: " << SDL_GetError());
+        return -1;
     }
+    return 0;
 }
 
 void startMainloop()

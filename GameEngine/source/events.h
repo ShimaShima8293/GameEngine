@@ -28,8 +28,8 @@ int getWindowWidth();
 int getWindowHeight();
 void setWindowMode(WindowMode mode);
 WindowMode getWindowMode();
-void setSystemCursor(SDL_SystemCursor _cursor);
-void hideCursor();
+int setSystemCursor(SDL_SystemCursor _cursor);
+int hideCursor();
 
 typedef enum InitFlags
 {
@@ -39,10 +39,10 @@ typedef enum InitFlags
 } InitFlags;
 
 // Initialize everything.
-void init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
+int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
 
 SDL_DisplayMode getDisplayMode();
 
-void setFullscreenResolution(int w, int h);
+int setFullscreenResolution(int w, int h);
 
 void startMainloop();

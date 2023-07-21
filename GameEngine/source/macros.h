@@ -19,8 +19,7 @@
 {\
 std::stringstream ss;\
 ss << anything;\
-MessageBoxA(NULL, ss.str().c_str(), "Fatal Error Occurred...", MB_ICONERROR | MB_OK);\
-exit(-1);\
+MessageBoxA(NULL, ss.str().c_str(), "Fatal Error", MB_ICONERROR | MB_OK);\
 }
 #define printInfo(anything)
 #define printErrorW(anything)
@@ -28,8 +27,7 @@ exit(-1);\
 {\
 std::stringstream ss;\
 ss << anything;\
-MessageBoxA(NULL, ss.str().c_str(), "Fatal Error Occurred...", MB_ICONERROR | MB_OK);\
-exit(-1);\
+MessageBoxA(NULL, ss.str().c_str(), "Fatal Error", MB_ICONERROR | MB_OK);\
 }
 #define printInfoW(anything)
 #else
@@ -44,14 +42,12 @@ exit(-1)
 #endif
 #else
 // if debug:
-#define printError(anything) std::cout << "[ERROR]            " << anything << std::endl
-#define printFatalError(anything) std::cout << "[FATAL-ERROR]      " << anything << std::endl;\
-exit(-1)
-#define printInfo(anything) std::cout << "[INFO]             " << anything << std::endl
-#define printErrorW(anything) std::wcout << "[ERROR]            " << anything << std::endl
-#define printFatalErrorW(anything) std::wcout << "[FATAL-ERROR]      " << anything << std::endl;\
-exit(-1)
-#define printInfoW(anything) std::wcout << "[INFO]             " << anything << std::endl
+#define printError(anything) std::cout << "[ERROR]       " << anything << std::endl
+#define printFatalError(anything) std::cout << "[FATAL-ERROR] " << anything << std::endl;
+#define printInfo(anything) std::cout << "[INFO]        " << anything << std::endl
+#define printErrorW(anything) std::wcout << "[ERROR]       " << anything << std::endl
+#define printFatalErrorW(anything) std::wcout << "[FATAL-ERROR] " << anything << std::endl;
+#define printInfoW(anything) std::wcout << "[INFO]        " << anything << std::endl
 #endif
 
 #ifdef __APPLE__
