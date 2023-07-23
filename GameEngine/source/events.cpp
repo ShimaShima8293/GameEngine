@@ -242,6 +242,7 @@ int hideCursor()
         return -1;
     }
     SDL_SetCursor(cursor);
+    return 0;
 }
 
 int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
