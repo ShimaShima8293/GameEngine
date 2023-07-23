@@ -45,6 +45,7 @@ Your entity doesn't have any texture when you create. So, you will need to creat
 
 ### Modifying Entities
 You can move, change color, change size, apply rotation to your entities by the following functions:
+#### Position
 - `void Entity::setPos(float _x, float _y)`
 - `void Entity::setPos(Vec2 vector)`
 - `void Entity::setX(float _x)`
@@ -55,11 +56,28 @@ You can move, change color, change size, apply rotation to your entities by the 
 - `void Entity::setCY(float _y)`
 - `void Entity::setPosCentered()`
 - `void Entity::changePos(float _x, float _y)`
+#### Clipping
 - `void Entity::setClipPos(int _clipW, int _clipI = 0)`
 - `void Entity::changePos(Vec2 vector)`
 - `void Entity::clipNext()`
+- `void Entity::setClip(bool _doClip)`
+#### Rotation
 - `void Entity::setRotation(float _rotation)`
 - `void Entity::changeRotation(float _rotation)`
+#### Visibility
 - `void Entity::setVisibility(bool _visible)`
-- `void Entity::setClip(bool _doClip)`
+#### 
 
+## Audio
+### Opening a Audio File
+### Playing a Sound
+
+## Resources
+This library handles WAV chunks and fonts. You can manage them using the following functions:
+### Opening a Resource
+- `TTF_Font* openFont(std::string path, int size)`
+- `Mix_Chunk* openWAV(std::string path)`
+### Closing a Resource
+- `void closeFont(TTF_Font* font)`
+- `void closeWAV(Mix_Chunk* chunk)`
+- `void closeResources()`
