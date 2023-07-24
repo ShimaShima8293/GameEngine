@@ -226,6 +226,7 @@ int setSystemCursor(SDL_SystemCursor _cursor)
         return -1;
     }
     SDL_SetCursor(cursor);
+    return 0;
 }
 
 int hideCursor()

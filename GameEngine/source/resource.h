@@ -33,3 +33,9 @@ void closeWAV(Mix_Chunk* chunk);
 
 // Close all the resources opened by `openFont()`, `openMusic()`, and `openWAV`. Call this function after finishing the main loop.
 void closeResources();
+
+int getFontCount();
+
+int getMusicCount();
+
+int getWAVCount();

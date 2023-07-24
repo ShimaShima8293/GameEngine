@@ -9,6 +9,7 @@
 #include "events.h"
 #include "update.h"
 #include "animation.h"
+#include "resource.h"
 
 namespace GameEngine
 {
@@ -46,10 +47,12 @@ void renderEverything()
 
     SDL_DestroyTexture(gamePlayTexture);
     gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, getGameWidth(), getGameHeight());
+    SDL_SetTextureScaleMode(gamePlayTexture, SDL_ScaleModeBest);
 
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     SDL_SetRenderTarget(renderer, gamePlayTexture);
+
 
     int clipCount = 0;
     Entity* currentEntity;
@@ -122,6 +125,14 @@ void renderEverything()
             "Anti-aliasing: " + bool2string(antialiasing) + "\n"
             "Mute: " + bool2string(getMuteState()) + "\n"
             "Window mode: " + modeText + "\n"
+            "Platform: " + SDL_GetPlatform() + "\n"
+            "SDL version: " + std::to_string(SDL_MAJOR_VERSION) + "." + std::to_string(SDL_MINOR_VERSION) + "." + std::to_string(SDL_PATCHLEVEL) + "\n"
+            "SDL_image version: " + std::to_string(SDL_IMAGE_MAJOR_VERSION) + "." + std::to_string(SDL_IMAGE_MINOR_VERSION) + "." + std::to_string(SDL_IMAGE_PATCHLEVEL) + "\n"
+            "SDL_ttf version: " + std::to_string(SDL_TTF_MAJOR_VERSION) + "." + std::to_string(SDL_TTF_MINOR_VERSION) + "." + std::to_string(SDL_TTF_PATCHLEVEL) + "\n"
+            "SDL_mixer version: " + std::to_string(SDL_MIXER_MAJOR_VERSION) + "." + std::to_string(SDL_MIXER_MINOR_VERSION) + "." + std::to_string(SDL_MIXER_PATCHLEVEL) + "\n"
+            "Font: " + std::to_string(getFontCount()) + "\n"
+            "Music: " + std::to_string(getMusicCount()) + "\n"
+            "WAV: " + std::to_string(getWAVCount()) + "\n"
             "Press F3 to hide"
         );
         debugBg.setSize(debugText.getW() + 10.0f, debugText.getH() + 10.0f);

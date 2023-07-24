@@ -143,3 +143,18 @@ void closeResources()
     }
     chunkList.clear();
 }
+
+int getFontCount()
+{
+    return (int)fontList.size();
+}
+
+int getMusicCount()
+{
+    return (int)musicList.size();
+}
+
+int getWAVCount()
+{
+    return (int)chunkList.size();
+}
