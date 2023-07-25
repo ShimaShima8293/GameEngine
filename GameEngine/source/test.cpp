@@ -79,15 +79,20 @@ int anmTest(Entity* entity, int frame, int len)
 int main(int argc, char* args[])
 {
     init("グラデ～ション", windowWidth, windowHeight, INIT_ANTIALIASING);
-    //
-    //setFullscreenResolution(2880, 1800);
+    
+    setFullscreenResolution(2880, 1800);
 
-    //loadScene(&sceneTest);
+    loadScene(&sceneTest);
 
-    //startMainloop();
+    startMainloop();
 
-    printFatalError("");
-    printFatalError("");
+    init("グラデ～ション", windowWidth, windowHeight, INIT_ANTIALIASING);
+
+    setFullscreenResolution(2880, 1800);
+
+    loadScene(&sceneTest);
+
+    startMainloop();
 
     return 0;
 }
