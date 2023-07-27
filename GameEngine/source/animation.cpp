@@ -118,6 +118,11 @@ void processAnimations()
             printError("processAnimations: currentData->func was nullptr");
             continue;
         }
+        if (currentData->entity == nullptr)
+        {
+            printError("processAnimations: currentData->entity was nullptr");
+            continue;
+        }
 
         int result = currentData->func(currentData->entity, currentData->frame, currentData->len);
         if (currentData->reversed)
