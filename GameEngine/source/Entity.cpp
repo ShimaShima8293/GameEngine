@@ -205,7 +205,7 @@ void Entity::setTexture(SDL_Texture* _texture, bool _free)
 }
 void Entity::render()
 {
-    if (getVisibility() == false)
+    if (getVisibility() == false || alpha == 0)
     {
         return;
     }
