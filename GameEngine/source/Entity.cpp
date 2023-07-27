@@ -245,10 +245,13 @@ void Entity::render()
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
-    if (debug)
+    if (exDebug)
     {
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderDrawRectF(renderer, &rect);
+        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        SDL_RenderDrawLineF(renderer, getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
+        SDL_RenderDrawLineF(renderer, getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
     }
 }
 

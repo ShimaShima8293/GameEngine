@@ -22,6 +22,7 @@ namespace GameEngine
     extern bool antialiasing;
 
     extern bool debug;
+    extern bool exDebug;
 
     extern int windowWidth;
     extern int windowHeight;

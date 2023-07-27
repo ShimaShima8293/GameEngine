@@ -123,6 +123,14 @@ void processEvents()
         if (getKeyPressedPulse(SDLK_F3))
         {
             debug = !debug;
+            if (debug && getKeyPressed(SDLK_LSHIFT))
+            {
+                exDebug = true;
+            }
+            else
+            {
+                exDebug = false;
+            }
         }
         if (getKeyPressedPulse(SDLK_m))
         {

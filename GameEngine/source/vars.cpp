@@ -14,6 +14,7 @@ namespace GameEngine
     bool antialiasing = false;
 
     bool debug;
+    bool exDebug;
 
     int windowWidth;
     int windowHeight;
