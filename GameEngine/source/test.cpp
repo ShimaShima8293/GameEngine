@@ -15,6 +15,10 @@ public:
     {
         
     }
+    void update()
+    {
+        
+    }
 } sceneTest;
 
 int anmTest(Entity* entity, int frame, int len)

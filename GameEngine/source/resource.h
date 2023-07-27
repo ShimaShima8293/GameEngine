@@ -24,11 +24,11 @@ Mix_Chunk* openWAV(std::string path);
 
 SDL_Texture* createFromImage(std::string path);
 
-void closeFont(TTF_Font* font);
+void closeFont(TTF_Font*& font);
 
-void closeMusic(Mix_Music* music);
+void closeMusic(Mix_Music*& music);
 
-void closeWAV(Mix_Chunk* chunk);
+void closeWAV(Mix_Chunk*& chunk);
 
 
 // Close all the resources opened by `openFont()`, `openMusic()`, and `openWAV`. Call this function after finishing the main loop.

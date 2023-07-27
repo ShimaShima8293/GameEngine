@@ -61,7 +61,7 @@ SDL_Texture* createFromImage(std::string path)
     return texture;
 }
 
-void closeFont(TTF_Font* font)
+void closeFont(TTF_Font*& font)
 {
     if (font == nullptr)
     {
@@ -81,7 +81,7 @@ void closeFont(TTF_Font* font)
     font = nullptr;
 }
 
-void closeMusic(Mix_Music* music)
+void closeMusic(Mix_Music*& music)
 {
     if (music == nullptr)
     {
@@ -101,7 +101,7 @@ void closeMusic(Mix_Music* music)
     music = nullptr;
 }
 
-void closeWAV(Mix_Chunk* chunk)
+void closeWAV(Mix_Chunk*& chunk)
 {
     if (chunk == nullptr)
     {
