@@ -19,8 +19,12 @@ namespace GameEngine
     std::map<SDL_Keycode, bool> keyPressedPulse;
     std::map<Uint8, bool> buttonPressed;
     std::map<Uint8, bool> buttonPressedPulse;
-    std::map<Uint8, bool> joyPressed;
-    std::map<Uint8, bool> joyPressedPulse;
+    std::map<Uint8, bool> joyButton;
+    std::map<Uint8, bool> joyButtonPulse;
+    std::map<Uint8, int> joyAxis;
+    std::map<Uint8, bool> joyAxisPulse;
+    std::map<Uint8, int> joyHat;
+    std::map<Uint8, int> joyHatPulse;
     int mouseX = 0, mouseY = 0;
     bool running = true;
     int globalFrame = 0;
@@ -41,6 +45,9 @@ void processEvents()
     mouseMoved = false;
     keyPressedPulse.clear();
     buttonPressedPulse.clear();
+    joyButtonPulse.clear();
+    joyAxisPulse.clear();
+    joyHatPulse.clear();
     while (SDL_PollEvent(&event))
     {
         if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
@@ -87,13 +94,23 @@ void processEvents()
         }
         if (event.type == SDL_JOYBUTTONDOWN)
         {
-            joyPressed[event.jbutton.button] = true;
-            printInfo(event.jbutton.button);
+            joyButton[event.jbutton.button] = true;
+            joyButtonPulse[event.jbutton.button] = true;
+            printInfo((int)event.jbutton.button);
         }
         if (event.type == SDL_JOYBUTTONUP)
         {
-            joyPressed[event.jbutton.button] = false;
-            printInfo(event.jbutton.button);
+            joyButton[event.jbutton.button] = false;
+        }
+        if (event.type == SDL_JOYAXISMOTION)
+        {
+            joyAxis[event.jaxis.axis] = event.jaxis.value;
+            joyAxisPulse[event.jaxis.axis] = true;
+            //printInfo((int)event.jaxis.axis);
+        }
+        if (event.type == SDL_JOYHATMOTION)
+        {
+            joyHat[event.jhat.hat] = event.jhat.value;
         }
     }
     if (!disableDefaultKeyBindings)
@@ -157,6 +174,26 @@ bool getKeyPressed(SDL_KeyCode code)
 bool getKeyPressedPulse(SDL_KeyCode code)
 {
     return keyPressedPulse[code];
+}
+
+bool getJoyButton(int button)
+{
+    return joyButton[button];
+}
+
+bool getJoyButtonPulse(int button)
+{
+    return joyButtonPulse[button];
+}
+
+int getJoyAxis(int axis)
+{
+    return joyAxis[axis];
+}
+
+bool getJoyAxisPulse(int axis)
+{
+    return joyAxisPulse[axis];
 }
 
 bool getRunning()
@@ -361,6 +398,8 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     {
         printFatalError("init: Failed to set fullscreen resolution.");
     }
+
+    SDL_JoystickOpen(0);
 
     running = true;
 

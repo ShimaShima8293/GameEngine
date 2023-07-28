@@ -15,13 +15,6 @@ std::string bool2string(bool _bool);
 // \param beg The end value (the output when frame = len).
 // \param len The maximum number of frames.
 // \param frame The actual input of the expression. This should not be larger than `len`.
-int linear(int beg, int end, int len, int frame);
-
-// Calculate a simple linear expression. I recommend using this for transitions in update functions.
-// \param beg The beginning value (the output when frame = 0).
-// \param beg The end value (the output when frame = len).
-// \param len The maximum number of frames.
-// \param frame The actual input of the expression. This should not be larger than `len`.
 float linear(float beg, float end, float len, float frame);
 
 // Limits a number between min and max.

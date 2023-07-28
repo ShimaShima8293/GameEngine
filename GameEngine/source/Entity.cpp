@@ -233,14 +233,14 @@ void Entity::render()
         SDL_Rect clipRect = { clipW * clipI, 0, clipW, height };
         rect.w = clipRect.w * scaleW;
 
-        if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, flip) != 0)
         {
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
     else
     {
-        if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, SDL_FLIP_NONE) != 0)
+        if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, flip) != 0)
         {
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
@@ -431,13 +431,17 @@ float Entity::getCY()
 {
     return position.y + (getH() / 2);
 }
-int Entity::getW()
+float Entity::getW()
 {
-    return static_cast<int>(static_cast<float>(width) * scaleW);
+    if (doClip)
+    {
+        return (float)clipW * scaleW;
+    }
+    return (float)(width) * scaleW;
 }
-int Entity::getH()
+float Entity::getH()
 {
-    return static_cast<int>(static_cast<float>(height) * scaleH);
+    return (float)(height) * scaleH;
 }
 
 int Entity::getTextureW()
@@ -460,6 +464,10 @@ void Entity::setClipPos(int _clipW, int _clipI = 0)
 void Entity::clipNext()
 {
     clipI++;
+    if (clipI * clipW >= width)
+    {
+        clipI = 0;
+    }
 }
 float Entity::getWindowCenterX()
 {
@@ -531,4 +539,14 @@ void Entity::setClip(bool _doClip)
 bool Entity::getClip()
 {
     return doClip;
+}
+
+void Entity::setFlip(SDL_RendererFlip _flip)
+{
+    flip = _flip;
+}
+
+SDL_RendererFlip Entity::getFlip()
+{
+    return flip;
 }

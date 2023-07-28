@@ -1,8 +1,7 @@
 ﻿#ifdef TEST
-#define NCONSOLE
+//#define NCONSOLE
 #include "gameEngine.h"
-Entity enemy;
-Entity player;
+Entity text;
 
 int windowWidth = 1920;
 int windowHeight = 1080;
@@ -14,33 +13,15 @@ static class SceneTest : public Scene
 public:
     void start()
     {
-        enemy.createSolid(20, 20, { 255, 0, 0, 255 });
-        enemy.setPosCentered();
-        addEntity(&enemy);
+        //SDL_Surface* input = TTF_RenderUTF8_Blended_Wrapped(openFont("/Windows/Fonts/yumindb.ttf", 480), "Hello", { 255, 255, 255, 255 }, 0);
+        //SDL_Surface* output = SDL_CreateRGBSurfaceWithFormat(0, input->w, input->h, 32, SDL_PIXELFORMAT_RGBA32);
+        //text.createFromSurface(output);
+        //addEntity(&text);
 
-        player.createSolid(20, 20, { 0, 255, 0, 255 });
-        player.setPosCentered();
-        addEntity(&player);
     }
     void update()
     {
-        if (getKeyPressed(SDLK_UP))
-        {
-            player.changePos(0.0f, -5.0f);
-        }
-        if (getKeyPressed(SDLK_DOWN))
-        {
-            player.changePos(0.0f, 5.0f);
-        }
-        if (getKeyPressed(SDLK_LEFT))
-        {
-            player.changePos(-5.0f, 0.0f);
-        }
-        if (getKeyPressed(SDLK_RIGHT))
-        {
-            player.changePos(5.0f, 0.0f);
-        }
-        enemy.moveTo(2.0f, 90.0f - atan2(player.getCY() - enemy.getCY(), player.getCX() - enemy.getCX()) * (180.0f / 3.14f));
+        printInfo(getJoyAxis(0));
     }
 } sceneTest;
 

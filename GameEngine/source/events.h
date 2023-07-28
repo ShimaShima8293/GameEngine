@@ -16,6 +16,10 @@ void processEvents();
 bool getWindowFocus();
 bool getKeyPressed(SDL_KeyCode code);
 bool getKeyPressedPulse(SDL_KeyCode code);
+bool getJoyButton(int button);
+bool getJoyButtonPulse(int button);
+int getJoyAxis(int axis);
+bool getJoyAxisPulse(int axis);
 bool getRunning();
 void endMainloop();
 // Frees things and quits SDL.
@@ -44,5 +48,7 @@ int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initF
 SDL_DisplayMode getDisplayMode();
 
 int setFullscreenResolution(int w, int h);
+
+void setJoyAxisDeadzone(int _deadzone);
 
 void startMainloop();

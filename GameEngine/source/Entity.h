@@ -177,10 +177,10 @@ public:
     float getCY();
 
     // Returns the entity's current width.
-    int getW();
+    float getW();
 
     // Returns the entity's current height.
-    int getH();
+    float getH();
 
     // Returns the actual texture's width. It doesn't consider the scaling option.
     int getTextureW();
@@ -240,6 +240,10 @@ public:
 
     bool getClip();
 
+    void setFlip(SDL_RendererFlip _flip);
+
+    SDL_RendererFlip getFlip();
+
 
 private:
     std::string name = "Unnamed";
@@ -261,5 +265,6 @@ private:
     bool visible = true;
     bool doClip = false;
     bool useCommonTexture = false;
+    SDL_RendererFlip flip = SDL_FLIP_NONE;
 
 };
