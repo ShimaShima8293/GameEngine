@@ -89,6 +89,8 @@ public:
 
     void moveTo(float _speed, float _angle);
 
+    float getAngleTowards(float x, float y);
+
     // Get the top border. This is same as `getY`.
     float getTopB();
 

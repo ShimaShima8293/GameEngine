@@ -294,6 +294,10 @@ void Entity::moveTo(float speed, float angle)
 {
     changePos(speed * std::sin(angle * 3.14f / 180.0f), speed * std::cos(angle * 3.14f / 180.0f));
 }
+float Entity::getAngleTowards(float x, float y)
+{
+    return 90.0f - atan2(y - getCY(), x - getCX()) * (180.0f / 3.14f);
+}
 float Entity::getTopB()
 {
     return position.y;
