@@ -231,7 +231,7 @@ void playEntityAnimation(Entity* entity, EntityAnimationFunc func, int len, bool
 
     for (int i = 0; i < dataList2.size(); i++)
     {
-        if (dataList2[i].func == func)
+        if (dataList2[i].func == func && dataList2[i].entity == entity)
         {
             dataList2.erase(dataList2.begin() + i);
             i--;
