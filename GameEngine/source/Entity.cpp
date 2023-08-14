@@ -294,6 +294,10 @@ float Entity::getAngleTowards(float x, float y)
 {
     return 90.0f - atan2(y - getCY(), x - getCX()) * (180.0f / 3.14f);
 }
+float Entity::getAngleTowards(Vec2 vector)
+{
+    return getAngleTowards(vector.x, vector.y);
+}
 float Entity::getTopB()
 {
     return position.y;

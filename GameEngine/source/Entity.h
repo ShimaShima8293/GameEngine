@@ -83,6 +83,8 @@ public:
 
     float getAngleTowards(float x, float y);
 
+    float getAngleTowards(Vec2 vector);
+
     // Get the top border. This is same as `getY`.
     float getTopB();
 
