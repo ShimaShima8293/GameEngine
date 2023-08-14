@@ -8,14 +8,6 @@
 #include PATH_SDL_TTF
 #include <vector>
 
-typedef enum EntityType
-{
-    ENTITY_NULL,
-    ENTITY_IMAGE,
-    ENTITY_TEXT,
-    ENTITY_CUSTOM
-} EntityType;
-
 typedef enum Orientation
 {
     VERTICAL,
@@ -221,8 +213,6 @@ public:
     void setName(std::string _name);
 
     SDL_Color getColor();
-
-    EntityType type = ENTITY_NULL;
 
     void setText(std::string _text);
 

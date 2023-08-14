@@ -30,7 +30,6 @@ void Entity::free()
     scaleW = 1;
     visible = true;
     name = "Unnamed";
-    type = ENTITY_NULL;
     red = 255;
     green = 255;
     blue = 255;
@@ -56,7 +55,6 @@ bool Entity::createFromImage(std::string path)
     {
         SDL_QueryTexture(newTexture, NULL, NULL, &width, &height);
         texture = newTexture;
-        type = ENTITY_IMAGE;
     }
 
     return newTexture != NULL;
@@ -98,7 +96,6 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
     width = textSurface->w;
     height = textSurface->h;
     texture = newTexture;
-    type = ENTITY_TEXT;
 
     SDL_FreeSurface(textSurface);
 
@@ -125,7 +122,6 @@ bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
         width = _surface->w;
         height = _surface->h;
         texture = newTexture;
-        type = ENTITY_CUSTOM;
     }
     if (_free)
     {
