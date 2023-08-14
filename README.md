@@ -10,28 +10,29 @@ This is an library I made to simplify SDL2. If you use this library, you can cre
 
 These are the basic steps this library make when rendering.
 
-## How to Create a Window
+## Initialize
 
-This is the minimal code you need to write to create a window:
+You can initialize the library by calling the `init()` function. This function will take several parameters as the following:
+
+`int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)`
+
+Parameters
+- `windowTitle` The title of your window
+- `_gameWidth` The width of your game resolution
+- `_gameHeight` The height of your game resolution
+- `initFlags` Additional parameters for initialization (pass 0 if you don't need):
+  - `INIT_ANTIALIASING` Perform antialiasing on all rendered textures. You don't want this when you are using low resolution textures such as pixel art.
+  - `INIT_DISABLE_DEBUGGING` Unused
+  - `INIT_DISABLE_DEFAULT_KEYBINDINGS` Disable all the default keybindings for debugging and window resizing (F3, F4 and F11).
+
+Here is an example of a code that creates a window titled "Hello!" and with a resolution of 1920x1080:
 ```cpp
-#include <gameEngine.h>
-
-int main(int argc, char* args[])
-{
-    init("Hello!", 1920, 1080, 0);
-    startMainloop();
-
-    return 0;
-}
+init("Hello!", 1920, 1080, 0);
 ```
 
 ## Entity
 
-Entity is a class that represents a single texture to be rendered. You can create a blank entity like following:
-```cpp
-Entity entity; // stack allocation
-Entity* entity = new Entity; // heap allocation
-```
+Entity is a class that represents a single texture to be rendered.
 
 ### Creating Texture
 
@@ -44,7 +45,7 @@ Your entity doesn't have any texture when you create. So, you will need to creat
 - `void Entity::setTexture(SDL_Texture* _texture, bool _free)`
 
 ### Modifying Entities
-You can move, change color, change size, apply rotation to your entities by the following functions:
+You can move, change color, change size, apply rotation, and change visibility of your entity by the following functions:
 #### Position
 - `void Entity::setPos(float _x, float _y)`
 - `void Entity::setPos(Vec2 vector)`
