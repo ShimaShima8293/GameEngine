@@ -17,8 +17,6 @@ namespace GameEngine
     extern SDL_Window* window;
     extern SDL_Renderer* renderer;
 
-    extern const std::string DEFAULT_TEXT;
-
     extern bool antialiasing;
 
     extern bool debug;

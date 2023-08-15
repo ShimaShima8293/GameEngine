@@ -7,9 +7,7 @@
 #include "animation.h"
 #include "render.h"
 #include "resource.h"
-#ifdef _WIN32
-#include <Windows.h>
-#endif
+#include "macros.h"
 
 namespace GameEngine
 {
@@ -96,7 +94,7 @@ void processEvents()
         {
             joyButton[event.jbutton.button] = true;
             joyButtonPulse[event.jbutton.button] = true;
-            printInfo((int)event.jbutton.button);
+            //printInfo((int)event.jbutton.button);
         }
         if (event.type == SDL_JOYBUTTONUP)
         {
@@ -383,7 +381,7 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
     SDL_RenderClear(renderer);
 
-    TTF_Font* debugFont = TTF_OpenFont("/Windows/Fonts/arial.ttf", 24);
+    TTF_Font* debugFont = TTF_OpenFont(PATH_DEFAULT_FONT, 24);
     if (debugFont == NULL)
     {
         printError("init: Failed to create debugFont. SDL error: " << TTF_GetError());
@@ -399,7 +397,10 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
         printFatalError("init: Failed to set fullscreen resolution.");
     }
 
-    SDL_JoystickOpen(0);
+    if (SDL_JoystickOpen(0) == nullptr)
+    {
+        printInfo("init: Joystick not found");
+    }
 
     running = true;
 

@@ -10,6 +10,8 @@
 #define GE_VERSION_MINOR 5
 #define GE_VERSION_PATCH 0
 
+#define DEFAULT_TEXT "Error"
+
 // Print functions will ignored in release build to maximize the performance.
 #ifdef NCONSOLE
 // if release:
@@ -55,11 +57,15 @@ exit(-1)
 #define PATH_SDL_IMAGE <SDL2_image/SDL_image.h>
 #define PATH_SDL_TTF <SDL2_ttf/SDL_ttf.h>
 #define PATH_SDL_MIXER <SDL2_mixer/SDL_mixer.h>
+
+#define PATH_DEFAULT_FONT
 #elif defined(_WIN32)
 #define PATH_SDL <SDL.h>
 #define PATH_SDL_IMAGE <SDL_image.h>
 #define PATH_SDL_TTF <SDL_ttf.h>
 #define PATH_SDL_MIXER <SDL_mixer.h>
+
+#define PATH_DEFAULT_FONT "/Windows/Fonts/arial.ttf"
 #else
 #error "Unsupported OS"
 #endif

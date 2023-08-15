@@ -8,8 +8,6 @@ namespace GameEngine
     SDL_Window* window;
     SDL_Renderer* renderer;
 
-    const std::string DEFAULT_TEXT = "Error";
-
 
     bool antialiasing = false;
 
