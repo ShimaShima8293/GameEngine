@@ -3,6 +3,7 @@
 #include "vars.h"
 #include "events.h"
 #include <math.h>
+#include <cmath>
 #include PATH_SDL
 #include PATH_SDL_IMAGE
 #include PATH_SDL_TTF

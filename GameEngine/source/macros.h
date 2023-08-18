@@ -58,7 +58,7 @@ exit(-1)
 #define PATH_SDL_TTF <SDL2_ttf/SDL_ttf.h>
 #define PATH_SDL_MIXER <SDL2_mixer/SDL_mixer.h>
 
-#define PATH_DEFAULT_FONT
+#define PATH_DEFAULT_FONT "/System/Library/Fonts/Helvetica.ttc"
 #elif defined(_WIN32)
 #define PATH_SDL <SDL.h>
 #define PATH_SDL_IMAGE <SDL_image.h>
