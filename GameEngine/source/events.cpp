@@ -71,11 +71,6 @@ void processEvents()
         {
             keyPressed[event.key.keysym.sym] = false;
         }
-        if (event.type == 8192 || event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
-        {
-            SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-            printInfo("Window resolution changed to " + std::to_string(windowWidth) + "x" + std::to_string(windowHeight));
-        }
         if (event.type == SDL_MOUSEMOTION)
         {
             SDL_GetMouseState(&mouseX, &mouseY);
@@ -111,6 +106,8 @@ void processEvents()
             joyHat[event.jhat.hat] = event.jhat.value;
         }
     }
+    
+    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     if (!disableDefaultKeyBindings)
     {
         if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
