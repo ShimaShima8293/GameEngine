@@ -14,8 +14,7 @@ namespace GameEngine
     bool debug;
     bool exDebug;
 
-    int windowWidth;
-    int windowHeight;
+
 
     bool vsync = true;
 }

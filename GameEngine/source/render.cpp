@@ -31,18 +31,18 @@ void renderEverything()
     SDL_Rect destRect = {};
 
     double gameRatio = (double)getGameWidth() / (double)getGameHeight(); // Calculate the ratio of the game view
-    double screenRatio = (double)windowWidth / (double)windowHeight; // Calculate the ratio of the window
+    double screenRatio = (double)getWindowWidth() / (double)getWindowHeight(); // Calculate the ratio of the window
     if (gameRatio == screenRatio)
     {
-        destRect = { 0, 0, windowWidth, windowHeight };
+        destRect = { 0, 0, getWindowWidth(), getWindowHeight() };
     }
     else if (gameRatio > screenRatio)
     {
-        destRect = { 0, (windowHeight - getGameHeight() * windowWidth / getGameWidth()) / 2, windowWidth, getGameHeight() * windowWidth / getGameWidth() };
+        destRect = { 0, (getWindowHeight() - getGameHeight() * getWindowWidth() / getGameWidth()) / 2, getWindowWidth(), getGameHeight() * getWindowWidth() / getGameWidth() };
     }
     else
     {
-        destRect = { (windowWidth - getGameWidth() * windowHeight / getGameHeight()) / 2, 0, getGameWidth() * windowHeight / getGameHeight(), windowHeight };
+        destRect = { (getWindowWidth() - getGameWidth() * getWindowHeight() / getGameHeight()) / 2, 0, getGameWidth() * getWindowHeight() / getGameHeight(), getWindowHeight() };
     }
 
 

@@ -22,8 +22,5 @@ namespace GameEngine
     extern bool debug;
     extern bool exDebug;
 
-    extern int windowWidth;
-    extern int windowHeight;
-
     extern bool vsync;
 }

@@ -106,8 +106,6 @@ void processEvents()
             joyHat[event.jhat.hat] = event.jhat.value;
         }
     }
-    
-    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
     if (!disableDefaultKeyBindings)
     {
         if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
@@ -232,14 +230,16 @@ SDL_Renderer* getRenderer()
 
 int getWindowWidth()
 {
-    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-    return windowWidth;
+    int width;
+    SDL_GetWindowSize(window, &width, nullptr);
+    return width;
 }
 
 int getWindowHeight()
 {
-    SDL_GetWindowSize(window, &windowWidth, &windowHeight);
-    return windowHeight;
+    int height;
+    SDL_GetWindowSize(window, nullptr, &height);
+    return height;
 }
 
 void setWindowMode(WindowMode mode)
