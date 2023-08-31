@@ -1,8 +1,6 @@
 # GameEngine
 
-This is an library I made to simplify SDL2. If you use this library, you can create simple 2D games without using SDL manually.
-
-## Quick View
+## How to Use
 
 1. Initialize the library and create a window by calling `init()`.
 2. Create & modify entities.
