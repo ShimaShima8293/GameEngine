@@ -3,8 +3,8 @@
 #include "gameEngine.h"
 Entity text;
 
-int windowWidth = 1920;
-int windowHeight = 1080;
+int windowWidth = 2880;
+int windowHeight = 1800;
 
 int anmTest(Entity* entity, int frame, int len);
 
@@ -14,7 +14,7 @@ public:
     void start()
     {
         SDL_Surface* input = IMG_Load("image.png");
-        printInfo(SDL_GetError());
+        
         Uint32* pixels = (Uint32*)input->pixels;
         for (int y = 0; y < input->h; y++)
         {
