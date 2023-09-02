@@ -12,7 +12,7 @@ namespace GameEngine
     bool antialiasing = false;
 
     bool debug;
-    bool exDebug;
+    bool showBorders;
 
 
 

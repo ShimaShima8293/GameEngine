@@ -20,7 +20,7 @@ namespace GameEngine
     extern bool antialiasing;
 
     extern bool debug;
-    extern bool exDebug;
+    extern bool showBorders;
 
     extern bool vsync;
 }

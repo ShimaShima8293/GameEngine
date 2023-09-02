@@ -242,7 +242,7 @@ void Entity::render()
             printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
-    if (exDebug)
+    if (showBorders)
     {
         SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
         SDL_RenderDrawRectF(renderer, &rect);
