@@ -142,6 +142,10 @@ public:
 
     void setCY(float _y);
 
+    void setRect(Vec4 rect);
+
+    Vec4 getRect();
+
     // Set the entity's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
     void setPosCentered();
 

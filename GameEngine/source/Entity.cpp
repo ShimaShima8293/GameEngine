@@ -395,6 +395,15 @@ void Entity::setCY(float _y)
 {
     position.y = _y - (getH() / 2);
 }
+void Entity::setRect(Vec4 rect)
+{
+    setPos(rect.x, rect.y);
+    setSize(rect.z, rect.w);
+}
+Vec4 Entity::getRect()
+{
+    return { getX(), getY(), getW(), getH() };
+}
 void Entity::setPosCentered()
 {
     setPos(getWindowCenterX(), getWindowCenterY());
@@ -438,11 +447,11 @@ float Entity::getW()
     {
         return (float)clipW * scaleW;
     }
-    return (float)(width) * scaleW;
+    return (float)(width)*scaleW;
 }
 float Entity::getH()
 {
-    return (float)(height) * scaleH;
+    return (float)(height)*scaleH;
 }
 
 int Entity::getTextureW()
