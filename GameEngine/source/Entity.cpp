@@ -395,12 +395,12 @@ void Entity::setCY(float _y)
 {
     position.y = _y - (getH() / 2);
 }
-void Entity::setRect(Vec4 rect)
+void Entity::setRect(Rect rect)
 {
     setPos(rect.x, rect.y);
-    setSize(rect.z, rect.w);
+    setSize(rect.w, rect.h);
 }
-Vec4 Entity::getRect()
+Rect Entity::getRect()
 {
     return { getX(), getY(), getW(), getH() };
 }

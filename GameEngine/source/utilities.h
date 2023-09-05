@@ -55,3 +55,9 @@ struct Vec4
 {
     float x, y, z, w;
 };
+
+// Rect
+struct Rect
+{
+    float x, y, w, h;
+};
