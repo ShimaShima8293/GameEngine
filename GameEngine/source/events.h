@@ -49,6 +49,4 @@ SDL_DisplayMode getDisplayMode();
 
 int setFullscreenResolution(int w, int h);
 
-void setJoyAxisDeadzone(int _deadzone);
-
 void startMainloop();
