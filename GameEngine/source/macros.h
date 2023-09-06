@@ -7,8 +7,10 @@
 #endif
 
 #define GE_VERSION_MAJOR 0
-#define GE_VERSION_MINOR 5
+#define GE_VERSION_MINOR 6
 #define GE_VERSION_PATCH 0
+
+#define GE_VERSION_STR "Alpha-0.6"
 
 #define DEFAULT_TEXT "Error"
 
@@ -34,12 +36,10 @@ MessageBoxA(NULL, ss.str().c_str(), "Fatal Error", MB_ICONERROR | MB_OK);\
 #define printInfoW(anything)
 #else
 #define printError(anything)
-#define printFatalError(anything)\
-exit(-1)
+#define printFatalError(anything)
 #define printInfo(anything)
 #define printErrorW(anything)
-#define printFatalErrorW(anything)\
-exit(-1)
+#define printFatalErrorW(anything)
 #define printInfoW(anything)
 #endif
 #else
