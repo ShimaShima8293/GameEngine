@@ -295,7 +295,7 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
 
-    printInfo("Game Engine Version " << GE_VERSION_MAJOR << "." << GE_VERSION_MINOR << "." << GE_VERSION_PATCH);
+    printInfo("--- Game Engine Version " << GE_VERSION_STR << " ---");
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
@@ -357,19 +357,6 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
         renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
         vsync = false;
     }
-
-    printInfo("Display Info");
-    printInfo("  - Width: " << mode.w << " pixels");
-    printInfo("  - Height: " << mode.h << " pixels");
-    printInfo("  - Refresh rate: " << (mode.refresh_rate == 0 ? "VSync not supported" : (std::to_string(mode.refresh_rate) + " frames per second").c_str()));
-    printInfo("  - Supports VSync: " << (mode.refresh_rate == 0 ? "No" : "Yes"));
-    printInfo("  - VSync: " << (vsync ? "On (60 fps)" : "Off (not 60fps)"));
-    printInfo("SDL Versions");
-    printInfo("  - SDL version: " << SDL_MAJOR_VERSION << "." << SDL_MINOR_VERSION << "." << SDL_PATCHLEVEL);
-    printInfo("  - SDL_image version: " << SDL_IMAGE_MAJOR_VERSION << "." << SDL_IMAGE_MINOR_VERSION << "." << SDL_IMAGE_PATCHLEVEL);
-    printInfo("  - SDL_ttf version: " << SDL_TTF_MAJOR_VERSION << "." << SDL_TTF_MINOR_VERSION << "." << SDL_TTF_PATCHLEVEL);
-    printInfo("  - SDL_mixer version: " << SDL_MIXER_MAJOR_VERSION << "." << SDL_MIXER_MINOR_VERSION << "." << SDL_MIXER_PATCHLEVEL);
-
 
     SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0xff);
     SDL_RenderClear(renderer);

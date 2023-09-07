@@ -115,6 +115,7 @@ void renderEverything()
         }
         SDL_DisplayMode mode = getDisplayMode();
         debugText.setText(
+            "Version: " + std::string(GE_VERSION_STR) + "\n" +
             std::to_string(fps) + " fps\n"
             "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
             "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
