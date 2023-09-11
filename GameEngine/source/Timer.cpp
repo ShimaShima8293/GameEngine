@@ -21,6 +21,6 @@ float Timer::get()
 float Timer::print()
 {
     float time = get();
-    printInfo("Timer::print current time: " << time);
+    printInfo("Timer::print: current time: " << time);
     return time;
 }

@@ -58,7 +58,6 @@ void addUpdateDirect(UpdateFunc _func)
 
     removeUpdateDirect(_func);
     updateList.push_back(_func);
-    printInfo("Added function at memory address    0x" << _func);
 }
 
 void removeUpdateDirect(UpdateFunc _func)
@@ -72,7 +71,6 @@ void removeUpdateDirect(UpdateFunc _func)
     {
         if (updateList[i] == _func)
         {
-            printInfo("Removed function at memory address  0x" << _func);
             updateList.erase(updateList.begin() + i);
         }
     }
@@ -96,7 +94,6 @@ void processUpdates()
     {
         if (updateList[i]() != UPDATE_CONTINUE)
         {
-            printInfo("Update function ended at memory address    0x" << updateList[i]);
             updateList.erase(updateList.begin() + i);
             i--;
         }

@@ -30,7 +30,7 @@ void processScene()
 
         initScene();
         queue->start();
-        printInfo("Loaded scene at memory address      0x" << queue);
+        printInfo("processScene: loaded a scene (" << queue << ")");
         current = queue;
         queue = nullptr;
     }

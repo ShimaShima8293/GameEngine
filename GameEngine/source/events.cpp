@@ -51,12 +51,10 @@ void processEvents()
         if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
         {
             focused = false;
-            printInfo("Focus lost");
         }
         if (event.window.event == SDL_WINDOWEVENT_FOCUS_GAINED)
         {
             focused = true;
-            printInfo("Focus gained");
         }
         if (event.type == SDL_QUIT)
         {
