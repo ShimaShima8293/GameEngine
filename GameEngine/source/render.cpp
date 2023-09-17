@@ -56,6 +56,7 @@ void renderEverything()
 
 
     int clipCount = 0;
+    int renderedCount = 0;
     Entity* currentEntity;
 
     for (int i = 0; i < layers.size(); i++)
@@ -68,7 +69,11 @@ void renderEverything()
                 printError("renderEverything: currentEntity was nullptr.");
                 continue;
             }
-            currentEntity->render();
+            if (checkCollision(currentEntity->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+            {
+                currentEntity->render();
+                renderedCount++;
+            }
             if (currentEntity->getClip())
             {
                 clipCount++;
@@ -84,7 +89,11 @@ void renderEverything()
             printError("renderEverything: currentEntity was nullptr.");
             continue;
         }
-        currentEntity->render();
+        if (checkCollision(currentEntity->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+        {
+            currentEntity->render();
+            renderedCount++;
+        }
         if (currentEntity->getClip())
         {
             clipCount++;
@@ -120,7 +129,7 @@ void renderEverything()
             "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
             "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
             "Fullscreen resolution: " + std::to_string(mode.w) + "x" + std::to_string(mode.h) + "\n" +
-            std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ")\n" +
+            std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
             std::to_string(getUpdateCount()) + " updates\n" +
             std::to_string(getAnimationCount()) + " animations\n"
             "VSync: " + bool2string(vsync) + "\n"
