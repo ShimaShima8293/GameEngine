@@ -95,3 +95,24 @@ int randomEx(int center, int difference, int min, int max)
     }
     return tmp;
 }
+
+bool checkCollision(Rect a, Rect b)
+{
+    if (a.y + a.h <= b.y)
+    {
+        return false;
+    }
+    if (a.y >= b.y + b.h)
+    {
+        return false;
+    }
+    if (a.x + a.w <= b.x)
+    {
+        return false;
+    }
+    if (a.x >= b.x + b.w)
+    {
+        return false;
+    }
+    return true;
+}

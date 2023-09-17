@@ -4,6 +4,30 @@
 #include <iostream>
 #include <math.h>
 
+// Vector2
+struct Vec2
+{
+    float x, y;
+};
+
+// Vector3
+struct Vec3
+{
+    float x, y, z;
+};
+
+// Vector4
+struct Vec4
+{
+    float x, y, z, w;
+};
+
+// Rect
+struct Rect
+{
+    float x, y, w, h;
+};
+
 // Round a float value to nearest integer.
 int roundToInt(float input);
 
@@ -38,26 +62,4 @@ int randomCentered(int center, int difference);
 // This is a combination of `randomRange()` and `randomCentered()`.
 int randomEx(int center, int difference, int min, int max);
 
-// Vector2
-struct Vec2
-{
-    float x, y;
-};
-
-// Vector3
-struct Vec3
-{
-    float x, y, z;
-};
-
-// Vector4
-struct Vec4
-{
-    float x, y, z, w;
-};
-
-// Rect
-struct Rect
-{
-    float x, y, w, h;
-};
+bool checkCollision(Rect a, Rect b);
