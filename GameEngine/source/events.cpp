@@ -32,7 +32,7 @@ namespace GameEngine
     SDL_DisplayMode mode;
     WindowMode windowMode;
     SDL_Cursor* cursor;
-    bool disableDefaultKeyBindings = false;
+    bool disableDebugging = false;
 }
 using namespace GameEngine;
 
@@ -104,30 +104,30 @@ void processEvents()
             joyHat[event.jhat.hat] = event.jhat.value;
         }
     }
-    if (!disableDefaultKeyBindings)
+    if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
     {
-        if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
+        if (getWindowMode() != WINDOW_FULLSCREEN)
         {
-            if (getWindowMode() != WINDOW_FULLSCREEN)
-            {
-                setWindowMode(WINDOW_FULLSCREEN);
-            }
-            else
-            {
-                setWindowMode(WINDOW_WINDOWED);
-            }
+            setWindowMode(WINDOW_FULLSCREEN);
         }
-        if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
+        else
         {
-            if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
-            {
-                setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
-            }
-            else
-            {
-                setWindowMode(WINDOW_WINDOWED);
-            }
+            setWindowMode(WINDOW_WINDOWED);
         }
+    }
+    if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
+    {
+        if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
+        {
+            setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
+        }
+        else
+        {
+            setWindowMode(WINDOW_WINDOWED);
+        }
+    }
+    if (!disableDebugging)
+    {
         if (getKeyPressedPulse(SDLK_F3))
         {
             debug = !debug;
@@ -140,7 +140,6 @@ void processEvents()
         {
             setMuteState(!getMuteState());
         }
-
         if (getKeyPressedPulse(SDLK_F4))
         {
             reloadCurrentScene();
@@ -335,9 +334,9 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
         }
     }
 
-    if (initFlags & INIT_DISABLE_DEFAULT_KEYBINDINGS)
+    if (initFlags & INIT_DISABLE_DEBUGGING)
     {
-        disableDefaultKeyBindings = true;
+        disableDebugging = true;
     }
 
     SDL_GetWindowDisplayMode(window, &mode);

@@ -38,8 +38,7 @@ int hideCursor();
 typedef enum InitFlags
 {
     INIT_ANTIALIASING = 0x01,
-    INIT_DISABLE_DEBUGGING = 0x02,
-    INIT_DISABLE_DEFAULT_KEYBINDINGS = 0x04
+    INIT_DISABLE_DEBUGGING = 0x02
 } InitFlags;
 
 // Initialize everything.

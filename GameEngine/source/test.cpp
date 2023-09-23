@@ -28,7 +28,7 @@ int anmTest(Entity* entity, int frame, int len)
 
 int main(int argc, char* args[])
 {
-    init("GameEngine test", windowWidth, windowHeight, INIT_ANTIALIASING);
+    init("GameEngine test", windowWidth, windowHeight, INIT_DISABLE_DEBUGGING);
 
     setFullscreenResolution(2880, 1800);
 

@@ -9,10 +9,10 @@ void removeUpdateDirect(UpdateFunc _func);
 
 namespace GameEngine
 {
-    std::vector<UpdateFunc> updateList;
+    std::vector<UpdateFunc> updateList{};
 
-    std::vector<UpdateFunc> addQueue;
-    std::vector<UpdateFunc> removeQueue;
+    std::vector<UpdateFunc> addQueue{};
+    std::vector<UpdateFunc> removeQueue{};
 }
 using namespace GameEngine;
 
