@@ -30,9 +30,12 @@ void processScene()
 
         initScene();
         printInfo("processScene: loading a scene (" << queue << ")");
-        queue->start();
         current = queue;
-        queue = nullptr;
+        queue->start();
+        if (current == queue)
+        {
+            queue = nullptr;
+        }
     }
 
     if (getCurrentScene() != nullptr)

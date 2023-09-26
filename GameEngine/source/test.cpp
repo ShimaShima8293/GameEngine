@@ -17,6 +17,10 @@ public:
     }
     void update()
     {
+        if (getJoyAxisPulse(0, AXIS_NEGATIVE, 200))
+        {
+            printInfo("PRESSED!");
+        }
     }
 } sceneTest;
 
@@ -28,9 +32,9 @@ int anmTest(Entity* entity, int frame, int len)
 
 int main(int argc, char* args[])
 {
-    init("GameEngine test", windowWidth, windowHeight, INIT_DISABLE_DEBUGGING);
+    init("GameEngine test", 640, 480, INIT_DISABLE_DEBUGGING);
 
-    setFullscreenResolution(2880, 1800);
+    //setFullscreenResolution(640, 480);
 
     loadScene(&sceneTest);
 
