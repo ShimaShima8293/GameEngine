@@ -11,6 +11,12 @@ typedef enum WindowMode
     WINDOW_FULLSCREEN_DESKTOP = 4097
 } WindowMode;
 
+enum AxisDirection
+{
+    AXIS_POSITIVE,
+    AXIS_NEGATIVE
+};
+
 // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
 void processEvents();
 bool getWindowFocus();
@@ -19,7 +25,7 @@ bool getKeyPressedPulse(SDL_KeyCode code);
 bool getJoyButton(int button);
 bool getJoyButtonPulse(int button);
 int getJoyAxis(int axis);
-bool getJoyAxisPulse(int axis);
+bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
 bool getRunning();
 void endMainloop();
 // Frees things and quits SDL.

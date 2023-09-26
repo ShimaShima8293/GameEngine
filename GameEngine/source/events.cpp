@@ -19,8 +19,8 @@ namespace GameEngine
     std::map<Uint8, bool> buttonPressedPulse;
     std::map<Uint8, bool> joyButton;
     std::map<Uint8, bool> joyButtonPulse;
+    std::map<Uint8, int> joyAxisPrev;
     std::map<Uint8, int> joyAxis;
-    std::map<Uint8, bool> joyAxisPulse;
     std::map<Uint8, int> joyHat;
     std::map<Uint8, int> joyHatPulse;
     int mouseX = 0, mouseY = 0;
@@ -44,8 +44,8 @@ void processEvents()
     keyPressedPulse.clear();
     buttonPressedPulse.clear();
     joyButtonPulse.clear();
-    joyAxisPulse.clear();
     joyHatPulse.clear();
+    joyAxisPrev = joyAxis;
     while (SDL_PollEvent(&event))
     {
         if (event.window.event == SDL_WINDOWEVENT_FOCUS_LOST)
@@ -96,7 +96,6 @@ void processEvents()
         if (event.type == SDL_JOYAXISMOTION)
         {
             joyAxis[event.jaxis.axis] = event.jaxis.value;
-            joyAxisPulse[event.jaxis.axis] = true;
             //printInfo((int)event.jaxis.axis);
         }
         if (event.type == SDL_JOYHATMOTION)
@@ -177,9 +176,26 @@ int getJoyAxis(int axis)
     return joyAxis[axis];
 }
 
-bool getJoyAxisPulse(int axis)
+bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone)
 {
-    return joyAxisPulse[axis];
+    int prev = joyAxisPrev[axis];
+    int curr = joyAxis[axis];
+
+    if (direction == AXIS_POSITIVE)
+    {
+        if (prev < deadzone && curr > deadzone)
+        {
+            return true;
+        }
+    }
+    else
+    {
+        if (prev > -deadzone && curr < -deadzone)
+        {
+            return true;
+        }
+    }
+    return false;
 }
 
 bool getRunning()
