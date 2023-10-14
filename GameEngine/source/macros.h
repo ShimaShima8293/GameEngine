@@ -7,10 +7,10 @@
 #endif
 
 #define GE_VERSION_MAJOR 0
-#define GE_VERSION_MINOR 6
+#define GE_VERSION_MINOR 0
 #define GE_VERSION_PATCH 0
 
-#define GE_VERSION_STR "Alpha-0.6"
+#define GE_VERSION_STR "Beta-0.0"
 
 #define DEFAULT_TEXT "Error"
 

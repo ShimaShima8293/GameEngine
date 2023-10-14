@@ -1,6 +1,5 @@
 #include "render.h"
 #include "utilities.h"
-#include "Timer.h"
 #include "vars.h"
 #include "audio.h"
 #include "events.h"

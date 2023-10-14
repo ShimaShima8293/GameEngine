@@ -1,12 +1,10 @@
 #include "events.h"
-#include <map>
 #include "vars.h"
 #include "audio.h"
 #include "scene.h"
 #include "animation.h"
 #include "render.h"
 #include "resource.h"
-#include "macros.h"
 
 namespace GameEngine
 {

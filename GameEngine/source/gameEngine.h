@@ -18,7 +18,6 @@
 #include "render.h"
 #include "resource.h"
 #include "scene.h"
-#include "Timer.h"
 #include "utilities.h"
 
 // SDL headers
