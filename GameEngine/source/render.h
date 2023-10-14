@@ -1,12 +1,11 @@
 #pragma once
-
 #include "internal.h"
 #include "sprite.h"
 
 // Render sprites and update the window. This function will delay for about 16 miliseconds to maintain 60 fps.
 void renderEverything();
 
-// Add an sprite to the rendering list. This function is required for an sprite to be rendered.
+// Add an sprite to the rendering list. You can use either this function or the `setLayers` function to add a sprite to the rendering queue. If there are sprites added by the `setLayers` function, sprites added by this function will be rendered under them.
 // \param sprite A pointer to an sprite.
 void addSprite(Sprite* sprite);
 

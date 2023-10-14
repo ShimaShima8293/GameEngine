@@ -1,9 +1,7 @@
 /*
-*  \file gameEngine.h
-*
 *  Main game engine header file
 *
-*  Please include this header file to include other game engine headers.
+*  Please include this header to use the library.
 *
 */
 
@@ -12,12 +10,13 @@
 // Core headers
 #include "animation.h"
 #include "audio.h"
-#include "sprite.h"
+#include "debug.h"
 #include "events.h"
 #include "macros.h"
 #include "render.h"
 #include "resource.h"
 #include "scene.h"
+#include "sprite.h"
 #include "utilities.h"
 
 // SDL headers
