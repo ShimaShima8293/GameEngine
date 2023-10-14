@@ -8,7 +8,6 @@
 #include "vars.h"
 #include "audio.h"
 #include "events.h"
-#include "update.h"
 #include "animation.h"
 #include "resource.h"
 
@@ -136,7 +135,6 @@ void renderEverything()
             "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
             "Fullscreen resolution: " + std::to_string(mode.w) + "x" + std::to_string(mode.h) + "\n" +
             std::to_string(getSpriteCount()) + " sprites (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
-            std::to_string(getUpdateCount()) + " updates\n" +
             std::to_string(getAnimationCount()) + " animations\n"
             "VSync: " + bool2string(vsync) + "\n"
             "Anti-aliasing: " + bool2string(antialiasing) + "\n"

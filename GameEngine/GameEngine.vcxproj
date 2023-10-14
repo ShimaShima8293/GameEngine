@@ -206,7 +206,6 @@
     <ClCompile Include="source\scene.cpp" />
     <ClCompile Include="source\test.cpp" />
     <ClCompile Include="source\Timer.cpp" />
-    <ClCompile Include="source\update.cpp" />
     <ClCompile Include="source\utilities.cpp" />
     <ClCompile Include="source\vars.cpp" />
   </ItemGroup>
@@ -222,7 +221,6 @@
     <ClInclude Include="source\resource.h" />
     <ClInclude Include="source\scene.h" />
     <ClInclude Include="source\Timer.h" />
-    <ClInclude Include="source\update.h" />
     <ClInclude Include="source\utilities.h" />
     <ClInclude Include="source\vars.h" />
   </ItemGroup>

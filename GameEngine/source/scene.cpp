@@ -4,7 +4,7 @@
 #include <vector>
 #include "events.h"
 #include "render.h"
-#include "update.h"
+#include "animation.h"
 
 namespace GameEngine
 {
@@ -47,7 +47,7 @@ void processScene()
 void initScene()
 {
     clearSprites();
-    clearUpdates();
+    clearAnimations();
 }
 
 Scene* getCurrentScene()

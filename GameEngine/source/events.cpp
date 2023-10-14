@@ -3,7 +3,6 @@
 #include "vars.h"
 #include "audio.h"
 #include "scene.h"
-#include "update.h"
 #include "animation.h"
 #include "render.h"
 #include "resource.h"
@@ -437,8 +436,6 @@ void startMainloop()
         }
 
         processScene();
-
-        processUpdates();
 
         processAnimations();
 

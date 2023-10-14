@@ -19,7 +19,6 @@
 #include "resource.h"
 #include "scene.h"
 #include "Timer.h"
-#include "update.h"
 #include "utilities.h"
 
 // SDL headers
