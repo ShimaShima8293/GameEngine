@@ -209,6 +209,11 @@ Sprite* getSprite(int index)
 
 void removeSprite(Sprite* sprite)
 {
+    if (sprite == nullptr)
+    {
+        printError("removeSprite: Argument `sprite` was nullptr.");
+        return;
+    }
     for (int i = 0; i < mainLayer.size(); i++)
     {
         if (mainLayer[i] == sprite)
