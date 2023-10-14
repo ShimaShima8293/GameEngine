@@ -1,8 +1,5 @@
 #pragma once
-
-#include <vector>
-#include <iostream>
-#include <math.h>
+#include "internal.h"
 
 // Vector2
 struct Vec2
@@ -27,6 +24,8 @@ struct Rect
 {
     float x, y, w, h;
 };
+
+typedef SDL_Color Color;
 
 // Round a float value to nearest integer.
 int roundToInt(float input);

@@ -1,12 +1,7 @@
 #pragma once
 
-#include "macros.h"
+#include "internal.h"
 #include "utilities.h"
-#include <iostream>
-#include PATH_SDL
-#include PATH_SDL_IMAGE
-#include PATH_SDL_TTF
-#include <vector>
 
 typedef enum Orientation
 {
@@ -43,9 +38,9 @@ public:
     // Creates texture from pixels. This will create a surface with white pixels and internally call `loadFromSurface` so you don't need to manually create/free the surface.
     // \param width The width of the pixels
     // \param height The height of the pixels
-    bool createSolid(int width, int height, SDL_Color color = {255, 255, 255, 255});
+    bool createSolid(int width, int height, Color color = {255, 255, 255, 255});
 
-    bool createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation);
+    bool createGradient(int length, Color color1, Color color2, Orientation orientation);
 
     // Replace the current texture with another one. This will automatically free the old texture.
     // \param texture A pointer to SDL_Texture.
@@ -61,8 +56,8 @@ public:
     void setColor(Uint8 _red, Uint8 _green, Uint8 _blue);
 
     // Change the color and alpha modulation of the texture.
-    // \param color The SDL_Color for color modulation. (0-255)
-    void setColor(SDL_Color _color);
+    // \param color The Color for color modulation. (0-255)
+    void setColor(Color _color);
 
     // Change alpha modulation of the texture.
     // \param alpha The new alpha value.
@@ -213,7 +208,7 @@ public:
 
     void setName(std::string _name);
 
-    SDL_Color getColor();
+    Color getColor();
 
     void setText(std::string _text);
 
@@ -251,7 +246,7 @@ private:
     bool useAlphaMod = false;
     std::string text = "";
     TTF_Font* font = NULL;
-    SDL_Color textColor = { 255, 255, 255 };
+    Color textColor = { 255, 255, 255 };
     float rotation = 0.0;
     bool visible = true;
     bool doClip = false;

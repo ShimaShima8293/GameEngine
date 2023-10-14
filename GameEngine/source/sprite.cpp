@@ -1,13 +1,6 @@
-#include <iostream>
 #include "sprite.h"
 #include "vars.h"
 #include "events.h"
-#include <math.h>
-#include <cmath>
-#include PATH_SDL
-#include PATH_SDL_IMAGE
-#include PATH_SDL_TTF
-#include PATH_SDL_MIXER
 
 using namespace GameEngine;
 
@@ -130,7 +123,7 @@ bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
     }
     return true;
 }
-bool Sprite::createSolid(int width, int height, SDL_Color color)
+bool Sprite::createSolid(int width, int height, Color color)
 {
     if (width < 1 || height < 1)
     {
@@ -159,7 +152,7 @@ bool Sprite::createSolid(int width, int height, SDL_Color color)
 
     return true;
 }
-bool Sprite::createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation)
+bool Sprite::createGradient(int length, Color color1, Color color2, Orientation orientation)
 {
     if (length < 1)
     {
@@ -260,7 +253,7 @@ void Sprite::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
     blue = _blue;
 }
 
-void Sprite::setColor(SDL_Color _color)
+void Sprite::setColor(Color _color)
 {
     useColorMod = true;
     red = _color.r;
@@ -503,7 +496,7 @@ float Sprite::getScaleH()
 {
     return scaleH;
 }
-SDL_Color Sprite::getColor()
+Color Sprite::getColor()
 {
     return { red, green, blue, alpha };
 }

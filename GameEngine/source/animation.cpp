@@ -1,7 +1,6 @@
 #include "animation.h"
 #include "macros.h"
 #include "utilities.h"
-#include <vector>
 
 namespace GameEngine
 {

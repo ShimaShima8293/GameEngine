@@ -1,8 +1,4 @@
-#include <random>
-#include <iostream>
-#include <math.h>
 #include "utilities.h"
-#include <vector>
 
 int roundToInt(float input)
 {

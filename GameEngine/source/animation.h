@@ -1,4 +1,5 @@
 #pragma once
+#include "internal.h"
 #include "sprite.h"
 
 typedef int (*AnimationFunc)(int frame, int len);

@@ -1,9 +1,5 @@
-#include <iostream>
-#include <string>
-#include <cmath>
 #include "render.h"
 #include "utilities.h"
-#include "macros.h"
 #include "Timer.h"
 #include "vars.h"
 #include "audio.h"

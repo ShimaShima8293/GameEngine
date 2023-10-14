@@ -1,11 +1,7 @@
 #pragma once
 
-#include "macros.h"
-#include PATH_SDL
-#include <vector>
+#include "internal.h"
 #include "sprite.h"
-#include "Timer.h"
-
 
 // Render sprites and update the window. This function will delay for about 16 miliseconds to maintain 60 fps.
 void renderEverything();

@@ -1,7 +1,5 @@
 #pragma once
-
-#include "macros.h"
-#include PATH_SDL_MIXER
+#include "internal.h"
 
 enum Channels
 {

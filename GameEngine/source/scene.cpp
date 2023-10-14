@@ -1,7 +1,4 @@
-#include <iostream>
-#include "macros.h"
 #include "scene.h"
-#include <vector>
 #include "events.h"
 #include "render.h"
 #include "animation.h"

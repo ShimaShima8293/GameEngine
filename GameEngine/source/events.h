@@ -1,8 +1,6 @@
 #pragma once
 
-#include "macros.h"
-#include PATH_SDL
-#include <string>
+#include "internal.h"
 
 typedef enum WindowMode
 {
