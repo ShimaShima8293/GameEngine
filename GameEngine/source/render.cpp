@@ -20,6 +20,12 @@ namespace GameEngine
     Timer gameTimer;
     std::vector<Entity*> mainLayer;
     std::vector<std::vector<Entity*>*> layers = {};
+
+    struct DebugDict
+    {
+        std::string key{};
+        std::string value{};
+    };
 }
 using namespace GameEngine;
 
