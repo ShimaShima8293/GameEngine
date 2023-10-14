@@ -1,5 +1,45 @@
 #include "utilities.h"
 
+Vec2 Vec2::operator+(Vec2 vector)
+{
+    return {this->x + vector.x, this->y + vector.y};
+}
+
+Vec2 Vec2::operator-(Vec2 vector)
+{
+    return { this->x - vector.x, this->y - vector.y };
+}
+
+Vec2 Vec2::operator*(Vec2 vector)
+{
+    return { this->x * vector.x, this->y * vector.y };
+}
+
+Vec2 Vec2::operator/(Vec2 vector)
+{
+    return { this->x / vector.x, this->y / vector.y };
+}
+
+//void Vec2::operator+=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator-=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator*=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator/=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+
 int roundToInt(float input)
 {
     return static_cast<int>(std::round(input));

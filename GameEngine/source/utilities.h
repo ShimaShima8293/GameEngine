@@ -5,6 +5,14 @@
 struct Vec2
 {
     float x, y;
+    Vec2 operator+(Vec2 vector);
+    Vec2 operator-(Vec2 vector);
+    Vec2 operator*(Vec2 vector);
+    Vec2 operator/(Vec2 vector);
+    //void operator+=(Vec2 vector);
+    //void operator-=(Vec2 vector);
+    //void operator*=(Vec2 vector);
+    //void operator/=(Vec2 vector);
 };
 
 // Vector3
