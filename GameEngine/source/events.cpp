@@ -307,7 +307,7 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
 
-    printInfo("--- Game Engine Version " GE_VERSION_STR " ---");
+    std::cout << "--- Game Engine Version " GE_VERSION_STR " ---" << "\n";
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
