@@ -199,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="source\animation.cpp" />
     <ClCompile Include="source\audio.cpp" />
+    <ClCompile Include="source\debug.cpp" />
     <ClCompile Include="source\sprite.cpp" />
     <ClCompile Include="source\events.cpp" />
     <ClCompile Include="source\render.cpp" />
@@ -211,6 +212,7 @@
   <ItemGroup>
     <ClInclude Include="source\animation.h" />
     <ClInclude Include="source\audio.h" />
+    <ClInclude Include="source\debug.h" />
     <ClInclude Include="source\internal.h" />
     <ClInclude Include="source\sprite.h" />
     <ClInclude Include="source\events.h" />

@@ -26,7 +26,7 @@ void processScene()
         }
 
         initScene();
-        printInfo("processScene: loading a scene (" << queue << ")");
+        printInfo("processScene: Loading a scene.");
         current = queue;
         queue->start();
         if (current == queue)

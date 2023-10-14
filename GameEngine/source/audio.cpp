@@ -29,14 +29,16 @@ void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
     haltMusic();
     if (Mix_PlayChannel(CH_INTRO, intro, 0) == -1)
     {   
-        printError("playMusicSet: couldn't play a intro chunk SDL_error: " << SDL_GetError());
+        printError("playMusicSet: Failed to play an intro WAV chunk.");
+        printSDLError();
         return;
     }
     Mix_FadeOutChannel(CH_INTRO, fade);
 
     if (Mix_FadeInChannel(CH_LOOP, loop, -1, fade) == -1)
     {
-        printError("playMusicSet: couldn't play a loop chunk SDL_error: " << SDL_GetError());
+        printError("playMusicSet: Failed to play a loop WAV chunk.");
+        printSDLError();
         return;
     };
 }
@@ -50,7 +52,8 @@ void playSoundEffect(Mix_Chunk* chunk)
     }
     if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)
     {
-        printError("playSoundEffect: couldn't play a audio chunk SDL_error: " << SDL_GetError());
+        printError("playSoundEffect: Failed to play a sound effect WAV chunk.");
+        printSDLError();
         return;
     }
 }

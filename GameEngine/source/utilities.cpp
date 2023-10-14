@@ -173,6 +173,6 @@ float Timer::get()
 float Timer::print()
 {
     float time = get();
-    printInfo("Timer::print: current time: " << time);
+    printInfo("Timer::print: current time: " + std::to_string(time));
     return time;
 }

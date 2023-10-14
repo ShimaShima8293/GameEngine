@@ -45,6 +45,9 @@
     <ClCompile Include="source\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\audio.h">
@@ -81,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

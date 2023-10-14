@@ -1,6 +1,7 @@
 #pragma once
 
 #include "macros.h"
+#include "debug.h"
 #include <iostream>
 #include <vector>
 #include <string>

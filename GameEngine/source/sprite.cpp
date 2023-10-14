@@ -43,7 +43,8 @@ bool Sprite::createFromImage(std::string path)
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Sprite::createFromImage: Failed to create image texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromImage: Failed to create image texture.");
+        printSDLError();
     }
     else
     {
@@ -75,7 +76,8 @@ bool Sprite::createFromText(std::string _text, TTF_Font* _font)
     SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
     if (textSurface == NULL)
     {
-        printError("Sprite::createFromText: Failed to create surface. SDL_TTF Error: " << TTF_GetError());
+        printError("Sprite::createFromText: Failed to create surface.");
+        printSDLError();
         return false;
     }
 
@@ -83,7 +85,8 @@ bool Sprite::createFromText(std::string _text, TTF_Font* _font)
     newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     if (newTexture == NULL)
     {
-        printError("Sprite::createFromText: Failed to create texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromText: Failed to create texture.");
+        printSDLError();
         return false;
     }
 
@@ -108,7 +111,8 @@ bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
     SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
     if (newTexture == NULL)
     {
-        printError("Sprite::createFromSurface: Failed to create texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromSurface: Failed to create texture.");
+        printSDLError();
         return false;
     }
     else
@@ -204,14 +208,16 @@ void Sprite::render()
     {
         if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
         {
-            printError("Sprite::render: Failed to set alpha modulation. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to set alpha modulation.");
+            printSDLError();
         }
     }
     if (useColorMod)
     {
         if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
         {
-            printError("Sprite::render: Failed to set color modulation. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to set color modulation.");
+            printSDLError();
         }
     }
 
@@ -225,23 +231,25 @@ void Sprite::render()
 
         if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, flip) != 0)
         {
-            printError("Sprite::render: Failed to render. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to render.");
+            printSDLError();
         }
     }
     else
     {
         if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, flip) != 0)
         {
-            printError("Sprite::render: Failed to render. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to render.");
+            printSDLError();
         }
-    }
-    if (showBorders)
-    {
-        SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-        SDL_RenderDrawRectF(renderer, &rect);
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderDrawLineF(renderer, getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
-        SDL_RenderDrawLineF(renderer, getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
+        if (showBorders)
+        {
+            SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+            SDL_RenderDrawRectF(renderer, &rect);
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_RenderDrawLineF(renderer, getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
+            SDL_RenderDrawLineF(renderer, getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
+        }
     }
 }
 
