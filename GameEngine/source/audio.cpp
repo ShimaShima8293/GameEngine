@@ -16,6 +16,16 @@ void playMusicSet(MusicSet& set)
 
 void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 {
+    if (intro == nullptr)
+    {
+        printError("playMusicSet: Argument `intro` was nullptr.");
+        return;
+    }
+    if (intro == nullptr)
+    {
+        printError("playMusicSet: Argument `loop` was nullptr.");
+        return;
+    }
     haltMusic();
     if (Mix_PlayChannel(CH_INTRO, intro, 0) == -1)
     {   
@@ -33,6 +43,11 @@ void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 
 void playSoundEffect(Mix_Chunk* chunk)
 {
+    if (chunk == nullptr)
+    {
+        printError("playSoundEffect: Argument `chunk` was nullptr.");
+        return;
+    }
     if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)
     {
         printError("playSoundEffect: couldn't play a audio chunk SDL_error: " << SDL_GetError());
