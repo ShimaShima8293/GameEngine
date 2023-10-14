@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include "macros.h"
-#include "Entity.h"
+#include "sprite.h"
 #include <map>
 #include <vector>
 #include PATH_SDL
@@ -11,8 +11,8 @@
 
 namespace GameEngine
 {
-    extern Entity debugText;
-    extern Entity debugBg;
+    extern Sprite debugText;
+    extern Sprite debugBg;
 
     extern SDL_Window* window;
     extern SDL_Renderer* renderer;

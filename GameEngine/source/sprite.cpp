@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Entity.h"
+#include "sprite.h"
 #include "vars.h"
 #include "events.h"
 #include <math.h>
@@ -11,15 +11,15 @@
 
 using namespace GameEngine;
 
-Entity::Entity()
+Sprite::Sprite()
 {
     free();
 }
-Entity::~Entity()
+Sprite::~Sprite()
 {
     free();
 }
-void Entity::free()
+void Sprite::free()
 {
     if (texture != NULL && !useCommonTexture)
     {
@@ -43,14 +43,14 @@ void Entity::free()
     useColorMod = false;
     useAlphaMod = false;
 }
-bool Entity::createFromImage(std::string path)
+bool Sprite::createFromImage(std::string path)
 {
     free();
     SDL_Texture* newTexture = NULL;
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Entity::createFromImage: Failed to create image texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromImage: Failed to create image texture. SDL Error: " << SDL_GetError());
     }
     else
     {
@@ -60,17 +60,17 @@ bool Entity::createFromImage(std::string path)
 
     return newTexture != NULL;
 }
-bool Entity::createFromText(std::string _text, TTF_Font* _font)
+bool Sprite::createFromText(std::string _text, TTF_Font* _font)
 {
     if (_font == NULL)
     {
-        printError("Entity::createFromText: font was nullptr.");
+        printError("Sprite::createFromText: font was nullptr.");
         return false;
     }
 
     if (_text == "")
     {
-        printError("Entity::createFromText: text was empty.");
+        printError("Sprite::createFromText: text was empty.");
         return false;
     }
 
@@ -82,7 +82,7 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
     SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
     if (textSurface == NULL)
     {
-        printError("Entity::createFromText: Failed to create surface. SDL_TTF Error: " << TTF_GetError());
+        printError("Sprite::createFromText: Failed to create surface. SDL_TTF Error: " << TTF_GetError());
         return false;
     }
 
@@ -90,7 +90,7 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
     newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
     if (newTexture == NULL)
     {
-        printError("Entity::createFromText: Failed to create texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromText: Failed to create texture. SDL Error: " << SDL_GetError());
         return false;
     }
 
@@ -103,11 +103,11 @@ bool Entity::createFromText(std::string _text, TTF_Font* _font)
 
     return newTexture != NULL;
 }
-bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
+bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
 {
     if (_surface == nullptr)
     {
-        printError("Entity::createFromSurface: Parameter surface was nullptr.");
+        printError("Sprite::createFromSurface: Parameter surface was nullptr.");
         return false;
     }
 
@@ -115,7 +115,7 @@ bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
     SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
     if (newTexture == NULL)
     {
-        printError("Entity::createFromSurface: Failed to create texture. SDL Error: " << SDL_GetError());
+        printError("Sprite::createFromSurface: Failed to create texture. SDL Error: " << SDL_GetError());
         return false;
     }
     else
@@ -130,11 +130,11 @@ bool Entity::createFromSurface(SDL_Surface* _surface, bool _free)
     }
     return true;
 }
-bool Entity::createSolid(int width, int height, SDL_Color color)
+bool Sprite::createSolid(int width, int height, SDL_Color color)
 {
     if (width < 1 || height < 1)
     {
-        printError("Entity::createSolid: width or height cannot be smaller than 1.");
+        printError("Sprite::createSolid: width or height cannot be smaller than 1.");
         return false;
     }
 
@@ -159,11 +159,11 @@ bool Entity::createSolid(int width, int height, SDL_Color color)
 
     return true;
 }
-bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation)
+bool Sprite::createGradient(int length, SDL_Color color1, SDL_Color color2, Orientation orientation)
 {
     if (length < 1)
     {
-        printError("Entity::createGradient: length cannot be smaller than 1.");
+        printError("Sprite::createGradient: length cannot be smaller than 1.");
         return false;
     }
 
@@ -187,11 +187,11 @@ bool Entity::createGradient(int length, SDL_Color color1, SDL_Color color2, Orie
 
     return false;
 }
-void Entity::setTexture(SDL_Texture* _texture, bool _free)
+void Sprite::setTexture(SDL_Texture* _texture, bool _free)
 {
     if (_texture == nullptr)
     {
-        printError("Entity::setTexture: texture was nullptr.");
+        printError("Sprite::setTexture: texture was nullptr.");
         return;
     }
 
@@ -200,7 +200,7 @@ void Entity::setTexture(SDL_Texture* _texture, bool _free)
     useCommonTexture = !_free;
     SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
 }
-void Entity::render()
+void Sprite::render()
 {
     if (getVisibility() == false || alpha == 0)
     {
@@ -211,14 +211,14 @@ void Entity::render()
     {
         if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
         {
-            printError("Entity::render: Failed to set alpha modulation. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to set alpha modulation. SDL Error: " << SDL_GetError());
         }
     }
     if (useColorMod)
     {
         if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
         {
-            printError("Entity::render: Failed to set color modulation. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to set color modulation. SDL Error: " << SDL_GetError());
         }
     }
 
@@ -232,14 +232,14 @@ void Entity::render()
 
         if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, flip) != 0)
         {
-            printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
     else
     {
         if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, flip) != 0)
         {
-            printError("Entity::render: Failed to render. SDL Error: " << SDL_GetError());
+            printError("Sprite::render: Failed to render. SDL Error: " << SDL_GetError());
         }
     }
     if (showBorders)
@@ -252,7 +252,7 @@ void Entity::render()
     }
 }
 
-void Entity::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
+void Sprite::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
 {
     useColorMod = true;
     red = _red;
@@ -260,7 +260,7 @@ void Entity::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
     blue = _blue;
 }
 
-void Entity::setColor(SDL_Color _color)
+void Sprite::setColor(SDL_Color _color)
 {
     useColorMod = true;
     red = _color.r;
@@ -272,54 +272,54 @@ void Entity::setColor(SDL_Color _color)
     }
 }
 
-void Entity::setAlpha(Uint8 _alpha)
+void Sprite::setAlpha(Uint8 _alpha)
 {
     useAlphaMod = true;
     alpha = _alpha;
 }
-void Entity::clearColor()
+void Sprite::clearColor()
 {
     setColor(255, 255, 255);
     useColorMod = false;
 }
-void Entity::clearAlpha()
+void Sprite::clearAlpha()
 {
     setAlpha(255);
     useAlphaMod = false;
 }
-void Entity::moveTo(float speed, float angle)
+void Sprite::moveTo(float speed, float angle)
 {
     changePos(speed * std::sin(angle * 3.14f / 180.0f), speed * std::cos(angle * 3.14f / 180.0f));
 }
-float Entity::getAngleTowards(float x, float y)
+float Sprite::getAngleTowards(float x, float y)
 {
     return 90.0f - atan2(y - getCY(), x - getCX()) * (180.0f / 3.14f);
 }
-float Entity::getAngleTowards(Vec2 vector)
+float Sprite::getAngleTowards(Vec2 vector)
 {
     return getAngleTowards(vector.x, vector.y);
 }
-float Entity::getTopB()
+float Sprite::getTopB()
 {
     return position.y;
 }
-float Entity::getBottomB()
+float Sprite::getBottomB()
 {
     return position.y + getH();
 }
-float Entity::getLeftB()
+float Sprite::getLeftB()
 {
     return position.x;
 }
-float Entity::getRightB()
+float Sprite::getRightB()
 {
     return position.x + getW();
 }
-void Entity::setSize(float _w, float _h)
+void Sprite::setSize(float _w, float _h)
 {
     if (_w < 0 || _h < 0)
     {
-        printError("Entity::setSize: width or height was smaller than 0.");
+        printError("Sprite::setSize: width or height was smaller than 0.");
         return;
     }
     // width * scaleW = _w
@@ -327,121 +327,121 @@ void Entity::setSize(float _w, float _h)
     scaleH = _h / height;
     // std::cout << "Input: " << _w << " Output: " << (_w / width * width) << std::endl;
 }
-void Entity::setSize(Vec2 vector)
+void Sprite::setSize(Vec2 vector)
 {
     setSize(vector.x, vector.y);
 }
-void Entity::changeSize(float _w, float _h)
+void Sprite::changeSize(float _w, float _h)
 {
     scaleW += _w;
     scaleH += _h;
 }
-void Entity::changeSize(Vec2 vector)
+void Sprite::changeSize(Vec2 vector)
 {
     changeSize(vector.x, vector.y);
 }
-void Entity::setScale(float _w, float _h)
+void Sprite::setScale(float _w, float _h)
 {
     scaleW = _w;
     scaleH = _h;
 }
-void Entity::setScale(Vec2 vector)
+void Sprite::setScale(Vec2 vector)
 {
     setScale(vector.x, vector.y);
 }
-void Entity::stretchToWindow()
+void Sprite::stretchToWindow()
 {
     setSize((float)getGameWidth(), (float)getGameHeight());
     setPos(0, 0);
 }
-void Entity::fitToWindow()
+void Sprite::fitToWindow()
 {
     if (getGameHeight() / getGameWidth() > getH() / getW())
     {
 
     }
 }
-void Entity::setPos(float _x, float _y)
+void Sprite::setPos(float _x, float _y)
 {
     position.x = _x;
     position.y = _y;
 }
-void Entity::setPos(Vec2 vector)
+void Sprite::setPos(Vec2 vector)
 {
     setPos(vector.x, vector.y);
 }
-void Entity::setX(float _x)
+void Sprite::setX(float _x)
 {
     position.x = _x;
 }
-void Entity::setY(float _y)
+void Sprite::setY(float _y)
 {
     position.y = _y;
 }
-void Entity::setCPos(float _x, float _y)
+void Sprite::setCPos(float _x, float _y)
 {
     position.x = _x - (getW() / 2);
     position.y = _y - (getH() / 2);
 }
-void Entity::setCPos(Vec2 vector)
+void Sprite::setCPos(Vec2 vector)
 {
     setCPos(vector.x, vector.y);
 }
-void Entity::setCX(float _x)
+void Sprite::setCX(float _x)
 {
     position.x = _x - (getW() / 2);
 }
-void Entity::setCY(float _y)
+void Sprite::setCY(float _y)
 {
     position.y = _y - (getH() / 2);
 }
-void Entity::setRect(Rect rect)
+void Sprite::setRect(Rect rect)
 {
     setPos(rect.x, rect.y);
     setSize(rect.w, rect.h);
 }
-Rect Entity::getRect()
+Rect Sprite::getRect()
 {
     return { getX(), getY(), getW(), getH() };
 }
-void Entity::setPosCentered()
+void Sprite::setPosCentered()
 {
     setPos(getWindowCenterX(), getWindowCenterY());
 }
-void Entity::changePos(float _x, float _y)
+void Sprite::changePos(float _x, float _y)
 {
     position.x += _x;
     position.y += _y;
 }
-void Entity::changePos(Vec2 vector)
+void Sprite::changePos(Vec2 vector)
 {
     changePos(vector.x, vector.y);
 }
-Vec2 Entity::getPos()
+Vec2 Sprite::getPos()
 {
     return position;
 }
-Vec2 Entity::getCPos()
+Vec2 Sprite::getCPos()
 {
     return { position.x + (getW() / 2), position.y + (getH() / 2) };
 }
-float Entity::getX()
+float Sprite::getX()
 {
     return position.x;
 }
-float Entity::getY()
+float Sprite::getY()
 {
     return position.y;
 }
-float Entity::getCX()
+float Sprite::getCX()
 {
     return position.x + (getW() / 2);
 }
-float Entity::getCY()
+float Sprite::getCY()
 {
     return position.y + (getH() / 2);
 }
-float Entity::getW()
+float Sprite::getW()
 {
     if (doClip)
     {
@@ -449,29 +449,29 @@ float Entity::getW()
     }
     return (float)(width)*scaleW;
 }
-float Entity::getH()
+float Sprite::getH()
 {
     return (float)(height)*scaleH;
 }
 
-int Entity::getTextureW()
+int Sprite::getTextureW()
 {
     return width;
 }
-int Entity::getTextureH()
+int Sprite::getTextureH()
 {
     return height;
 }
-float Entity::getTextureRatio()
+float Sprite::getTextureRatio()
 {
     return (float)width / (float)height;
 }
-void Entity::setClipPos(int _clipW, int _clipI = 0)
+void Sprite::setClipPos(int _clipW, int _clipI = 0)
 {
     clipW = _clipW;
     clipI = _clipI;
 }
-void Entity::clipNext()
+void Sprite::clipNext()
 {
     clipI++;
     if (clipI * clipW >= width)
@@ -479,36 +479,36 @@ void Entity::clipNext()
         clipI = 0;
     }
 }
-float Entity::getWindowCenterX()
+float Sprite::getWindowCenterX()
 {
     return getGameWidth() / 2.0f - getW() / 2.0f;
 }
-float Entity::getWindowCenterY()
+float Sprite::getWindowCenterY()
 {
     return getGameHeight() / 2.0f - getH() / 2.0f;
 }
-std::string Entity::getName()
+std::string Sprite::getName()
 {
     return name;
 }
-void Entity::setName(std::string _name)
+void Sprite::setName(std::string _name)
 {
     name = _name;
 }
-float Entity::getScaleW()
+float Sprite::getScaleW()
 {
     return scaleW;
 }
-float Entity::getScaleH()
+float Sprite::getScaleH()
 {
     return scaleH;
 }
-SDL_Color Entity::getColor()
+SDL_Color Sprite::getColor()
 {
     return { red, green, blue, alpha };
 }
 // Use this if you are only changing the text. Its lighter than `createFromText`
-void Entity::setText(std::string _text)
+void Sprite::setText(std::string _text)
 {
     if (text != _text)
     {
@@ -518,45 +518,45 @@ void Entity::setText(std::string _text)
 }
 
 // Rotation
-void Entity::setRotation(float _rotation)
+void Sprite::setRotation(float _rotation)
 {
     rotation = _rotation;
 }
-void Entity::changeRotation(float _rotation)
+void Sprite::changeRotation(float _rotation)
 {
     setRotation(getRotation() + _rotation);
 }
-float Entity::getRotation()
+float Sprite::getRotation()
 {
     return rotation;
 }
 
-void Entity::setVisibility(bool _visible)
+void Sprite::setVisibility(bool _visible)
 {
     visible = _visible;
 }
 
-bool Entity::getVisibility()
+bool Sprite::getVisibility()
 {
     return visible;
 }
 
-void Entity::setClip(bool _doClip)
+void Sprite::setClip(bool _doClip)
 {
     doClip = _doClip;
 }
 
-bool Entity::getClip()
+bool Sprite::getClip()
 {
     return doClip;
 }
 
-void Entity::setFlip(SDL_RendererFlip _flip)
+void Sprite::setFlip(SDL_RendererFlip _flip)
 {
     flip = _flip;
 }
 
-SDL_RendererFlip Entity::getFlip()
+SDL_RendererFlip Sprite::getFlip()
 {
     return flip;
 }

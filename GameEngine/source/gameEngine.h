@@ -12,7 +12,7 @@
 // Core headers
 #include "animation.h"
 #include "audio.h"
-#include "Entity.h"
+#include "sprite.h"
 #include "events.h"
 #include "macros.h"
 #include "render.h"

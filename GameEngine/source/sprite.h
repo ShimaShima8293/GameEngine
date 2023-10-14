@@ -14,22 +14,17 @@ typedef enum Orientation
     HORIZONTAL
 } Orientation;
 
-#define loadFromImage createFromImage
-#define loadFromText createFromText
-#define loadFromSurface createFromSurface
-#define loadFromPixel createSolid
-
 // A higher-level abstraction of texture and rendering.
-class Entity
+class Sprite
 {
 public:
-    Entity();
-    ~Entity();
+    Sprite();
+    ~Sprite();
 
-    // Frees entity's texture and initializes variables.
+    // Frees sprite's texture and initializes variables.
     void free();
 
-    // Loads a image and set as the texture of the entity.
+    // Loads a image and set as the texture of the sprite.
     // \param path The path of the image to load.
     // \returns Returns true if the image successfully is loaded, false if not.
     bool createFromImage(std::string path);
@@ -56,7 +51,7 @@ public:
     // \param texture A pointer to SDL_Texture.
     void setTexture(SDL_Texture* _texture, bool free = true);
 
-    // Renders the entity. This will automatically called if you use layer features.
+    // Renders the sprite. This will automatically called if you use layer features.
     void render();
 
     // Changes the color modulation of the texture.
@@ -121,12 +116,12 @@ public:
     // Similar to `stretchToWindow` but this doesn't change the ratio.
     void fitToWindow();
 
-    // Set the entity's position.
+    // Set the sprite's position.
     // \param x The new x-axis
     // \param y The new y-axis
     void setPos(float _x, float _y);
 
-    // Set the entity's position.
+    // Set the sprite's position.
     // \param vector The new position vector.
     void setPos(Vec2 vector);
 
@@ -146,15 +141,15 @@ public:
 
     Rect getRect();
 
-    // Set the entity's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
+    // Set the sprite's position to the center of the viewport. This is a more readable shortcut for `setPos(getWindowCenterX(), getWindowCenterY())`.
     void setPosCentered();
 
-    // Set the entity's position relative to the current position.
+    // Set the sprite's position relative to the current position.
     // \param x How many pixels to move horizontally.
     // \param y How many pixels to move vertically.
     void changePos(float _x, float _y);
 
-    // Set the entity's position relative to the current position.
+    // Set the sprite's position relative to the current position.
     // \param vector How many pixels to move horizontally/vertically.
     void changePos(Vec2 vector);
 
@@ -162,22 +157,22 @@ public:
 
     Vec2 getCPos();
 
-    // Returns the entity's current x-axis.
+    // Returns the sprite's current x-axis.
     float getX();
 
-    // Returns the entity's current y-axis.
+    // Returns the sprite's current y-axis.
     float getY();
 
-    // Returns the entity's current x-axis.
+    // Returns the sprite's current x-axis.
     float getCX();
 
-    // Returns the entity's current y-axis.
+    // Returns the sprite's current y-axis.
     float getCY();
 
-    // Returns the entity's current width.
+    // Returns the sprite's current width.
     float getW();
 
-    // Returns the entity's current height.
+    // Returns the sprite's current height.
     float getH();
 
     // Returns the actual texture's width. It doesn't consider the scaling option.
@@ -189,7 +184,7 @@ public:
     // Returns the actual texture's ratio. It is a more readable shortcut for `getTextureW() / getTextureH()`.
     float getTextureRatio();
 
-    // Set the clipping feature for the entity.
+    // Set the clipping feature for the sprite.
     // \param clipW The width of the clipped texture.
     // \param clipI The index of the clipped texture.
     void setClipPos(int _clipW, int _clipI);
@@ -197,12 +192,12 @@ public:
     // Increment the clipping index. This is a more readable shortcut for `setClipPos(width, ++index)`.
     void clipNext();
 
-    // Set the entity's scale. When rendering, the entity's size will be multiplied by the scale variables.
+    // Set the sprite's scale. When rendering, the sprite's size will be multiplied by the scale variables.
     // \param w The scale for the width.
     // \param h The scale for the height.
     void setScale(float _w, float _h);
 
-    // Set the entity's scale. When rendering, the entity's size will be multiplied by the scale variables.
+    // Set the sprite's scale. When rendering, the sprite's size will be multiplied by the scale variables.
     // \param vector The scale for the width/height.
     void setScale(Vec2 vector);
 

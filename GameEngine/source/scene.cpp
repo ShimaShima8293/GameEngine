@@ -46,7 +46,7 @@ void processScene()
 
 void initScene()
 {
-    clearEntities();
+    clearSprites();
     clearUpdates();
 }
 
