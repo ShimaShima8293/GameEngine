@@ -14,12 +14,6 @@ namespace GameEngine
     Timer gameTimer;
     std::vector<Sprite*> mainLayer;
     std::vector<std::vector<Sprite*>*> layers = {};
-
-    struct DebugDict
-    {
-        std::string key{};
-        std::string value{};
-    };
 }
 using namespace GameEngine;
 
