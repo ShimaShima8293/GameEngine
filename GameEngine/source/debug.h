@@ -1,5 +1,5 @@
 #pragma once
-#include "internal.h"
+#include <string>
 
 enum DebugLevel
 {

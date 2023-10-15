@@ -1,4 +1,7 @@
 #include "debug.h"
+#include <iostream>
+#include "macros.h"
+#include PATH_SDL
 
 namespace GameEngine
 {
