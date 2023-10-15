@@ -296,6 +296,16 @@ int hideCursor()
 
 int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
 {
+    if (_gameWidth <= 0)
+    {
+        printFatalError("init: Parameter `_gameWidth` was smaller than 1.");
+        return -1;
+    }
+    if (_gameHeight <= 0)
+    {
+        printFatalError("init: Parameter `_gameHeight` was smaller than 1.");
+        return -1;
+    }
 #ifdef _WIN32
     // DPI Aware
     SetProcessDPIAware();
@@ -381,7 +391,7 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     TTF_Font* debugFont = TTF_OpenFont(PATH_DEFAULT_FONT, 24);
     if (debugFont == NULL)
     {
-        printError("init: Failed to create debugFont.");
+        printError("init: Failed to create `debugFont`.");
         printSDLError();
     }
 
@@ -392,12 +402,12 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
 
     if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
     {
-        printFatalError("init: Failed to set fullscreen resolution.");
+        printError("init: Failed to set fullscreen resolution.");
     }
 
     if (SDL_JoystickOpen(0) == nullptr)
     {
-        printInfo("init: Joystick not found");
+        printInfo("init: Joystick not found.");
     }
 
     running = true;
@@ -413,17 +423,23 @@ SDL_DisplayMode getDisplayMode()
 
 int setFullscreenResolution(int w, int h)
 {
-    if (w <= 0 || h <= 0)
+    if (w <= 0)
     {
-        printError("setFullscreenResolution: w or h cannot be smaller than 1.");
+        printError("setFullscreenResolution: Parameter `w` was smaller than 1.");
         return -1;
     }
+    if (h <= 0)
+    {
+        printError("setFullscreenResolution: Parameter `h` was smaller than 1.");
+        return -1;
+    }
+
     SDL_DisplayMode mode = getDisplayMode();
     mode.w = w;
     mode.h = h;
     if (SDL_SetWindowDisplayMode(window, &mode) != 0)
     {
-        printError("setFullscreenResolution: failed to set window display mode.");
+        printError("setFullscreenResolution: Failed to set window display mode.");
         printSDLError();
         return -1;
     }

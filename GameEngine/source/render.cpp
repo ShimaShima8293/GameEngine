@@ -60,7 +60,7 @@ void renderEverything()
             currentSprite = (*layers[i])[j];
             if (currentSprite == nullptr)
             {
-                printError("renderEverything: currentSprite was nullptr.");
+                printError("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
             if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
@@ -80,7 +80,7 @@ void renderEverything()
         currentSprite = mainLayer[i];
         if (currentSprite == nullptr)
         {
-            printError("renderEverything: currentSprite was nullptr.");
+            printError("renderEverything: `currentSprite` was nullptr.");
             continue;
         }
         if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
@@ -103,19 +103,23 @@ void renderEverything()
     {
         int fps = static_cast<int>(std::round(1.0f / renderDuration));
 
-        std::string modeText = "Unknown";
-        if (getWindowMode() == WINDOW_FULLSCREEN)
+        std::string modeText = "Error";
+        switch (getWindowMode())
         {
+        case WINDOW_FULLSCREEN:
             modeText = "Fullscreen";
-        }
-        else if (getWindowMode() == WINDOW_FULLSCREEN_DESKTOP)
-        {
+            break;
+        case WINDOW_FULLSCREEN_DESKTOP:
             modeText = "Fullscreen Desktop";
-        }
-        else if (getWindowMode() == WINDOW_WINDOWED)
-        {
+            break;
+        case WINDOW_WINDOWED:
             modeText = "Windowed";
+            break;
+        default:
+            modeText = "Unknown";
+            break;
         }
+
         SDL_DisplayMode mode = getDisplayMode();
         debugText.setText(
             "Game Engine Version: " + std::string(GE_VERSION_STR) + "\n" +
@@ -172,7 +176,7 @@ void addSprite(Sprite* sprite)
 {
     if (sprite == nullptr)
     {
-        printError("addSprite: parameter sprite was nullptr.");
+        printError("addSprite: Parameter `sprite` was nullptr.");
         return;
     }
     mainLayer.push_back(sprite);
@@ -202,7 +206,7 @@ Sprite* getSprite(int index)
     }
     else
     {
-        printError("getSprite: index is too large");
+        printError("getSprite: Parameter `index` was larger than the sprite count.");
         return nullptr;
     }
 }
@@ -211,7 +215,7 @@ void removeSprite(Sprite* sprite)
 {
     if (sprite == nullptr)
     {
-        printError("removeSprite: Argument `sprite` was nullptr.");
+        printError("removeSprite: Parameter `sprite` was nullptr.");
         return;
     }
     for (int i = 0; i < mainLayer.size(); i++)

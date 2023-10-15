@@ -66,7 +66,7 @@ void processAnimations()
         AnimationData* currentData = &dataList[i];
         if (currentData->func == nullptr)
         {
-            printError("processAnimations: currentData->func was nullptr");
+            printError("processAnimations: `currentData->func` was nullptr");
             continue;
         }
 
@@ -114,12 +114,12 @@ void processAnimations()
         SpriteAnimationData* currentData = &dataList2[i];
         if (currentData->func == nullptr)
         {
-            printError("processAnimations: currentData->func was nullptr");
+            printError("processAnimations: `currentData->func` was nullptr");
             continue;
         }
         if (currentData->sprite == nullptr)
         {
-            printError("processAnimations: currentData->sprite was nullptr");
+            printError("processAnimations: `currentData->sprite` was nullptr");
             continue;
         }
 
@@ -168,19 +168,13 @@ void playAnimation(AnimationFunc func, int len, bool reversed)
 {
     if (func == nullptr)
     {
-        printError("playAnimation: parameter func was nullptr.");
+        printError("playAnimation: Parameter `func` was nullptr.");
         return;
     }
 
-    if (len < 0)
+    if (len <= 0)
     {
-        printError("playAnimation: len cannot be smaller than 0.");
-        return;
-    }
-
-    if (len == 0 && reversed)
-    {
-        printError("playAnimation: animation cannot be reversed when len is 0.");
+        printError("playAnimation: Parameter `len` was equal to or smaller than 0.");
         return;
     }
 
@@ -212,19 +206,13 @@ void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len, bool
 {
     if (func == nullptr)
     {
-        printError("playSpriteAnimation: parameter func was nullptr.");
+        printError("playSpriteAnimation: Parameter `func` was nullptr.");
         return;
     }
 
-    if (len < 0)
+    if (len <= 0)
     {
-        printError("playSpriteAnimation: len cannot be smaller than 0.");
-        return;
-    }
-
-    if (len == 0 && reversed)
-    {
-        printError("playSpriteAnimation: animation cannot be reversed when len is 0.");
+        printError("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
         return;
     }
 
@@ -257,7 +245,7 @@ void stopAnimation(AnimationFunc func)
 {
     if (func == nullptr)
     {
-        printError("stopAnimation: parameter func was nullptr.");
+        printError("stopAnimation: Parameter `func` was nullptr.");
         return;
     }
 
@@ -270,7 +258,7 @@ void stopSpriteAnimation(SpriteAnimationFunc func)
 {
     if (func == nullptr)
     {
-        printError("stopSpriteAnimation: parameter func was nullptr.");
+        printError("stopSpriteAnimation: Parameter `func` was nullptr.");
         return;
     }
 

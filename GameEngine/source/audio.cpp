@@ -18,12 +18,12 @@ void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 {
     if (intro == nullptr)
     {
-        printError("playMusicSet: Argument `intro` was nullptr.");
+        printError("playMusicSet: Parameter `intro` was nullptr.");
         return;
     }
     if (intro == nullptr)
     {
-        printError("playMusicSet: Argument `loop` was nullptr.");
+        printError("playMusicSet: Parameter `loop` was nullptr.");
         return;
     }
     haltMusic();
@@ -47,7 +47,7 @@ void playSoundEffect(Mix_Chunk* chunk)
 {
     if (chunk == nullptr)
     {
-        printError("playSoundEffect: Argument `chunk` was nullptr.");
+        printError("playSoundEffect: Parameter `chunk` was nullptr.");
         return;
     }
     if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)

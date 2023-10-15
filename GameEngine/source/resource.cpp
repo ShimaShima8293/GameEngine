@@ -14,13 +14,13 @@ TTF_Font* openFont(std::string path, int size)
     TTF_Font* _font = TTF_OpenFont(path.c_str(), size);
     if (_font == NULL)
     {
-        printError("openFont: Could not open a font...");
+        printError("openFont: Failed to open a font.");
         printSDLError();
         return nullptr;
     }
 
     fontList.push_back(_font);
-    printInfo("openFont: opened a font at " + path);
+    printInfo("openFont: Opened a font at " + path);
     return _font;
 }
 Mix_Music* openMusic(std::string path)
@@ -28,13 +28,13 @@ Mix_Music* openMusic(std::string path)
     Mix_Music* _music = Mix_LoadMUS(path.c_str());
     if (_music == NULL)
     {
-        printError("openMusic: Could not open an audio...");
+        printError("openMusic: Failed to open a music.");
         printSDLError();
         return nullptr;
     }
 
     musicList.push_back(_music);
-    printInfo("openMusic: opened a music at " + path);
+    printInfo("openMusic: Opened a music at " + path);
     return _music;
 }
 Mix_Chunk* openWAV(std::string path)
@@ -42,13 +42,13 @@ Mix_Chunk* openWAV(std::string path)
     Mix_Chunk* _chunk = Mix_LoadWAV(path.c_str());
     if (_chunk == NULL)
     {
-        printError("openWAV: Could not open an WAV chunk...");
+        printError("openWAV: Failed to open a WAV chunk.");
         printSDLError();
         return nullptr;
     }
 
     chunkList.push_back(_chunk);
-    printInfo("openWAV: opened a WAV chunk at " + path);
+    printInfo("openWAV: Opened a WAV chunk at " + path);
     return _chunk;
 }
 
@@ -69,7 +69,7 @@ void closeFont(TTF_Font*& font)
 {
     if (font == nullptr)
     {
-        printError("closeFont: nullptr passed");
+        printError("closeFont: Parameter `font` was nullptr.");
         return;
     }
     for (int i = 0; i < fontList.size(); i++)
@@ -89,7 +89,7 @@ void closeMusic(Mix_Music*& music)
 {
     if (music == nullptr)
     {
-        printError("closeMusic: nullptr passed");
+        printError("closeMusic: Parameter `music` was nullptr.");
         return;
     }
     for (int i = 0; i < musicList.size(); i++)
@@ -109,7 +109,7 @@ void closeWAV(Mix_Chunk*& chunk)
 {
     if (chunk == nullptr)
     {
-        printError("closeWAV: nullptr passed");
+        printError("closeWAV: Parameter `chunk` was nullptr.");
         return;
     }
     for (int i = 0; i < chunkList.size(); i++)

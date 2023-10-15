@@ -58,13 +58,13 @@ bool Sprite::createFromText(std::string _text, TTF_Font* _font)
 {
     if (_font == NULL)
     {
-        printError("Sprite::createFromText: font was nullptr.");
+        printError("Sprite::createFromText: Parameter `font` was nullptr.");
         return false;
     }
 
     if (_text == "")
     {
-        printError("Sprite::createFromText: text was empty.");
+        printError("Sprite::createFromText: Parameter `text` was empty.");
         return false;
     }
 
@@ -103,7 +103,7 @@ bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
 {
     if (_surface == nullptr)
     {
-        printError("Sprite::createFromSurface: Parameter surface was nullptr.");
+        printError("Sprite::createFromSurface: Parameter `surface` was nullptr.");
         return false;
     }
 
@@ -129,9 +129,14 @@ bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
 }
 bool Sprite::createSolid(int width, int height, Color color)
 {
-    if (width < 1 || height < 1)
+    if (width < 1)
     {
-        printError("Sprite::createSolid: width or height cannot be smaller than 1.");
+        printError("Sprite::createSolid: Parameter `width` was smaller than 1.");
+        return false;
+    }
+    if (height < 1)
+    {
+        printError("Sprite::createSolid: Parameter `height` was smaller than 1.");
         return false;
     }
 
@@ -160,7 +165,7 @@ bool Sprite::createGradient(int length, Color color1, Color color2, Orientation 
 {
     if (length < 1)
     {
-        printError("Sprite::createGradient: length cannot be smaller than 1.");
+        printError("Sprite::createGradient: Parameter `length` was smaller than 1.");
         return false;
     }
 
@@ -182,13 +187,13 @@ bool Sprite::createGradient(int length, Color color1, Color color2, Orientation 
     }
     createFromSurface(surface);
 
-    return false;
+    return true;
 }
 void Sprite::setTexture(SDL_Texture* _texture, bool _free)
 {
     if (_texture == nullptr)
     {
-        printError("Sprite::setTexture: texture was nullptr.");
+        printError("Sprite::setTexture: Parameter `texture` was nullptr.");
         return;
     }
 
@@ -318,9 +323,14 @@ float Sprite::getRightB()
 }
 void Sprite::setSize(float _w, float _h)
 {
-    if (_w < 0 || _h < 0)
+    if (_w <= 0)
     {
-        printError("Sprite::setSize: width or height was smaller than 0.");
+        printError("Sprite::setSize: Parameter `_w` was smaller than 1.");
+        return;
+    }
+    if (_h <= 0)
+    {
+        printError("Sprite::setSize: Parameter `_h` was smaller than 1.");
         return;
     }
     // width * scaleW = _w
