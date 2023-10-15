@@ -169,10 +169,3 @@ float Timer::get()
     duration = endTime - startTime;
     return duration.count();
 }
-
-float Timer::print()
-{
-    float time = get();
-    printInfo("Timer::print: current time: " + std::to_string(time));
-    return time;
-}
