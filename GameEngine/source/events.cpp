@@ -1,13 +1,10 @@
 #include "events.h"
-#include <map>
 #include "vars.h"
 #include "audio.h"
 #include "scene.h"
-#include "update.h"
 #include "animation.h"
 #include "render.h"
 #include "resource.h"
-#include "macros.h"
 
 namespace GameEngine
 {
@@ -271,7 +268,8 @@ int setSystemCursor(SDL_SystemCursor _cursor)
     cursor = SDL_CreateSystemCursor(_cursor);
     if (cursor == nullptr)
     {
-        printError("setSystemCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
+        printError("setSystemCursor: Failed to create a system cursor.");
+        printSDLError();
         return -1;
     }
     SDL_SetCursor(cursor);
@@ -288,7 +286,8 @@ int hideCursor()
     cursor = SDL_CreateCursor((Uint8*)cursorData, (Uint8*)cursorData, 8, 8, 4, 4);
     if (cursor == nullptr)
     {
-        printError("hideCursor: Failed to create a system cursor. SDL error: " << SDL_GetError());
+        printError("hideCursor: Failed to create a system cursor.");
+        printSDLError();
         return -1;
     }
     SDL_SetCursor(cursor);
@@ -297,6 +296,16 @@ int hideCursor()
 
 int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
 {
+    if (_gameWidth <= 0)
+    {
+        printFatalError("init: Parameter `_gameWidth` was smaller than 1.");
+        return -1;
+    }
+    if (_gameHeight <= 0)
+    {
+        printFatalError("init: Parameter `_gameHeight` was smaller than 1.");
+        return -1;
+    }
 #ifdef _WIN32
     // DPI Aware
     SetProcessDPIAware();
@@ -308,33 +317,37 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     gameWidth = _gameWidth;
     gameHeight = _gameHeight;
 
-    printInfo("--- Game Engine Version " << GE_VERSION_STR << " ---");
+    std::cout << "--- Game Engine Version " GE_VERSION_STR " ---" << "\n";
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
     {
-        printFatalError("init: Failed to initialize SDL. SDL Error: " << SDL_GetError());
+        printFatalError("init: Failed to initialize SDL.");
         return -1;
     }
     if (IMG_Init(0) < 0)
     {
-        printFatalError("init: Failed to initialize SDL_Image. SDL_image Error: " << IMG_GetError());
+        printFatalError("init: Failed to initialize SDL_Image.");
+        printSDLError();
         return -1;
     }
     if (TTF_Init() < 0)
     {
-        printFatalError("init: Failed to initialize SDL_TTF. SDL_ttf Error: " << TTF_GetError());
+        printFatalError("init: Failed to initialize SDL_TTF.");
+        printSDLError();
         return -1;
     }
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) != 0)
     {
-        printFatalError("init: Failed to initialize SDL_Mixer. SDL_mixer Error: " << Mix_GetError());
+        printFatalError("init: Failed to initialize SDL_Mixer.");
+        printSDLError();
         return -1;
     }
 
     window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
     if (window == nullptr)
     {
-        printFatalError("init: Failed to create a window. SDL Error: " << SDL_GetError());
+        printFatalError("init: Failed to create a window.");
+        printSDLError();
         return -1;
     }
 
@@ -342,7 +355,8 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     {
         if (SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") != SDL_TRUE)
         {
-            printError("init: Failed to set antialiasing. SDL Error: " << SDL_GetError());
+            printError("init: Failed to set antialiasing.");
+            printSDLError();
         }
         else
         {
@@ -377,7 +391,8 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
     TTF_Font* debugFont = TTF_OpenFont(PATH_DEFAULT_FONT, 24);
     if (debugFont == NULL)
     {
-        printError("init: Failed to create debugFont. SDL error: " << TTF_GetError());
+        printError("init: Failed to create `debugFont`.");
+        printSDLError();
     }
 
     debugText.createFromText(DEFAULT_TEXT, debugFont);
@@ -387,12 +402,12 @@ int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags
 
     if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
     {
-        printFatalError("init: Failed to set fullscreen resolution.");
+        printError("init: Failed to set fullscreen resolution.");
     }
 
     if (SDL_JoystickOpen(0) == nullptr)
     {
-        printInfo("init: Joystick not found");
+        printInfo("init: Joystick not found.");
     }
 
     running = true;
@@ -408,17 +423,24 @@ SDL_DisplayMode getDisplayMode()
 
 int setFullscreenResolution(int w, int h)
 {
-    if (w <= 0 || h <= 0)
+    if (w <= 0)
     {
-        printError("setFullscreenResolution: w or h cannot be smaller than 1.");
+        printError("setFullscreenResolution: Parameter `w` was smaller than 1.");
         return -1;
     }
+    if (h <= 0)
+    {
+        printError("setFullscreenResolution: Parameter `h` was smaller than 1.");
+        return -1;
+    }
+
     SDL_DisplayMode mode = getDisplayMode();
     mode.w = w;
     mode.h = h;
     if (SDL_SetWindowDisplayMode(window, &mode) != 0)
     {
-        printError("setFullscreenResolution: failed to set window display mode. SDL error: " << SDL_GetError());
+        printError("setFullscreenResolution: Failed to set window display mode.");
+        printSDLError();
         return -1;
     }
     return 0;
@@ -437,8 +459,6 @@ void startMainloop()
         }
 
         processScene();
-
-        processUpdates();
 
         processAnimations();
 

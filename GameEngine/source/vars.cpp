@@ -2,8 +2,8 @@
 
 namespace GameEngine
 {
-    Entity debugText;
-    Entity debugBg;
+    Sprite debugText;
+    Sprite debugBg;
 
     SDL_Window* window;
     SDL_Renderer* renderer;

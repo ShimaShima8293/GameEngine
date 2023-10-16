@@ -1,14 +1,8 @@
-#include <iostream>
-#include <string>
-#include <cmath>
 #include "render.h"
 #include "utilities.h"
-#include "macros.h"
-#include "Timer.h"
 #include "vars.h"
 #include "audio.h"
 #include "events.h"
-#include "update.h"
 #include "animation.h"
 #include "resource.h"
 
@@ -18,14 +12,8 @@ namespace GameEngine
     SDL_Surface* surface;
     Timer renderTimer;
     Timer gameTimer;
-    std::vector<Entity*> mainLayer;
-    std::vector<std::vector<Entity*>*> layers = {};
-
-    struct DebugDict
-    {
-        std::string key{};
-        std::string value{};
-    };
+    std::vector<Sprite*> mainLayer;
+    std::vector<std::vector<Sprite*>*> layers = {};
 }
 using namespace GameEngine;
 
@@ -63,24 +51,24 @@ void renderEverything()
 
     int clipCount = 0;
     int renderedCount = 0;
-    Entity* currentEntity;
+    Sprite* currentSprite; // fix this
 
     for (int i = 0; i < layers.size(); i++)
     {
         for (int j = 0; j < layers[i]->size(); j++)
         {
-            currentEntity = (*layers[i])[j];
-            if (currentEntity == nullptr)
+            currentSprite = (*layers[i])[j];
+            if (currentSprite == nullptr)
             {
-                printError("renderEverything: currentEntity was nullptr.");
+                printError("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
-            if (checkCollision(currentEntity->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+            if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
             {
-                currentEntity->render();
+                currentSprite->render();
                 renderedCount++;
             }
-            if (currentEntity->getClip())
+            if (currentSprite->getClip())
             {
                 clipCount++;
             }
@@ -89,18 +77,18 @@ void renderEverything()
 
     for (int i = 0; i < mainLayer.size(); i++)
     {
-        currentEntity = mainLayer[i];
-        if (currentEntity == nullptr)
+        currentSprite = mainLayer[i];
+        if (currentSprite == nullptr)
         {
-            printError("renderEverything: currentEntity was nullptr.");
+            printError("renderEverything: `currentSprite` was nullptr.");
             continue;
         }
-        if (checkCollision(currentEntity->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+        if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
         {
-            currentEntity->render();
+            currentSprite->render();
             renderedCount++;
         }
-        if (currentEntity->getClip())
+        if (currentSprite->getClip())
         {
             clipCount++;
         }
@@ -115,19 +103,23 @@ void renderEverything()
     {
         int fps = static_cast<int>(std::round(1.0f / renderDuration));
 
-        std::string modeText = "Unknown";
-        if (getWindowMode() == WINDOW_FULLSCREEN)
+        std::string modeText = "Error";
+        switch (getWindowMode())
         {
+        case WINDOW_FULLSCREEN:
             modeText = "Fullscreen";
-        }
-        else if (getWindowMode() == WINDOW_FULLSCREEN_DESKTOP)
-        {
+            break;
+        case WINDOW_FULLSCREEN_DESKTOP:
             modeText = "Fullscreen Desktop";
-        }
-        else if (getWindowMode() == WINDOW_WINDOWED)
-        {
+            break;
+        case WINDOW_WINDOWED:
             modeText = "Windowed";
+            break;
+        default:
+            modeText = "Unknown";
+            break;
         }
+
         SDL_DisplayMode mode = getDisplayMode();
         debugText.setText(
             "Game Engine Version: " + std::string(GE_VERSION_STR) + "\n" +
@@ -135,8 +127,7 @@ void renderEverything()
             "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
             "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
             "Fullscreen resolution: " + std::to_string(mode.w) + "x" + std::to_string(mode.h) + "\n" +
-            std::to_string(getEntityCount()) + " entities (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
-            std::to_string(getUpdateCount()) + " updates\n" +
+            std::to_string(getSpriteCount()) + " sprites (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
             std::to_string(getAnimationCount()) + " animations\n"
             "VSync: " + bool2string(vsync) + "\n"
             "Anti-aliasing: " + bool2string(antialiasing) + "\n"
@@ -181,22 +172,22 @@ void renderEverything()
     gameTimer.start();
 }
 
-void addEntity(Entity* entity)
+void addSprite(Sprite* sprite)
 {
-    if (entity == nullptr)
+    if (sprite == nullptr)
     {
-        printError("addEntity: parameter entity was nullptr.");
+        printError("addSprite: Parameter `sprite` was nullptr.");
         return;
     }
-    mainLayer.push_back(entity);
+    mainLayer.push_back(sprite);
 }
 
-void setLayers(std::vector<std::vector<Entity*>*> _layers)
+void setLayers(std::vector<std::vector<Sprite*>*> _layers)
 {
     layers = _layers;
 }
 
-int getEntityCount()
+int getSpriteCount()
 {
     int size = (int)mainLayer.size();
 
@@ -207,24 +198,29 @@ int getEntityCount()
     return size;
 }
 
-Entity* getEntity(int index)
+Sprite* getSprite(int index)
 {
-    if (index <= getEntityCount())
+    if (index <= getSpriteCount())
     {
         return mainLayer[index];
     }
     else
     {
-        printError("getEntity: index is too large");
+        printError("getSprite: Parameter `index` was larger than the sprite count.");
         return nullptr;
     }
 }
 
-void removeEntity(Entity* entity)
+void removeSprite(Sprite* sprite)
 {
+    if (sprite == nullptr)
+    {
+        printError("removeSprite: Parameter `sprite` was nullptr.");
+        return;
+    }
     for (int i = 0; i < mainLayer.size(); i++)
     {
-        if (mainLayer[i] == entity)
+        if (mainLayer[i] == sprite)
         {
             mainLayer.erase(mainLayer.begin() + i);
         }
@@ -233,7 +229,7 @@ void removeEntity(Entity* entity)
     {
         for (int j = 0; j < layers[i]->size(); j++)
         {
-            if ((*layers[i])[j] == entity)
+            if ((*layers[i])[j] == sprite)
             {
                 layers[i]->erase(layers[i]->begin() + j);
             }
@@ -241,7 +237,7 @@ void removeEntity(Entity* entity)
     }
 }
 
-void clearEntities()
+void clearSprites()
 {
     for (int i = 0; i < layers.size(); i++)
     {

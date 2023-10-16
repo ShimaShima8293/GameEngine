@@ -1,7 +1,5 @@
 #pragma once
-
-#include <iostream>
-#include <vector>
+#include "internal.h"
 
 // This is an interface for the scene feature.
 class Scene

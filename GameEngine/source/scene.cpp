@@ -1,10 +1,7 @@
-#include <iostream>
-#include "macros.h"
 #include "scene.h"
-#include <vector>
 #include "events.h"
 #include "render.h"
-#include "update.h"
+#include "animation.h"
 
 namespace GameEngine
 {
@@ -29,7 +26,7 @@ void processScene()
         }
 
         initScene();
-        printInfo("processScene: loading a scene (" << queue << ")");
+        printInfo("processScene: Loading a scene.");
         current = queue;
         queue->start();
         if (current == queue)
@@ -46,8 +43,8 @@ void processScene()
 
 void initScene()
 {
-    clearEntities();
-    clearUpdates();
+    clearSprites();
+    clearAnimations();
 }
 
 Scene* getCurrentScene()

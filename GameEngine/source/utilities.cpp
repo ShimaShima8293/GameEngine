@@ -1,8 +1,44 @@
-#include <random>
-#include <iostream>
-#include <math.h>
 #include "utilities.h"
-#include <vector>
+
+Vec2 Vec2::operator+(Vec2 vector)
+{
+    return { this->x + vector.x, this->y + vector.y };
+}
+
+Vec2 Vec2::operator-(Vec2 vector)
+{
+    return { this->x - vector.x, this->y - vector.y };
+}
+
+Vec2 Vec2::operator*(Vec2 vector)
+{
+    return { this->x * vector.x, this->y * vector.y };
+}
+
+Vec2 Vec2::operator/(Vec2 vector)
+{
+    return { this->x / vector.x, this->y / vector.y };
+}
+
+//void Vec2::operator+=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator-=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator*=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
+//
+//void Vec2::operator/=(Vec2 vector)
+//{
+//    *this = *this + vector;
+//}
 
 int roundToInt(float input)
 {
@@ -115,4 +151,21 @@ bool checkCollision(Rect a, Rect b)
         return false;
     }
     return true;
+}
+
+Timer::Timer()
+{
+    start();
+}
+
+void Timer::start()
+{
+    startTime = std::chrono::high_resolution_clock::now();
+}
+
+float Timer::get()
+{
+    endTime = std::chrono::high_resolution_clock::now();
+    duration = endTime - startTime;
+    return duration.count();
 }

@@ -1,8 +1,6 @@
 #pragma once
 
-#include "macros.h"
-#include PATH_SDL
-#include <string>
+#include "internal.h"
 
 typedef enum WindowMode
 {
@@ -19,10 +17,29 @@ enum AxisDirection
 
 // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
 void processEvents();
+
+// Get if the window is focused.
+// \returns bool True if the window is focused; False if not.
 bool getWindowFocus();
+
+// Get if a key is pressed.
+// \param code The key code from SDL_KeyCode.
+// \returns bool True if the requested key is pressed down.
 bool getKeyPressed(SDL_KeyCode code);
+
+// Get if a key is pressed. It is similar to `getKeyPressed()` but this function will only return true when the requested key got pressed on current frame.
+// \param code The key code from SDL_KeyCode.
+// \returns bool True if the requested key is pressed down on current frame.
 bool getKeyPressedPulse(SDL_KeyCode code);
+
+// Get if a joycon button is pressed.
+// \param button The index of the button.
+// \returns bool True if the requested button is pressed down.
 bool getJoyButton(int button);
+
+// Get if a joycon button is pressed.
+// \param button The index of the button.
+// \returns bool True if the requested button is pressed down.
 bool getJoyButtonPulse(int button);
 int getJoyAxis(int axis);
 bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);

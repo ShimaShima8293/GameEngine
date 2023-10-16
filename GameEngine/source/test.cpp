@@ -1,12 +1,12 @@
 ﻿#ifdef TEST
 //#define NCONSOLE
 #include "gameEngine.h"
-Entity text;
+Sprite text;
 
-int windowWidth = 2880;
-int windowHeight = 1800;
+int windowWidth = 1920;
+int windowHeight = 1080;
 
-int anmTest(Entity* entity, int frame, int len);
+int anmTest(Sprite* sprite, int frame, int len);
 
 static class SceneTest : public Scene
 {
@@ -24,9 +24,9 @@ public:
     }
 } sceneTest;
 
-int anmTest(Entity* entity, int frame, int len)
+int anmTest(Sprite* sprite, int frame, int len)
 {
-    //entity->changePos(0.1, 0.1);
+    //sprite->changePos(0.1, 0.1);
     return 0;
 }
 

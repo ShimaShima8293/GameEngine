@@ -1,56 +1,12 @@
 #pragma once
 
-#include <iostream>
-#include <sstream>
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-
-#define GE_VERSION_MAJOR 0
-#define GE_VERSION_MINOR 6
+#define GE_VERSION_MAJOR 1
+#define GE_VERSION_MINOR 0
 #define GE_VERSION_PATCH 0
 
-#define GE_VERSION_STR "Alpha-0.6"
+#define GE_VERSION_STR "Alpha-1.0"
 
 #define DEFAULT_TEXT "Error"
-
-// Print functions will ignored in release build to maximize the performance.
-#ifdef NCONSOLE
-// if release:
-#ifdef _WIN32
-#define printError(anything)
-#define printFatalError(anything)\
-{\
-std::stringstream ss;\
-ss << anything;\
-MessageBoxA(NULL, ss.str().c_str(), "Fatal Error", MB_ICONERROR | MB_OK);\
-}
-#define printInfo(anything)
-#define printErrorW(anything)
-#define printFatalErrorW(anything)\
-{\
-std::stringstream ss;\
-ss << anything;\
-MessageBoxA(NULL, ss.str().c_str(), "Fatal Error", MB_ICONERROR | MB_OK);\
-}
-#define printInfoW(anything)
-#else
-#define printError(anything)
-#define printFatalError(anything)
-#define printInfo(anything)
-#define printErrorW(anything)
-#define printFatalErrorW(anything)
-#define printInfoW(anything)
-#endif
-#else
-// if debug:
-#define printError(anything) std::cout << "[ERROR]       " << anything << std::endl
-#define printFatalError(anything) std::cout << "[FATAL-ERROR] " << anything << std::endl;
-#define printInfo(anything) std::cout << "[INFO]        " << anything << std::endl
-#define printErrorW(anything) std::wcout << "[ERROR]       " << anything << std::endl
-#define printFatalErrorW(anything) std::wcout << "[FATAL-ERROR] " << anything << std::endl;
-#define printInfoW(anything) std::wcout << "[INFO]        " << anything << std::endl
-#endif
 
 #ifdef __APPLE__
 #define PATH_SDL <SDL2/SDL.h>

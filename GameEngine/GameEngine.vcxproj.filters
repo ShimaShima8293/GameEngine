@@ -18,10 +18,7 @@
     <ClCompile Include="source\audio.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\EntityGroup.cpp">
+    <ClCompile Include="source\sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\events.cpp">
@@ -36,12 +33,6 @@
     <ClCompile Include="source\scene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Timer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\update.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\utilities.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,15 +45,15 @@
     <ClCompile Include="source\test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="source\debug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\audio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\EntityGroup.h">
+    <ClInclude Include="source\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\events.h">
@@ -83,12 +74,6 @@
     <ClInclude Include="source\scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\Timer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\update.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="source\utilities.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -96,6 +81,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="source\animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\internal.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

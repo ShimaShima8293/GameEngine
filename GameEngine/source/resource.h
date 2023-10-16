@@ -1,15 +1,9 @@
 #pragma once
-#include "macros.h"
-#include PATH_SDL
-#include PATH_SDL_TTF
-#include PATH_SDL_MIXER
-#include PATH_SDL_IMAGE
-#include <string>
-#include <vector>
+#include "internal.h"
 
 // Open a font. It will Print out an error message if it failed to load. Don't forget to release the memory with `closeResources()` or `closeFont()`!
 // \param _font The loaded font to check.
-// \returns Returns a pointer to TTF_Font, which is required for `Entity::loadFromText()`.
+// \returns Returns a pointer to TTF_Font, which is required for `Sprite::loadFromText()`.
 TTF_Font* openFont(std::string path, int size);
 
 // Open an audio file. It will Print out an error message if it failed to load. Don't forget to release the memory with `closeResources()` or `closeMusic()`!

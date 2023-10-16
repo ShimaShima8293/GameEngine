@@ -1,8 +1,9 @@
 #pragma once
-#include "Entity.h"
+#include "internal.h"
+#include "sprite.h"
 
 typedef int (*AnimationFunc)(int frame, int len);
-typedef int (*EntityAnimationFunc)(Entity* entity, int frame, int len);
+typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
 
 struct AnimationData
 {
@@ -12,10 +13,10 @@ struct AnimationData
     bool reversed;
 };
 
-struct EntityAnimationData
+struct SpriteAnimationData
 {
-    Entity* entity;
-    EntityAnimationFunc func;
+    Sprite* sprite;
+    SpriteAnimationFunc func;
     int frame;
     int len;
     bool reversed;
@@ -27,11 +28,11 @@ void processAnimations();
 
 void playAnimation(AnimationFunc func, int len = 0, bool reversed = false);
 
-void playEntityAnimation(Entity* entity, EntityAnimationFunc func, int len = 0, bool reversed = false);
+void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
 
 void stopAnimation(AnimationFunc func);
 
-void stopEntityAnimation(EntityAnimationFunc func);
+void stopSpriteAnimation(SpriteAnimationFunc func);
 
 void clearAnimations();
 
