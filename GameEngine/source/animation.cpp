@@ -77,7 +77,7 @@ void processAnimations()
         }
         else
         {
-            currentData->frame++; 
+            currentData->frame++;
         }
 
         bool remove = false;

@@ -2,7 +2,7 @@
 
 Vec2 Vec2::operator+(Vec2 vector)
 {
-    return {this->x + vector.x, this->y + vector.y};
+    return { this->x + vector.x, this->y + vector.y };
 }
 
 Vec2 Vec2::operator-(Vec2 vector)

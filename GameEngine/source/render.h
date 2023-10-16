@@ -9,6 +9,7 @@ void renderEverything();
 // \param sprite A pointer to an sprite.
 void addSprite(Sprite* sprite);
 
+// Set the order of layers to be rendered. Sprites added by this function will be rendered above those added with the `addSprite()` function. So, I recommend not using this function and `addSprite()` in the same scene.
 void setLayers(std::vector<std::vector<Sprite*>*> _layers);
 
 // Get the total number of sprites in the rendering list.
