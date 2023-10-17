@@ -197,6 +197,16 @@ bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone)
     return false;
 }
 
+bool getMouseButton(int button)
+{
+    return buttonPressed[button];
+}
+
+bool getMouseButtonPulse(int button)
+{
+    return buttonPressedPulse[button];
+}
+
 bool getRunning()
 {
     return running;

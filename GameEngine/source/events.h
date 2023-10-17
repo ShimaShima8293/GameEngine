@@ -44,6 +44,8 @@ bool getJoyButton(int button);
 bool getJoyButtonPulse(int button);
 int getJoyAxis(int axis);
 bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
+bool getMouseButton(int button);
+bool getMouseButtonPulse(int button);
 bool getRunning();
 void endMainloop();
 // Frees things and quits SDL.

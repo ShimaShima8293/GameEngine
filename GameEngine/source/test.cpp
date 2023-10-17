@@ -21,9 +21,14 @@ public:
     void update()
     {
         cursor.setCPos(getCursorPos());
+        cursor.setColor(255, 255, 255);
         if (getKeyPressed(SDLK_SPACE))
         {
             cursor.setCPos(getCursorWindowPos());
+        }
+        if (getMouseButton(1))
+        {
+            cursor.setColor(255, 0, 0);
         }
         if (getJoyAxisPulse(0, AXIS_NEGATIVE, 200))
         {
