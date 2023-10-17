@@ -20,7 +20,7 @@ namespace GameEngine
     std::map<Uint8, int> joyAxis;
     std::map<Uint8, int> joyHat;
     std::map<Uint8, int> joyHatPulse;
-    int mouseX = 0, mouseY = 0;
+    Vec2 cursorPos{};
     bool running = true;
     int globalFrame = 0;
     int gameWidth = 1920;
@@ -68,7 +68,9 @@ void processEvents()
         }
         if (event.type == SDL_MOUSEMOTION)
         {
-            SDL_GetMouseState(&mouseX, &mouseY);
+            int cursorX = 0, cursorY = 0;
+            SDL_GetMouseState(&cursorX, &cursorY);
+            cursorPos = {(float)cursorX, (float)cursorY};
             mouseMoved = true;
         }
         if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -195,6 +197,16 @@ bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone)
     return false;
 }
 
+bool getMouseButton(int button)
+{
+    return buttonPressed[button];
+}
+
+bool getMouseButtonPulse(int button)
+{
+    return buttonPressedPulse[button];
+}
+
 bool getRunning()
 {
     return running;
@@ -292,6 +304,35 @@ int hideCursor()
     }
     SDL_SetCursor(cursor);
     return 0;
+}
+
+Vec2 getCursorPos()
+{
+    SDL_Rect destRect = {};
+
+    double gameRatio = (double)getGameWidth() / (double)getGameHeight(); // Calculate the ratio of the game view
+    double screenRatio = (double)getWindowWidth() / (double)getWindowHeight(); // Calculate the ratio of the window
+    if (gameRatio == screenRatio)
+    {
+        destRect = { 0, 0, getWindowWidth(), getWindowHeight() };
+    }
+    else if (gameRatio > screenRatio)
+    {
+        destRect = { 0, (getWindowHeight() - getGameHeight() * getWindowWidth() / getGameWidth()) / 2, getWindowWidth(), getGameHeight() * getWindowWidth() / getGameWidth() };
+    }
+    else
+    {
+        destRect = { (getWindowWidth() - getGameWidth() * getWindowHeight() / getGameHeight()) / 2, 0, getGameWidth() * getWindowHeight() / getGameHeight(), getWindowHeight() };
+    }
+
+    float wRatio = (float)getGameWidth() / destRect.w;
+    float hRatio = (float)getGameHeight() / destRect.h;
+    return Vec2{(cursorPos.x - destRect.x) * wRatio, (cursorPos.y - destRect.y) * hRatio};
+}
+
+Vec2 getCursorWindowPos()
+{
+    return cursorPos;
 }
 
 int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
