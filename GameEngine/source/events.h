@@ -1,6 +1,7 @@
 #pragma once
 
 #include "internal.h"
+#include "utilities.h"
 
 typedef enum WindowMode
 {
@@ -57,6 +58,9 @@ void setWindowMode(WindowMode mode);
 WindowMode getWindowMode();
 int setSystemCursor(SDL_SystemCursor _cursor);
 int hideCursor();
+
+Vec2 getCursorPos();
+Vec2 getCursorWindowPos();
 
 typedef enum InitFlags
 {
