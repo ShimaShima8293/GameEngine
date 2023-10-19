@@ -43,7 +43,7 @@ bool Sprite::createFromImage(std::string path)
     newTexture = IMG_LoadTexture(renderer, path.c_str());
     if (newTexture == NULL)
     {
-        printError("Sprite::createFromImage: Failed to create image texture.");
+        printError("Sprite::createFromImage: Failed to create image texture. Path: " + path);
         printSDLError();
     }
     else
@@ -204,6 +204,11 @@ void Sprite::setTexture(SDL_Texture* _texture, bool _free)
 }
 void Sprite::render()
 {
+    if (texture == nullptr)
+    {
+        printError("Sprite::render: Texture was nullptr.");
+    }
+
     if (getVisibility() == false || alpha == 0)
     {
         return;
