@@ -50,7 +50,8 @@ int main(int argc, char* args[])
 
     //setFullscreenResolution(640, 480);
 
-    setDebugLevel(PRINT_EVERYTHING);
+    setConsoleLogLevel(PRINT_EVERYTHING);
+    setPopupLogLevel(PRINT_EVERYTHING);
     loadScene(&sceneTest);
 
     startMainloop();
