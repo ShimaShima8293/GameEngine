@@ -34,7 +34,7 @@ void printError(std::string text)
 
     if (popupLevel <= PRINT_ERROR)
     {
-        errorPopup("Error message", text);
+        errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
     }
 }
 
@@ -47,7 +47,7 @@ void printFatalError(std::string text)
 
     if (popupLevel <= PRINT_FATAL_ERROR)
     {
-        errorPopup("Error message", text);
+        errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
     }
 }
 
@@ -57,12 +57,20 @@ void printSDLError()
     {
         std::cout << "[SDL-ERROR]   " << SDL_GetError() << "\n";
     }
+
+    if (popupLevel <= PRINT_ERROR)
+    {
+        errorPopup("SDL Error message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
+    }
 }
 
 void errorPopup(std::string title, std::string text)
 {
 #ifdef _WIN32
-    MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONERROR | MB_OK);
+    if (MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONERROR | MB_YESNO) == IDYES)
+    {
+        endMainloop();
+    }
 #endif
 }
 

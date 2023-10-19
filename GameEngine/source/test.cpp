@@ -14,7 +14,7 @@ static class SceneTest : public Scene
 public:
     void start()
     {
-        cursor.createSolid(1, 1);
+        cursor.createSolid(0, 0);
         cursor.setScale(16.0f, 16.0f);
         addSprite(&cursor);
     }
@@ -52,6 +52,7 @@ int main(int argc, char* args[])
 
     setConsoleLogLevel(PRINT_EVERYTHING);
     setPopupLogLevel(PRINT_EVERYTHING);
+
     loadScene(&sceneTest);
 
     startMainloop();
