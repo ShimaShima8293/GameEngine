@@ -70,7 +70,7 @@ void processEvents()
         {
             int cursorX = 0, cursorY = 0;
             SDL_GetMouseState(&cursorX, &cursorY);
-            cursorPos = {(float)cursorX, (float)cursorY};
+            cursorPos = { (float)cursorX, (float)cursorY };
             mouseMoved = true;
         }
         if (event.type == SDL_MOUSEBUTTONDOWN)
@@ -327,7 +327,7 @@ Vec2 getCursorPos()
 
     float wRatio = (float)getGameWidth() / destRect.w;
     float hRatio = (float)getGameHeight() / destRect.h;
-    return Vec2{(cursorPos.x - destRect.x) * wRatio, (cursorPos.y - destRect.y) * hRatio};
+    return Vec2{ (cursorPos.x - destRect.x) * wRatio, (cursorPos.y - destRect.y) * hRatio };
 }
 
 Vec2 getCursorWindowPos()
@@ -485,6 +485,20 @@ int setFullscreenResolution(int w, int h)
         return -1;
     }
     return 0;
+}
+
+GE_HWND getHWND()
+{
+#ifdef _WIN32
+    SDL_SysWMinfo wmInfo{};
+    SDL_VERSION(&wmInfo.version);
+    SDL_GetWindowWMInfo(getWindow(), &wmInfo);
+    HWND hwnd = wmInfo.info.win.window;
+    return hwnd;
+#else
+    printError("getHWND: Unsupported OS.");
+    return nullptr;
+#endif
 }
 
 void startMainloop()

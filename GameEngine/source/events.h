@@ -3,6 +3,13 @@
 #include "internal.h"
 #include "utilities.h"
 
+#ifdef _WIN32
+#include <SDL_syswm.h>
+#define GE_HWND HWND
+#else
+#define GE_HWND void*
+#endif
+
 typedef enum WindowMode
 {
     WINDOW_WINDOWED = 0,
@@ -76,5 +83,7 @@ int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initF
 SDL_DisplayMode getDisplayMode();
 
 int setFullscreenResolution(int w, int h);
+
+GE_HWND getHWND();
 
 void startMainloop();
