@@ -576,3 +576,8 @@ SDL_RendererFlip Sprite::getFlip()
 {
     return flip;
 }
+
+SDL_Texture* Sprite::getTexture()
+{
+    return texture;
+}

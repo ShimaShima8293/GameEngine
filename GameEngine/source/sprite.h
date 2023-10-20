@@ -230,6 +230,8 @@ public:
 
     SDL_RendererFlip getFlip();
 
+    SDL_Texture* getTexture();
+
 
 private:
     std::string name = "Unnamed";
