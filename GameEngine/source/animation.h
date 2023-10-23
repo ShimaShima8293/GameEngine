@@ -5,23 +5,6 @@
 typedef int (*AnimationFunc)(int frame, int len);
 typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
 
-struct AnimationData
-{
-    AnimationFunc func;
-    int frame;
-    int len;
-    bool reversed;
-};
-
-struct SpriteAnimationData
-{
-    Sprite* sprite;
-    SpriteAnimationFunc func;
-    int frame;
-    int len;
-    bool reversed;
-};
-
 size_t getAnimationCount();
 
 void processAnimations();

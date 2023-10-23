@@ -49,27 +49,45 @@ bool getJoyButton(int button);
 // \param button The index of the button.
 // \returns bool True if the requested button is pressed down.
 bool getJoyButtonPulse(int button);
+
 int getJoyAxis(int axis);
+
 bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
+
 bool getMouseButton(int button);
+
 bool getMouseButtonPulse(int button);
+
 bool getRunning();
+
 void endMainloop();
+
 // Frees things and quits SDL.
 void close();
+
 int getGameWidth();
+
 int getGameHeight();
+
 SDL_Window* getWindow();
+
 SDL_Renderer* getRenderer();
+
 int getWindowWidth();
+
 int getWindowHeight();
+
 void setWindowMode(WindowMode mode);
+
 WindowMode getWindowMode();
+
 int setSystemCursor(SDL_SystemCursor _cursor);
+
 int hideCursor();
 
 Vec2 getCursorPos();
 Vec2 getCursorWindowPos();
+
 
 typedef enum InitFlags
 {

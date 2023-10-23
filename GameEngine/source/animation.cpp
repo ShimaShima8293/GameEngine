@@ -4,6 +4,23 @@
 
 namespace GameEngine
 {
+    struct AnimationData
+    {
+        AnimationFunc func;
+        int frame;
+        int len;
+        bool reversed;
+    };
+
+    struct SpriteAnimationData
+    {
+        Sprite* sprite;
+        SpriteAnimationFunc func;
+        int frame;
+        int len;
+        bool reversed;
+    };
+
     std::vector<AnimationData> dataList;
     std::vector<AnimationData> playQueue;
     std::vector<AnimationFunc> stopQueue;

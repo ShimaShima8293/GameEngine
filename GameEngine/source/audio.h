@@ -9,14 +9,6 @@ enum Channels
     CH_FX,
 };
 
-struct MusicSet
-{
-    Mix_Chunk* intro;
-    Mix_Chunk* loop;
-    int fade = 5000;
-};
-
-void playMusicSet(MusicSet& set);
 void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade = 5000);
 void playSoundEffect(Mix_Chunk* chunk);
 

@@ -1,9 +1,8 @@
 #include "debug.h"
 #include <iostream>
-#include "macros.h"
 #include "internal.h"
 #include "events.h"
-#include PATH_SDL
+#include "scene.h"
 
 namespace GameEngine
 {

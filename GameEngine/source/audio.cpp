@@ -9,11 +9,6 @@ namespace GameEngine
 using namespace GameEngine;
 
 
-void playMusicSet(MusicSet& set)
-{
-    playMusicSet(set.intro, set.loop, set.fade);
-}
-
 void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
 {
     if (intro == nullptr)
