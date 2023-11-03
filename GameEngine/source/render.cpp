@@ -51,13 +51,12 @@ void renderEverything()
 
     int clipCount = 0;
     int renderedCount = 0;
-    Sprite* currentSprite; // fix this
 
     for (int i = 0; i < layers.size(); i++)
     {
         for (int j = 0; j < layers[i]->size(); j++)
         {
-            currentSprite = (*layers[i])[j];
+            Sprite* currentSprite = (*layers[i])[j];
             if (currentSprite == nullptr)
             {
                 printError("renderEverything: `currentSprite` was nullptr.");
@@ -77,7 +76,7 @@ void renderEverything()
 
     for (int i = 0; i < mainLayer.size(); i++)
     {
-        currentSprite = mainLayer[i];
+        Sprite* currentSprite = mainLayer[i];
         if (currentSprite == nullptr)
         {
             printError("renderEverything: `currentSprite` was nullptr.");
@@ -119,7 +118,7 @@ void renderEverything()
             modeText = "Unknown";
             break;
         }
-
+        
         SDL_DisplayMode mode = getDisplayMode();
         debugText.setText(
             "Game Engine Version: " + std::string(GE_VERSION_STR) + "\n" +
