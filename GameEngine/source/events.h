@@ -10,98 +10,102 @@
 #define GE_HWND void*
 #endif
 
-typedef enum WindowMode
+namespace GameEngine
 {
-    WINDOW_WINDOWED = 0,
-    WINDOW_FULLSCREEN = 1,
-    WINDOW_FULLSCREEN_DESKTOP = 4097
-} WindowMode;
+    typedef enum WindowMode
+    {
+        WINDOW_WINDOWED = 0,
+        WINDOW_FULLSCREEN = 1,
+        WINDOW_FULLSCREEN_DESKTOP = 4097
+    } WindowMode;
 
-enum AxisDirection
-{
-    AXIS_POSITIVE,
-    AXIS_NEGATIVE
-};
+    enum AxisDirection
+    {
+        AXIS_POSITIVE,
+        AXIS_NEGATIVE
+    };
 
-// Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
-void processEvents();
+    // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
+    void processEvents();
 
-// Get if the window is focused.
-// \returns bool True if the window is focused; False if not.
-bool getWindowFocus();
+    // Get if the window is focused.
+    // \returns bool True if the window is focused; False if not.
+    bool getWindowFocus();
 
-// Get if a key is pressed.
-// \param code The key code from SDL_KeyCode.
-// \returns bool True if the requested key is pressed down.
-bool getKeyPressed(SDL_KeyCode code);
+    // Get if a key is pressed.
+    // \param code The key code from SDL_KeyCode.
+    // \returns bool True if the requested key is pressed down.
+    bool getKeyPressed(SDL_KeyCode code);
 
-// Get if a key is pressed. It is similar to `getKeyPressed()` but this function will only return true when the requested key got pressed on current frame.
-// \param code The key code from SDL_KeyCode.
-// \returns bool True if the requested key is pressed down on current frame.
-bool getKeyPressedPulse(SDL_KeyCode code);
+    // Get if a key is pressed. It is similar to `getKeyPressed()` but this function will only return true when the requested key got pressed on current frame.
+    // \param code The key code from SDL_KeyCode.
+    // \returns bool True if the requested key is pressed down on current frame.
+    bool getKeyPressedPulse(SDL_KeyCode code);
 
-// Get if a joycon button is pressed.
-// \param button The index of the button.
-// \returns bool True if the requested button is pressed down.
-bool getJoyButton(int button);
+    // Get if a joycon button is pressed.
+    // \param button The index of the button.
+    // \returns bool True if the requested button is pressed down.
+    bool getJoyButton(int button);
 
-// Get if a joycon button is pressed.
-// \param button The index of the button.
-// \returns bool True if the requested button is pressed down.
-bool getJoyButtonPulse(int button);
+    // Get if a joycon button is pressed.
+    // \param button The index of the button.
+    // \returns bool True if the requested button is pressed down.
+    bool getJoyButtonPulse(int button);
 
-int getJoyAxis(int axis);
+    int getJoyAxis(int axis);
 
-bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
+    bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
 
-bool getMouseButton(int button);
+    bool getMouseButton(int button);
 
-bool getMouseButtonPulse(int button);
+    bool getMouseButtonPulse(int button);
 
-bool getRunning();
+    bool getRunning();
 
-void endMainloop();
+    void endMainloop();
 
-// Frees things and quits SDL.
-void close();
+    // Frees things and quits SDL.
+    void close();
 
-int getGameWidth();
+    int getGameWidth();
 
-int getGameHeight();
+    int getGameHeight();
 
-SDL_Window* getWindow();
+    SDL_Window* getWindow();
 
-SDL_Renderer* getRenderer();
+    SDL_Renderer* getRenderer();
 
-int getWindowWidth();
+    int getWindowWidth();
 
-int getWindowHeight();
+    int getWindowHeight();
 
-void setWindowMode(WindowMode mode);
+    void setWindowMode(WindowMode mode);
 
-WindowMode getWindowMode();
+    WindowMode getWindowMode();
 
-int setSystemCursor(SDL_SystemCursor _cursor);
+    int setSystemCursor(SDL_SystemCursor _cursor);
 
-int hideCursor();
+    int hideCursor();
 
-Vec2 getCursorPos();
-Vec2 getCursorWindowPos();
+    Vec2 getCursorPos();
+    Vec2 getCursorWindowPos();
 
 
-typedef enum InitFlags
-{
-    INIT_ANTIALIASING = 0x01,
-    INIT_DISABLE_DEBUGGING = 0x02
-} InitFlags;
+    typedef enum InitFlags
+    {
+        INIT_ANTIALIASING = 0x01,
+        INIT_DISABLE_DEBUGGING = 0x02
+    } InitFlags;
 
-// Initialize everything.
-int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
+    // Initialize everything.
+    int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
 
-SDL_DisplayMode getDisplayMode();
+    SDL_DisplayMode getDisplayMode();
 
-int setFullscreenResolution(int w, int h);
+    int setFullscreenResolution(int w, int h);
 
-GE_HWND getHWND();
+    GE_HWND getHWND();
 
-void startMainloop();
+    void startMainloop();
+
+}

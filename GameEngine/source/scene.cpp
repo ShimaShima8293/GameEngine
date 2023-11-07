@@ -7,52 +7,51 @@ namespace GameEngine
 {
     Scene* queue;
     Scene* current;
-}
 
-using namespace GameEngine;
-
-void loadScene(Scene* scene)
-{
-    queue = scene;
-}
-
-void processScene()
-{
-    if (queue != nullptr)
+    void loadScene(Scene* scene)
     {
-        if (current != nullptr)
+        queue = scene;
+    }
+
+    void processScene()
+    {
+        if (queue != nullptr)
         {
-            current->free();
+            if (current != nullptr)
+            {
+                current->free();
+            }
+
+            initScene();
+            printInfo("processScene: Loading a scene.");
+            current = queue;
+            queue->start();
+            if (current == queue)
+            {
+                queue = nullptr;
+            }
         }
 
-        initScene();
-        printInfo("processScene: Loading a scene.");
-        current = queue;
-        queue->start();
-        if (current == queue)
+        if (getCurrentScene() != nullptr)
         {
-            queue = nullptr;
+            getCurrentScene()->update();
         }
     }
 
-    if (getCurrentScene() != nullptr)
+    void initScene()
     {
-        getCurrentScene()->update();
+        clearSprites();
+        clearAnimations();
     }
-}
 
-void initScene()
-{
-    clearSprites();
-    clearAnimations();
-}
+    Scene* getCurrentScene()
+    {
+        return current;
+    }
 
-Scene* getCurrentScene()
-{
-    return current;
-}
+    void reloadCurrentScene()
+    {
+        loadScene(current);
+    }
 
-void reloadCurrentScene()
-{
-    loadScene(current);
 }

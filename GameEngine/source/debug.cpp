@@ -8,84 +8,84 @@ namespace GameEngine
 {
     DebugLevel consoleLevel = PRINT_ERROR;
     DebugLevel popupLevel = PRINT_NONE;
-}
-using namespace GameEngine;
 
-void printInfo(std::string text)
-{
-    if (consoleLevel <= PRINT_EVERYTHING)
+    void printInfo(std::string text)
     {
-        std::cout << "[INFO]        " << text << "\n";
+        if (consoleLevel <= PRINT_EVERYTHING)
+        {
+            std::cout << "[INFO]        " << text << "\n";
+        }
+
+        if (popupLevel <= PRINT_EVERYTHING)
+        {
+            infoPopup("Info message", text);
+        }
     }
 
-    if (popupLevel <= PRINT_EVERYTHING)
+    void printError(std::string text)
     {
-        infoPopup("Info message", text);
-    }
-}
+        if (consoleLevel <= PRINT_ERROR)
+        {
+            std::cout << "[ERROR]       " << text << "\n";
+        }
 
-void printError(std::string text)
-{
-    if (consoleLevel <= PRINT_ERROR)
-    {
-        std::cout << "[ERROR]       " << text << "\n";
-    }
-
-    if (popupLevel <= PRINT_ERROR)
-    {
-        errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
-    }
-}
-
-void printFatalError(std::string text)
-{
-    if (consoleLevel <= PRINT_FATAL_ERROR)
-    {
-        std::cout << "[FATAL-ERROR] " << text << "\n";
+        if (popupLevel <= PRINT_ERROR)
+        {
+            errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+        }
     }
 
-    if (popupLevel <= PRINT_FATAL_ERROR)
+    void printFatalError(std::string text)
     {
-        errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
-    }
-}
+        if (consoleLevel <= PRINT_FATAL_ERROR)
+        {
+            std::cout << "[FATAL-ERROR] " << text << "\n";
+        }
 
-void printSDLError()
-{
-    if (consoleLevel <= PRINT_ERROR)
+        if (popupLevel <= PRINT_FATAL_ERROR)
+        {
+            errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+        }
+    }
+
+    void printSDLError()
     {
-        std::cout << "[SDL-ERROR]   " << SDL_GetError() << "\n";
+        if (consoleLevel <= PRINT_ERROR)
+        {
+            std::cout << "[SDL-ERROR]   " << SDL_GetError() << "\n";
+        }
+
+        if (popupLevel <= PRINT_ERROR)
+        {
+            errorPopup("SDL Error message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
+        }
     }
 
-    if (popupLevel <= PRINT_ERROR)
+    void errorPopup(std::string title, std::string text)
     {
-        errorPopup("SDL Error message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
-    }
-}
-
-void errorPopup(std::string title, std::string text)
-{
 #ifdef _WIN32
-    if (MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONERROR | MB_YESNO) == IDYES)
-    {
-        endMainloop();
+        if (MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONERROR | MB_YESNO) == IDYES)
+        {
+            endMainloop();
+        }
+#endif
     }
-#endif
-}
 
-void infoPopup(std::string title, std::string text)
-{
+    void infoPopup(std::string title, std::string text)
+    {
 #ifdef _WIN32
-    MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONINFORMATION | MB_OK);
+        MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONINFORMATION | MB_OK);
 #endif
-}
+    }
 
-void setConsoleLogLevel(DebugLevel _level)
-{
-    consoleLevel = _level;
-}
+    void setConsoleLogLevel(DebugLevel _level)
+    {
+        consoleLevel = _level;
+    }
 
-void setPopupLogLevel(DebugLevel _level)
-{
-    popupLevel = _level;
+    void setPopupLogLevel(DebugLevel _level)
+    {
+        popupLevel = _level;
+    }
+
 }

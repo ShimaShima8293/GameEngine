@@ -30,269 +30,268 @@ namespace GameEngine
     std::vector<SpriteAnimationFunc> stopQueue2;
 
     float animationSpeed = 1.0f;
-}
-using namespace GameEngine;
 
-size_t getAnimationCount()
-{
-    return dataList.size();
-}
-
-void processAnimations()
-{
-    for (int i = 0; i < playQueue.size(); i++)
+    size_t getAnimationCount()
     {
-        dataList.push_back(playQueue[i]);
+        return dataList.size();
     }
-    playQueue.clear();
 
-    for (int i = 0; i < playQueue2.size(); i++)
+    void processAnimations()
     {
-        dataList2.push_back(playQueue2[i]);
-    }
-    playQueue2.clear();
-
-    for (int i = 0; i < stopQueue.size(); i++)
-    {
-        for (int j = 0; j < dataList.size(); j++)
+        for (int i = 0; i < playQueue.size(); i++)
         {
-            if (dataList[j].func == stopQueue[i])
+            dataList.push_back(playQueue[i]);
+        }
+        playQueue.clear();
+
+        for (int i = 0; i < playQueue2.size(); i++)
+        {
+            dataList2.push_back(playQueue2[i]);
+        }
+        playQueue2.clear();
+
+        for (int i = 0; i < stopQueue.size(); i++)
+        {
+            for (int j = 0; j < dataList.size(); j++)
             {
-                dataList.erase(dataList.begin() + j);
-                j--;
-            }
-        }
-    }
-    stopQueue.clear();
-
-    for (int i = 0; i < stopQueue2.size(); i++)
-    {
-        for (int j = 0; j < dataList2.size(); j++)
-        {
-            if (dataList2[j].func == stopQueue2[i])
-            {
-                dataList2.erase(dataList2.begin() + j);
-                j--;
-            }
-        }
-    }
-    stopQueue2.clear();
-
-    for (int i = 0; i < dataList.size(); i++)
-    {
-        AnimationData* currentData = &dataList[i];
-        if (currentData->func == nullptr)
-        {
-            printError("processAnimations: `currentData->func` was nullptr");
-            continue;
-        }
-
-        int result = currentData->func(currentData->frame, currentData->len);
-        if (currentData->reversed)
-        {
-            currentData->frame--;
-        }
-        else
-        {
-            currentData->frame++;
-        }
-
-        bool remove = false;
-        if (currentData->len > 0)
-        {
-            if (!currentData->reversed)
-            {
-                if (currentData->frame > currentData->len)
+                if (dataList[j].func == stopQueue[i])
                 {
-                    remove = true;
+                    dataList.erase(dataList.begin() + j);
+                    j--;
                 }
+            }
+        }
+        stopQueue.clear();
+
+        for (int i = 0; i < stopQueue2.size(); i++)
+        {
+            for (int j = 0; j < dataList2.size(); j++)
+            {
+                if (dataList2[j].func == stopQueue2[i])
+                {
+                    dataList2.erase(dataList2.begin() + j);
+                    j--;
+                }
+            }
+        }
+        stopQueue2.clear();
+
+        for (int i = 0; i < dataList.size(); i++)
+        {
+            AnimationData* currentData = &dataList[i];
+            if (currentData->func == nullptr)
+            {
+                printError("processAnimations: `currentData->func` was nullptr");
+                continue;
+            }
+
+            int result = currentData->func(currentData->frame, currentData->len);
+            if (currentData->reversed)
+            {
+                currentData->frame--;
             }
             else
             {
-                if (currentData->reversed && currentData->frame < 0)
+                currentData->frame++;
+            }
+
+            bool remove = false;
+            if (currentData->len > 0)
+            {
+                if (!currentData->reversed)
                 {
-                    remove = true;
+                    if (currentData->frame > currentData->len)
+                    {
+                        remove = true;
+                    }
+                }
+                else
+                {
+                    if (currentData->reversed && currentData->frame < 0)
+                    {
+                        remove = true;
+                    }
                 }
             }
-        }
-        if (result != 0)
-        {
-            remove = true;
-        }
-        if (remove)
-        {
-            dataList.erase(dataList.begin() + i);
-            i--;
-        }
-    }
-
-    for (int i = 0; i < dataList2.size(); i++)
-    {
-        SpriteAnimationData* currentData = &dataList2[i];
-        if (currentData->func == nullptr)
-        {
-            printError("processAnimations: `currentData->func` was nullptr");
-            continue;
-        }
-        if (currentData->sprite == nullptr)
-        {
-            printError("processAnimations: `currentData->sprite` was nullptr");
-            continue;
-        }
-
-        int result = currentData->func(currentData->sprite, currentData->frame, currentData->len);
-        if (currentData->reversed)
-        {
-            currentData->frame--;
-        }
-        else
-        {
-            currentData->frame++;
-        }
-
-        bool remove = false;
-        if (currentData->len > 0)
-        {
-            if (!currentData->reversed)
+            if (result != 0)
             {
-                if (currentData->frame > currentData->len)
-                {
-                    remove = true;
-                }
+                remove = true;
+            }
+            if (remove)
+            {
+                dataList.erase(dataList.begin() + i);
+                i--;
+            }
+        }
+
+        for (int i = 0; i < dataList2.size(); i++)
+        {
+            SpriteAnimationData* currentData = &dataList2[i];
+            if (currentData->func == nullptr)
+            {
+                printError("processAnimations: `currentData->func` was nullptr");
+                continue;
+            }
+            if (currentData->sprite == nullptr)
+            {
+                printError("processAnimations: `currentData->sprite` was nullptr");
+                continue;
+            }
+
+            int result = currentData->func(currentData->sprite, currentData->frame, currentData->len);
+            if (currentData->reversed)
+            {
+                currentData->frame--;
             }
             else
             {
-                if (currentData->reversed && currentData->frame < 0)
+                currentData->frame++;
+            }
+
+            bool remove = false;
+            if (currentData->len > 0)
+            {
+                if (!currentData->reversed)
                 {
-                    remove = true;
+                    if (currentData->frame > currentData->len)
+                    {
+                        remove = true;
+                    }
+                }
+                else
+                {
+                    if (currentData->reversed && currentData->frame < 0)
+                    {
+                        remove = true;
+                    }
                 }
             }
+            if (result != 0)
+            {
+                remove = true;
+            }
+            if (remove)
+            {
+                dataList2.erase(dataList2.begin() + i);
+                i--;
+            }
         }
-        if (result != 0)
+    }
+
+
+    void playAnimation(AnimationFunc func, int len, bool reversed)
+    {
+        if (func == nullptr)
         {
-            remove = true;
+            printError("playAnimation: Parameter `func` was nullptr.");
+            return;
         }
-        if (remove)
+
+        if (len <= 0)
         {
-            dataList2.erase(dataList2.begin() + i);
-            i--;
+            printError("playAnimation: Parameter `len` was equal to or smaller than 0.");
+            return;
         }
-    }
-}
 
-
-void playAnimation(AnimationFunc func, int len, bool reversed)
-{
-    if (func == nullptr)
-    {
-        printError("playAnimation: Parameter `func` was nullptr.");
-        return;
-    }
-
-    if (len <= 0)
-    {
-        printError("playAnimation: Parameter `len` was equal to or smaller than 0.");
-        return;
-    }
-
-    for (int i = 0; i < dataList.size(); i++)
-    {
-        if (dataList[i].func == func)
+        for (int i = 0; i < dataList.size(); i++)
         {
-            dataList.erase(dataList.begin() + i);
-            i--;
+            if (dataList[i].func == func)
+            {
+                dataList.erase(dataList.begin() + i);
+                i--;
+            }
         }
-    }
 
-    AnimationData newData = {};
-    newData.func = func;
-    if (!reversed)
-    {
-        newData.frame = 0;
-    }
-    else
-    {
-        newData.frame = roundToInt(len * animationSpeed);
-    }
-    newData.len = roundToInt(len * animationSpeed);
-    newData.reversed = reversed;
-    playQueue.push_back(newData);
-}
-
-void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len, bool reversed)
-{
-    if (func == nullptr)
-    {
-        printError("playSpriteAnimation: Parameter `func` was nullptr.");
-        return;
-    }
-
-    if (len <= 0)
-    {
-        printError("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
-        return;
-    }
-
-    for (int i = 0; i < dataList2.size(); i++)
-    {
-        if (dataList2[i].func == func && dataList2[i].sprite == sprite)
+        AnimationData newData = {};
+        newData.func = func;
+        if (!reversed)
         {
-            dataList2.erase(dataList2.begin() + i);
-            i--;
+            newData.frame = 0;
         }
+        else
+        {
+            newData.frame = roundToInt(len * animationSpeed);
+        }
+        newData.len = roundToInt(len * animationSpeed);
+        newData.reversed = reversed;
+        playQueue.push_back(newData);
     }
 
-    SpriteAnimationData newData = {};
-    newData.func = func;
-    if (!reversed)
+    void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len, bool reversed)
     {
-        newData.frame = 0;
+        if (func == nullptr)
+        {
+            printError("playSpriteAnimation: Parameter `func` was nullptr.");
+            return;
+        }
+
+        if (len <= 0)
+        {
+            printError("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
+            return;
+        }
+
+        for (int i = 0; i < dataList2.size(); i++)
+        {
+            if (dataList2[i].func == func && dataList2[i].sprite == sprite)
+            {
+                dataList2.erase(dataList2.begin() + i);
+                i--;
+            }
+        }
+
+        SpriteAnimationData newData = {};
+        newData.func = func;
+        if (!reversed)
+        {
+            newData.frame = 0;
+        }
+        else
+        {
+            newData.frame = roundToInt(len * animationSpeed);
+        }
+        newData.len = roundToInt(len * animationSpeed);
+        newData.reversed = reversed;
+        newData.sprite = sprite;
+        playQueue2.push_back(newData);
     }
-    else
+
+    void stopAnimation(AnimationFunc func)
     {
-        newData.frame = roundToInt(len * animationSpeed);
-    }
-    newData.len = roundToInt(len * animationSpeed);
-    newData.reversed = reversed;
-    newData.sprite = sprite;
-    playQueue2.push_back(newData);
-}
+        if (func == nullptr)
+        {
+            printError("stopAnimation: Parameter `func` was nullptr.");
+            return;
+        }
 
-void stopAnimation(AnimationFunc func)
-{
-    if (func == nullptr)
+        stopQueue.push_back(func);
+
+
+    }
+
+    void stopSpriteAnimation(SpriteAnimationFunc func)
     {
-        printError("stopAnimation: Parameter `func` was nullptr.");
-        return;
+        if (func == nullptr)
+        {
+            printError("stopSpriteAnimation: Parameter `func` was nullptr.");
+            return;
+        }
+
+        stopQueue2.push_back(func);
     }
 
-    stopQueue.push_back(func);
-
-
-}
-
-void stopSpriteAnimation(SpriteAnimationFunc func)
-{
-    if (func == nullptr)
+    void clearAnimations()
     {
-        printError("stopSpriteAnimation: Parameter `func` was nullptr.");
-        return;
+        dataList.clear();
     }
 
-    stopQueue2.push_back(func);
-}
+    void setGlobalAnimationSpeed(float speed)
+    {
+        animationSpeed = speed;
+    }
 
-void clearAnimations()
-{
-    dataList.clear();
-}
-
-void setGlobalAnimationSpeed(float speed)
-{
-    animationSpeed = speed;
-}
-
-float getGlobalAnimationSpeed()
-{
-    return animationSpeed;
+    float getGlobalAnimationSpeed()
+    {
+        return animationSpeed;
+    }
 }

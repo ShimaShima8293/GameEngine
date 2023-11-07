@@ -1,26 +1,31 @@
 #pragma once
 #include "internal.h"
 
-enum Channels
+namespace GameEngine
 {
-    CH_ALL = -1,
-    CH_INTRO = 1,
-    CH_LOOP,
-    CH_FX,
-};
 
-void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade = 5000);
-void playSoundEffect(Mix_Chunk* chunk);
+    enum Channels
+    {
+        CH_ALL = -1,
+        CH_INTRO = 1,
+        CH_LOOP,
+        CH_FX,
+    };
 
-void haltMusic();
+    void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade = 5000);
+    void playSoundEffect(Mix_Chunk* chunk);
 
-void fadeOutMusic(int fade = 5000);
+    void haltMusic();
 
-bool getMuteState();
-void setMuteState(bool _mute);
+    void fadeOutMusic(int fade = 5000);
 
-//int getMusicVolume();
-//int getSoundEffectVolume();
-//
-//void setMusicVolume();
-//void setSoundEffectVolume();
+    bool getMuteState();
+    void setMuteState(bool _mute);
+
+    //int getMusicVolume();
+    //int getSoundEffectVolume();
+    //
+    //void setMusicVolume();
+    //void setSoundEffectVolume();
+
+}

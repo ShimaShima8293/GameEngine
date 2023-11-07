@@ -1,15 +1,15 @@
 ﻿#ifdef TEST
 //#define NCONSOLE
 #include "gameEngine.h"
-Sprite text;
-Sprite cursor;
+GameEngine::Sprite text;
+GameEngine::Sprite cursor;
 
 int windowWidth = 1920;
 int windowHeight = 1080;
 
-int anmTest(Sprite* sprite, int frame, int len);
+int anmTest(GameEngine::Sprite* sprite, int frame, int len);
 
-static class SceneTest : public Scene
+static class SceneTest : public GameEngine::Scene
 {
 public:
     void start()
@@ -20,25 +20,25 @@ public:
     }
     void update()
     {
-        cursor.setCPos(getCursorPos());
+        cursor.setCPos(GameEngine::getCursorPos());
         cursor.setColor(255, 255, 255);
-        if (getKeyPressed(SDLK_SPACE))
+        if (GameEngine::getKeyPressed(SDLK_SPACE))
         {
-            cursor.setCPos(getCursorWindowPos());
+            cursor.setCPos(GameEngine::getCursorWindowPos());
         }
-        if (getMouseButton(1))
+        if (GameEngine::getMouseButton(1))
         {
             cursor.setColor(255, 0, 0);
         }
-        if (getJoyAxisPulse(0, AXIS_NEGATIVE, 200))
+        if (GameEngine::getJoyAxisPulse(0, GameEngine::AXIS_NEGATIVE, 200))
         {
-            printInfo("PRESSED!");
+            GameEngine::printInfo("PRESSED!");
         }
         //printInfo(std::to_string(getCursorWindowPos().x) + ":" + std::to_string(getCursorWindowPos().y));
     }
 } sceneTest;
 
-int anmTest(Sprite* sprite, int frame, int len)
+int anmTest(GameEngine::Sprite* sprite, int frame, int len)
 {
     //sprite->changePos(0.1, 0.1);
     return 0;
@@ -46,16 +46,15 @@ int anmTest(Sprite* sprite, int frame, int len)
 
 int main(int argc, char* args[])
 {
-    init("GameEngine test", 640, 480, 0);
+    GameEngine::init("GameEngine test", 640, 480, 0);
 
     //setFullscreenResolution(640, 480);
 
-    setConsoleLogLevel(PRINT_EVERYTHING);
-    setPopupLogLevel(PRINT_EVERYTHING);
+    GameEngine::setConsoleLogLevel(GameEngine::PRINT_EVERYTHING);
 
     loadScene(&sceneTest);
 
-    startMainloop();
+    GameEngine::startMainloop();
 
     return 0;
 }

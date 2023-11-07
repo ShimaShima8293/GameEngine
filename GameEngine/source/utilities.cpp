@@ -1,171 +1,174 @@
 #include "utilities.h"
 
-Vec2 Vec2::operator+(Vec2 vector)
+namespace GameEngine
 {
-    return { this->x + vector.x, this->y + vector.y };
-}
-
-Vec2 Vec2::operator-(Vec2 vector)
-{
-    return { this->x - vector.x, this->y - vector.y };
-}
-
-Vec2 Vec2::operator*(Vec2 vector)
-{
-    return { this->x * vector.x, this->y * vector.y };
-}
-
-Vec2 Vec2::operator/(Vec2 vector)
-{
-    return { this->x / vector.x, this->y / vector.y };
-}
-
-//void Vec2::operator+=(Vec2 vector)
-//{
-//    *this = *this + vector;
-//}
-//
-//void Vec2::operator-=(Vec2 vector)
-//{
-//    *this = *this + vector;
-//}
-//
-//void Vec2::operator*=(Vec2 vector)
-//{
-//    *this = *this + vector;
-//}
-//
-//void Vec2::operator/=(Vec2 vector)
-//{
-//    *this = *this + vector;
-//}
-
-int roundToInt(float input)
-{
-    return static_cast<int>(std::round(input));
-}
-
-std::string bool2string(bool _bool)
-{
-    return _bool ? "On" : "Off";
-}
-
-float linear(float beg, float end, float len, float frame)
-{
-    if (frame == 0)
+    Vec2 Vec2::operator+(Vec2 vector)
     {
-        return beg;
+        return { this->x + vector.x, this->y + vector.y };
     }
-    if (frame == len)
-    {
-        return end;
-    }
-    return (((end - beg) / len) * frame) + beg;
-}
 
-float limit(float input, float min, float max)
-{
-    if (input < min)
+    Vec2 Vec2::operator-(Vec2 vector)
     {
-        return min;
+        return { this->x - vector.x, this->y - vector.y };
     }
-    if (input > max)
+
+    Vec2 Vec2::operator*(Vec2 vector)
     {
-        return max;
+        return { this->x * vector.x, this->y * vector.y };
     }
-    return input;
-}
 
-void wrap(float& target, float min, float max)
-{
-    if (target < min)
+    Vec2 Vec2::operator/(Vec2 vector)
     {
-        target = max;
+        return { this->x / vector.x, this->y / vector.y };
     }
-    if (target > max)
+
+    //void Vec2::operator+=(Vec2 vector)
+    //{
+    //    *this = *this + vector;
+    //}
+    //
+    //void Vec2::operator-=(Vec2 vector)
+    //{
+    //    *this = *this + vector;
+    //}
+    //
+    //void Vec2::operator*=(Vec2 vector)
+    //{
+    //    *this = *this + vector;
+    //}
+    //
+    //void Vec2::operator/=(Vec2 vector)
+    //{
+    //    *this = *this + vector;
+    //}
+
+    int roundToInt(float input)
     {
-        target = min;
+        return static_cast<int>(std::round(input));
     }
-}
 
-bool between(float target, float min, float max)
-{
-    if (target < min)
+    std::string bool2string(bool _bool)
     {
-        return false;
+        return _bool ? "On" : "Off";
     }
-    if (target > max)
+
+    float linear(float beg, float end, float len, float frame)
     {
-        return false;
+        if (frame == 0)
+        {
+            return beg;
+        }
+        if (frame == len)
+        {
+            return end;
+        }
+        return (((end - beg) / len) * frame) + beg;
     }
-    return true;
 
-}
-
-std::string wstringToString(std::wstring wstr)
-{
-    return "";
-}
-
-
-int randomRange(int min, int max)
-{
-    return (rand() % (max - min)) + min;
-}
-
-int randomCentered(int center, int difference)
-{
-    return ((rand() % difference) - (difference / 2)) + center;
-}
-
-int randomEx(int center, int difference, int min, int max)
-{
-    int tmp = randomCentered(center, difference);
-    if (tmp < min)
+    float limit(float input, float min, float max)
     {
-        tmp = min;
+        if (input < min)
+        {
+            return min;
+        }
+        if (input > max)
+        {
+            return max;
+        }
+        return input;
     }
-    if (tmp > max)
-    {
-        tmp = max;
-    }
-    return tmp;
-}
 
-bool checkCollision(Rect a, Rect b)
-{
-    if (a.y + a.h <= b.y)
+    void wrap(float& target, float min, float max)
     {
-        return false;
+        if (target < min)
+        {
+            target = max;
+        }
+        if (target > max)
+        {
+            target = min;
+        }
     }
-    if (a.y >= b.y + b.h)
-    {
-        return false;
-    }
-    if (a.x + a.w <= b.x)
-    {
-        return false;
-    }
-    if (a.x >= b.x + b.w)
-    {
-        return false;
-    }
-    return true;
-}
 
-Timer::Timer()
-{
-    start();
-}
+    bool between(float target, float min, float max)
+    {
+        if (target < min)
+        {
+            return false;
+        }
+        if (target > max)
+        {
+            return false;
+        }
+        return true;
 
-void Timer::start()
-{
-    startTime = std::chrono::high_resolution_clock::now();
-}
+    }
 
-float Timer::get()
-{
-    endTime = std::chrono::high_resolution_clock::now();
-    duration = endTime - startTime;
-    return duration.count();
+    std::string wstringToString(std::wstring wstr)
+    {
+        return "";
+    }
+
+
+    int randomRange(int min, int max)
+    {
+        return (rand() % (max - min)) + min;
+    }
+
+    int randomCentered(int center, int difference)
+    {
+        return ((rand() % difference) - (difference / 2)) + center;
+    }
+
+    int randomEx(int center, int difference, int min, int max)
+    {
+        int tmp = randomCentered(center, difference);
+        if (tmp < min)
+        {
+            tmp = min;
+        }
+        if (tmp > max)
+        {
+            tmp = max;
+        }
+        return tmp;
+    }
+
+    bool checkCollision(Rect a, Rect b)
+    {
+        if (a.y + a.h <= b.y)
+        {
+            return false;
+        }
+        if (a.y >= b.y + b.h)
+        {
+            return false;
+        }
+        if (a.x + a.w <= b.x)
+        {
+            return false;
+        }
+        if (a.x >= b.x + b.w)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    Timer::Timer()
+    {
+        start();
+    }
+
+    void Timer::start()
+    {
+        startTime = std::chrono::high_resolution_clock::now();
+    }
+
+    float Timer::get()
+    {
+        endTime = std::chrono::high_resolution_clock::now();
+        duration = endTime - startTime;
+        return duration.count();
+    }
 }

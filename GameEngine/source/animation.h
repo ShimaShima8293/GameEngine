@@ -2,23 +2,28 @@
 #include "internal.h"
 #include "sprite.h"
 
-typedef int (*AnimationFunc)(int frame, int len);
-typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
+namespace GameEngine
+{
 
-size_t getAnimationCount();
+    typedef int (*AnimationFunc)(int frame, int len);
+    typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
 
-void processAnimations();
+    size_t getAnimationCount();
 
-void playAnimation(AnimationFunc func, int len = 0, bool reversed = false);
+    void processAnimations();
 
-void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
+    void playAnimation(AnimationFunc func, int len = 0, bool reversed = false);
 
-void stopAnimation(AnimationFunc func);
+    void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
 
-void stopSpriteAnimation(SpriteAnimationFunc func);
+    void stopAnimation(AnimationFunc func);
 
-void clearAnimations();
+    void stopSpriteAnimation(SpriteAnimationFunc func);
 
-void setGlobalAnimationSpeed(float speed);
+    void clearAnimations();
 
-float getGlobalAnimationSpeed();
+    void setGlobalAnimationSpeed(float speed);
+
+    float getGlobalAnimationSpeed();
+
+}
