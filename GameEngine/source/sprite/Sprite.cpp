@@ -1,10 +1,9 @@
-#include "sprite.h"
-#include "vars.h"
-#include "events.h"
+#include "Sprite.h"
+#include "../vars.h"
+#include "../events.h"
 
 namespace GameEngine
 {
-
     Sprite::Sprite()
     {
         free();
@@ -386,13 +385,6 @@ namespace GameEngine
         setSize((float)getGameWidth(), (float)getGameHeight());
         setPos(0, 0);
     }
-    void Sprite::fitToWindow()
-    {
-        if (getGameHeight() / getGameWidth() > getH() / getW())
-        {
-
-        }
-    }
     void Sprite::setPos(float _x, float _y)
     {
         position.x = _x;
@@ -597,64 +589,4 @@ namespace GameEngine
     {
         return texture;
     }
-
-    SpriteGroup::SpriteGroup()
-    {
-        free();
-    }
-    SpriteGroup::~SpriteGroup()
-    {
-        free();
-    }
-
-    void SpriteGroup::free()
-    {
-        for (Renderable* child : children)
-        {
-            //child->free();
-        }
-        children.clear();
-        info = {};
-    }
-
-    void SpriteGroup::render(RenderInfo info)
-    {
-        RenderInfo newInfo{};
-        newInfo.position = this->info.position + info.position;
-        newInfo.rotation = this->info.rotation + info.rotation;
-        newInfo.scale = this->info.scale + info.scale;
-
-        for (Renderable* child : children)
-        {
-            child->render(newInfo);
-        }
-    }
-
-    void SpriteGroup::addChild(Renderable* child)
-    {
-        this->children.push_back(child);
-    }
-
-    void SpriteGroup::removeChild(Renderable* child)
-    {
-        for (int i = 0; i < this->children.size(); i++)
-        {
-            if (child == this->children[i])
-            {
-                this->children.erase(this->children.begin() + i);
-                i--;
-            }
-        }
-    }
-
-    void SpriteGroup::changePos(float x, float y)
-    {
-        this->changePos({ x, y });
-    }
-
-    void SpriteGroup::changePos(Vec2 vector)
-    {
-        this->info.position = this->info.position + vector;
-    }
-
 }
