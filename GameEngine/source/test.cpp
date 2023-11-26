@@ -1,60 +1,97 @@
 ﻿#ifdef TEST
-//#define NCONSOLE
 #include "gameEngine.h"
-GameEngine::Sprite text;
-GameEngine::Sprite cursor;
 
-int windowWidth = 1920;
-int windowHeight = 1080;
+using namespace GameEngine;
 
-int anmTest(GameEngine::Sprite* sprite, int frame, int len);
+TTF_Font* font = nullptr;
 
-static class SceneTest : public GameEngine::Scene
+static class SceneTest : public Scene
 {
+private:
+    Sprite image{};
+    int size = 3;
+    int random = 5;
 public:
+    void createImage()
+    {
+        SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, getGameWidth() / size, getGameHeight() / size, 32, SDL_PIXELFORMAT_RGBA32);
+        Uint32* pixels = (Uint32*)surface->pixels;
+        for (int i = 0; i < surface->w * surface->h; i++)
+        {
+            if (i > 0)
+            {
+                Uint8 pr, pg, pb, pa;
+                SDL_GetRGBA(pixels[i - 1], surface->format, &pr, &pg, &pb, &pa);
+                Uint8 r = pr + rand() % random;
+                Uint8 g = pg + rand() % random;
+                Uint8 b = pb + rand() % random;
+                pixels[i] = SDL_MapRGBA(surface->format, r, g, b, 255);
+            }
+        }
+        image.createFromSurface(surface);
+        image.stretchToWindow();
+    }
     void start()
     {
-        cursor.createSolid(0, 0);
-        cursor.setScale(16.0f, 16.0f);
-        addSprite(&cursor);
+        createImage();
+        addSprite(&image);
     }
     void update()
     {
-        cursor.setCPos(GameEngine::getCursorPos());
-        cursor.setColor(255, 255, 255);
-        if (GameEngine::getKeyPressed(SDLK_SPACE))
+        if (getKeyPressedPulse(SDLK_SPACE))
         {
-            cursor.setCPos(GameEngine::getCursorWindowPos());
+            createImage();   
         }
-        if (GameEngine::getMouseButton(1))
+        if (getKeyPressed(SDLK_RETURN))
         {
-            cursor.setColor(255, 0, 0);
+            createImage();
         }
-        if (GameEngine::getJoyAxisPulse(0, GameEngine::AXIS_NEGATIVE, 200))
+        if (getKeyPressedPulse(SDLK_EQUALS))
         {
-            GameEngine::printInfo("PRESSED!");
+            size++;
+            createImage();
         }
-        //printInfo(std::to_string(getCursorWindowPos().x) + ":" + std::to_string(getCursorWindowPos().y));
+        if (getKeyPressedPulse(SDLK_MINUS))
+        {
+            size--;
+            if (size < 1)
+            {
+                size = 1;
+            }
+            createImage();
+        }
+        if (getKeyPressedPulse(SDLK_PERIOD))
+        {
+            random++;
+            createImage();
+        }
+        if (getKeyPressedPulse(SDLK_COMMA))
+        {
+            random--;
+            if (random < 1)
+            {
+                random = 1;
+            }
+            createImage();
+        }
+
+        if (getKeyPressedPulse(SDLK_ESCAPE))
+        {
+            endMainloop();
+        }
     }
 } sceneTest;
 
-int anmTest(GameEngine::Sprite* sprite, int frame, int len)
-{
-    //sprite->changePos(0.1, 0.1);
-    return 0;
-}
-
 int main(int argc, char* args[])
 {
-    GameEngine::init("GameEngine test", 640, 480, 0);
+    init("GameEngine test", 3840, 2160, 0);
 
-    //setFullscreenResolution(640, 480);
-
-    GameEngine::setConsoleLogLevel(GameEngine::PRINT_EVERYTHING);
+    setWindowMode(WindowMode::WINDOW_FULLSCREEN);
+    hideCursor();
 
     loadScene(&sceneTest);
 
-    GameEngine::startMainloop();
+    startMainloop();
 
     return 0;
 }

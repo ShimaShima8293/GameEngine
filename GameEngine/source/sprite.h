@@ -259,4 +259,9 @@ namespace GameEngine
 
     };
 
+    Sprite* createImageSprite(std::string path);
+    Sprite* createTextSprite(std::string path);
+    Sprite* createSolidSprite();
+    Sprite* createGradientSprite();
+    Sprite* createFromSurface(SDL_Surface* surface);
 }

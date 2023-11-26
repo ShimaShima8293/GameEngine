@@ -57,7 +57,7 @@ namespace GameEngine
                 Sprite* currentSprite = (*layers[i])[j];
                 if (currentSprite == nullptr)
                 {
-                    printError("renderEverything: `currentSprite` was nullptr.");
+                    printErrorGE("renderEverything: `currentSprite` was nullptr.");
                     continue;
                 }
                 if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
@@ -77,7 +77,7 @@ namespace GameEngine
             Sprite* currentSprite = mainLayer[i];
             if (currentSprite == nullptr)
             {
-                printError("renderEverything: `currentSprite` was nullptr.");
+                printErrorGE("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
             if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
@@ -173,7 +173,7 @@ namespace GameEngine
     {
         if (sprite == nullptr)
         {
-            printError("addSprite: Parameter `sprite` was nullptr.");
+            printErrorGE("addSprite: Parameter `sprite` was nullptr.");
             return;
         }
         mainLayer.push_back(sprite);
@@ -203,7 +203,7 @@ namespace GameEngine
         }
         else
         {
-            printError("getSprite: Parameter `index` was larger than the sprite count.");
+            printErrorGE("getSprite: Parameter `index` was larger than the sprite count.");
             return nullptr;
         }
     }
@@ -212,7 +212,7 @@ namespace GameEngine
     {
         if (sprite == nullptr)
         {
-            printError("removeSprite: Parameter `sprite` was nullptr.");
+            printErrorGE("removeSprite: Parameter `sprite` was nullptr.");
             return;
         }
         for (int i = 0; i < mainLayer.size(); i++)

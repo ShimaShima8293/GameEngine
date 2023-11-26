@@ -6,58 +6,100 @@
 
 namespace GameEngine
 {
-    DebugLevel consoleLevel = PRINT_ERROR;
-    DebugLevel popupLevel = PRINT_NONE;
+    DebugLevel consoleLevel = DEBUG_LEVEL_EVERYTHING;
+    DebugLevel popupLevel = DEBUG_LEVEL_FATAL_ERROR;
+
+    DebugLevel consoleLevelGE = DEBUG_LEVEL_EVERYTHING;
+    DebugLevel popupLevelGE = DEBUG_LEVEL_FATAL_ERROR;
 
     void printInfo(std::string text)
     {
-        if (consoleLevel <= PRINT_EVERYTHING)
+        if (consoleLevel <= DEBUG_LEVEL_EVERYTHING)
         {
-            std::cout << "[INFO]        " << text << "\n";
+            std::cout << "[INFO]           " << text << "\n";
         }
 
-        if (popupLevel <= PRINT_EVERYTHING)
+        if (popupLevel <= DEBUG_LEVEL_EVERYTHING)
         {
-            infoPopup("Info message", text);
+            infoPopup("Info Message", text);
         }
     }
 
     void printError(std::string text)
     {
-        if (consoleLevel <= PRINT_ERROR)
+        if (consoleLevel <= DEBUG_LEVEL_ERROR)
         {
-            std::cout << "[ERROR]       " << text << "\n";
+            std::cout << "[ERROR]          " << text << "\n";
         }
 
-        if (popupLevel <= PRINT_ERROR)
+        if (popupLevel <= DEBUG_LEVEL_ERROR)
         {
-            errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            errorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
     void printFatalError(std::string text)
     {
-        if (consoleLevel <= PRINT_FATAL_ERROR)
+        if (consoleLevel <= DEBUG_LEVEL_FATAL_ERROR)
         {
-            std::cout << "[FATAL-ERROR] " << text << "\n";
+            std::cout << "[FATAL-ERROR]    " << text << "\n";
         }
 
-        if (popupLevel <= PRINT_FATAL_ERROR)
+        if (popupLevel <= DEBUG_LEVEL_FATAL_ERROR)
         {
-            errorPopup("Error message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            errorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+        }
+    }
+
+    void printInfoGE(std::string text)
+    {
+        if (consoleLevelGE <= DEBUG_LEVEL_EVERYTHING)
+        {
+            std::cout << "[GE-INFO]        " << text << "\n";
+        }
+
+        if (popupLevelGE <= DEBUG_LEVEL_EVERYTHING)
+        {
+            infoPopup("GameEngine Info Message", text);
+        }
+    }
+
+    void printErrorGE(std::string text)
+    {
+        if (consoleLevelGE <= DEBUG_LEVEL_ERROR)
+        {
+            std::cout << "[GE-ERROR]       " << text << "\n";
+        }
+
+        if (popupLevelGE <= DEBUG_LEVEL_ERROR)
+        {
+            errorPopup("GameEngine Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+        }
+    }
+
+    void printFatalErrorGE(std::string text)
+    {
+        if (consoleLevelGE <= DEBUG_LEVEL_FATAL_ERROR)
+        {
+            std::cout << "[GE-FATAL-ERROR] " << text << "\n";
+        }
+
+        if (popupLevelGE <= DEBUG_LEVEL_FATAL_ERROR)
+        {
+            errorPopup("GameEngine Fatal Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
     void printSDLError()
     {
-        if (consoleLevel <= PRINT_ERROR)
+        if (consoleLevel <= DEBUG_LEVEL_ERROR)
         {
-            std::cout << "[SDL-ERROR]   " << SDL_GetError() << "\n";
+            std::cout << "[SDL-ERROR]      " << SDL_GetError() << "\n";
         }
 
-        if (popupLevel <= PRINT_ERROR)
+        if (popupLevel <= DEBUG_LEVEL_ERROR)
         {
-            errorPopup("SDL Error message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            errorPopup("SDL Error Message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
@@ -88,4 +130,13 @@ namespace GameEngine
         popupLevel = _level;
     }
 
+    void setConsoleLogLevelGE(DebugLevel _level)
+    {
+        consoleLevelGE = _level;
+    }
+
+    void setPopupLogLevelGE(DebugLevel _level)
+    {
+        popupLevelGE = _level;
+    }
 }

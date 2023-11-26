@@ -8,11 +8,20 @@ namespace GameEngine
     typedef int (*AnimationFunc)(int frame, int len);
     typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
 
+    class Animation
+    {
+    public:
+        virtual void start() {}
+        virtual int update(int frame, int len) {}
+        virtual void free() {}
+    };
+
     size_t getAnimationCount();
 
     void processAnimations();
 
     void playAnimation(AnimationFunc func, int len = 0, bool reversed = false);
+    void playAnimation(Animation animation, int len = 0, bool reversed = false);
 
     void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
 

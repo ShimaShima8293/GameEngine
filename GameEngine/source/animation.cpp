@@ -81,7 +81,7 @@ namespace GameEngine
             AnimationData* currentData = &dataList[i];
             if (currentData->func == nullptr)
             {
-                printError("processAnimations: `currentData->func` was nullptr");
+                printErrorGE("processAnimations: `currentData->func` was nullptr");
                 continue;
             }
 
@@ -129,12 +129,12 @@ namespace GameEngine
             SpriteAnimationData* currentData = &dataList2[i];
             if (currentData->func == nullptr)
             {
-                printError("processAnimations: `currentData->func` was nullptr");
+                printErrorGE("processAnimations: `currentData->func` was nullptr");
                 continue;
             }
             if (currentData->sprite == nullptr)
             {
-                printError("processAnimations: `currentData->sprite` was nullptr");
+                printErrorGE("processAnimations: `currentData->sprite` was nullptr");
                 continue;
             }
 
@@ -183,13 +183,13 @@ namespace GameEngine
     {
         if (func == nullptr)
         {
-            printError("playAnimation: Parameter `func` was nullptr.");
+            printErrorGE("playAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printError("playAnimation: Parameter `len` was equal to or smaller than 0.");
+            printErrorGE("playAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -217,17 +217,22 @@ namespace GameEngine
         playQueue.push_back(newData);
     }
 
+    void playAnimation(Animation animation, int len, bool reversed)
+    {
+        
+    }
+
     void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
-            printError("playSpriteAnimation: Parameter `func` was nullptr.");
+            printErrorGE("playSpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printError("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
+            printErrorGE("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -260,7 +265,7 @@ namespace GameEngine
     {
         if (func == nullptr)
         {
-            printError("stopAnimation: Parameter `func` was nullptr.");
+            printErrorGE("stopAnimation: Parameter `func` was nullptr.");
             return;
         }
 
@@ -273,7 +278,7 @@ namespace GameEngine
     {
         if (func == nullptr)
         {
-            printError("stopSpriteAnimation: Parameter `func` was nullptr.");
+            printErrorGE("stopSpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 

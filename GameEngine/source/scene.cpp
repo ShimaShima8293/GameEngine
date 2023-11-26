@@ -23,7 +23,7 @@ namespace GameEngine
             }
 
             initScene();
-            printInfo("processScene: Loading a scene.");
+            printInfoGE("processScene: Loading a scene.");
             current = queue;
             queue->start();
             if (current == queue)
