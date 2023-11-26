@@ -203,14 +203,28 @@ namespace GameEngine
         useCommonTexture = !_free;
         SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
     }
-    void Sprite::render()
+    void Sprite::setParent(SpriteGroup* parent)
+    {
+        if (parent != nullptr)
+        {
+            parent->addChild(this);
+        }
+        else if (this->parent != nullptr)
+        {
+            parent->removeChild(this);
+        }
+        this->parent = parent;
+    }
+
+    void Sprite::render(RenderInfo info)
     {
         if (texture == nullptr)
         {
             printErrorGE("Sprite::render: Texture was nullptr.");
+            return;
         }
 
-        if (getVisibility() == false || alpha == 0)
+        if (getVisibility() == false || alpha == 0 || info.visible == false)
         {
             return;
         }
@@ -221,6 +235,7 @@ namespace GameEngine
             {
                 printErrorGE("Sprite::render: Failed to set alpha modulation.");
                 printSDLError();
+                return;
             }
         }
         if (useColorMod)
@@ -229,29 +244,32 @@ namespace GameEngine
             {
                 printErrorGE("Sprite::render: Failed to set color modulation.");
                 printSDLError();
+                return;
             }
         }
 
-        float _width = (float)width * scaleW;
-        float _height = (float)height * scaleH;
-        SDL_FRect rect = { position.x, position.y, _width, _height };
+        float _width = (float)width * scaleW * info.scale.x;
+        float _height = (float)height * scaleH * info.scale.y;
+        SDL_FRect rect = { position.x + info.position.x, position.y + info.position.y, _width, _height };
         if (doClip)
         {
             SDL_Rect clipRect = { clipW * clipI, 0, clipW, height };
-            rect.w = clipRect.w * scaleW;
+            rect.w = clipRect.w * scaleW * info.scale.x;
 
-            if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation, NULL, flip) != 0)
+            if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
                 printErrorGE("Sprite::render: Failed to render.");
                 printSDLError();
+                return;
             }
         }
         else
         {
-            if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation, NULL, flip) != 0)
+            if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
                 printErrorGE("Sprite::render: Failed to render.");
                 printSDLError();
+                return;
             }
             if (showBorders)
             {
@@ -578,6 +596,65 @@ namespace GameEngine
     SDL_Texture* Sprite::getTexture()
     {
         return texture;
+    }
+
+    SpriteGroup::SpriteGroup()
+    {
+        free();
+    }
+    SpriteGroup::~SpriteGroup()
+    {
+        free();
+    }
+
+    void SpriteGroup::free()
+    {
+        for (Renderable* child : children)
+        {
+            //child->free();
+        }
+        children.clear();
+        info = {};
+    }
+
+    void SpriteGroup::render(RenderInfo info)
+    {
+        RenderInfo newInfo{};
+        newInfo.position = this->info.position + info.position;
+        newInfo.rotation = this->info.rotation + info.rotation;
+        newInfo.scale = this->info.scale + info.scale;
+
+        for (Renderable* child : children)
+        {
+            child->render(newInfo);
+        }
+    }
+
+    void SpriteGroup::addChild(Renderable* child)
+    {
+        this->children.push_back(child);
+    }
+
+    void SpriteGroup::removeChild(Renderable* child)
+    {
+        for (int i = 0; i < this->children.size(); i++)
+        {
+            if (child == this->children[i])
+            {
+                this->children.erase(this->children.begin() + i);
+                i--;
+            }
+        }
+    }
+
+    void SpriteGroup::changePos(float x, float y)
+    {
+        this->changePos({ x, y });
+    }
+
+    void SpriteGroup::changePos(Vec2 vector)
+    {
+        this->info.position = this->info.position + vector;
     }
 
 }

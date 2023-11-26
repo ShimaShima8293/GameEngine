@@ -11,8 +11,54 @@ namespace GameEngine
         HORIZONTAL
     } Orientation;
 
+    struct RenderInfo
+    {
+        Vec2 position = { 0.0f, 0.0f };
+        Vec2 scale = { 1.0f, 1.0f };
+        float rotation = 0.0f;
+        bool visible = true;
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
+    };
+
+    class Renderable
+    {
+    public:
+        virtual void render(RenderInfo info) = 0;
+        virtual void changePos(Vec2 vector) = 0;
+        virtual void changePos(float x, float y) = 0;
+    };
+
+
+    class Sprite;
+
+    class SpriteGroup : public Renderable
+    {
+    public:
+        SpriteGroup();
+        ~SpriteGroup();
+        void free();
+        void render(RenderInfo info);
+        std::vector<Renderable*> getChildren();
+        void addChild(Renderable* child);
+        void removeChild(Renderable* child);
+        void setChildren(std::vector<Renderable*> children);
+        void changePos(Vec2 vector);
+        void changePos(float x, float y);
+
+    private:
+        std::string name = "Unnamed";
+        std::vector<Renderable*> children;
+        Vec2 position = { 0.0f, 0.0f };
+        float scaleW = 1, scaleH = 1;
+        int width = 0, height = 0;
+        float rotation = 0.0;
+        bool visible = true;
+        SDL_RendererFlip flip = SDL_FLIP_NONE;
+        RenderInfo info;
+    };
+
     // A higher-level abstraction of texture and rendering.
-    class Sprite
+    class Sprite : public Renderable
     {
     public:
         Sprite();
@@ -48,8 +94,10 @@ namespace GameEngine
         // \param texture A pointer to SDL_Texture.
         void setTexture(SDL_Texture* _texture, bool free = true);
 
+        void setParent(SpriteGroup* parent);
+
         // Renders the sprite. This will automatically called if you use layer features.
-        void render();
+        void render(RenderInfo info);
 
         // Changes the color modulation of the texture.
         // \param red The red value for color modulation. (0-255)
@@ -256,6 +304,7 @@ namespace GameEngine
         bool doClip = false;
         bool useCommonTexture = false;
         SDL_RendererFlip flip = SDL_FLIP_NONE;
+        SpriteGroup* parent = nullptr;
 
     };
 

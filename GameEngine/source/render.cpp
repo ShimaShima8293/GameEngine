@@ -12,8 +12,8 @@ namespace GameEngine
     SDL_Surface* surface;
     Timer renderTimer;
     Timer gameTimer;
-    std::vector<Sprite*> mainLayer;
-    std::vector<std::vector<Sprite*>*> layers = {};
+    std::vector<Renderable*> mainLayer;
+    std::vector<std::vector<Renderable*>*> layers = {};
 
     void renderEverything()
     {
@@ -54,41 +54,43 @@ namespace GameEngine
         {
             for (int j = 0; j < layers[i]->size(); j++)
             {
-                Sprite* currentSprite = (*layers[i])[j];
+                Renderable* currentSprite = (*layers[i])[j];
                 if (currentSprite == nullptr)
                 {
                     printErrorGE("renderEverything: `currentSprite` was nullptr.");
                     continue;
                 }
-                if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
-                {
-                    currentSprite->render();
-                    renderedCount++;
-                }
-                if (currentSprite->getClip())
-                {
-                    clipCount++;
-                }
+                currentSprite->render({});
+                //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+                //{
+                //    currentSprite->render();
+                //    renderedCount++;
+                //}
+                //if (currentSprite->getClip())
+                //{
+                //    clipCount++;
+                //}
             }
         }
 
         for (int i = 0; i < mainLayer.size(); i++)
         {
-            Sprite* currentSprite = mainLayer[i];
+            Renderable* currentSprite = mainLayer[i];
             if (currentSprite == nullptr)
             {
                 printErrorGE("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
-            if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
-            {
-                currentSprite->render();
-                renderedCount++;
-            }
-            if (currentSprite->getClip())
-            {
-                clipCount++;
-            }
+            currentSprite->render({});
+            //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+            //{
+            //    currentSprite->render();
+            //    renderedCount++;
+            //}
+            //if (currentSprite->getClip())
+            //{
+            //    clipCount++;
+            //}
         }
 
 
@@ -141,8 +143,8 @@ namespace GameEngine
                 "Press F3 to hide"
             );
             debugBg.setSize(debugText.getW() + 10.0f, debugText.getH() + 10.0f);
-            debugBg.render();
-            debugText.render();
+            debugBg.render({});
+            debugText.render({});
         }
 
         SDL_RenderPresent(renderer);
@@ -169,7 +171,7 @@ namespace GameEngine
         gameTimer.start();
     }
 
-    void addSprite(Sprite* sprite)
+    void addSprite(Renderable* sprite)
     {
         if (sprite == nullptr)
         {
@@ -179,7 +181,7 @@ namespace GameEngine
         mainLayer.push_back(sprite);
     }
 
-    void setLayers(std::vector<std::vector<Sprite*>*> _layers)
+    void setLayers(std::vector<std::vector<Renderable*>*> _layers)
     {
         layers = _layers;
     }
@@ -195,20 +197,7 @@ namespace GameEngine
         return size;
     }
 
-    Sprite* getSprite(int index)
-    {
-        if (index <= getSpriteCount())
-        {
-            return mainLayer[index];
-        }
-        else
-        {
-            printErrorGE("getSprite: Parameter `index` was larger than the sprite count.");
-            return nullptr;
-        }
-    }
-
-    void removeSprite(Sprite* sprite)
+    void removeSprite(Renderable* sprite)
     {
         if (sprite == nullptr)
         {
@@ -220,6 +209,7 @@ namespace GameEngine
             if (mainLayer[i] == sprite)
             {
                 mainLayer.erase(mainLayer.begin() + i);
+                i--;
             }
         }
         for (int i = 0; i < layers.size(); i++)
@@ -229,6 +219,7 @@ namespace GameEngine
                 if ((*layers[i])[j] == sprite)
                 {
                     layers[i]->erase(layers[i]->begin() + j);
+                    j--;
                 }
             }
         }
