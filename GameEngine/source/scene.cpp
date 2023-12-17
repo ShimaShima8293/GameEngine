@@ -22,7 +22,8 @@ namespace GameEngine
                 current->free();
             }
 
-            initScene();
+            clearSprites();
+            clearAnimations();
             printInfoGE("processScene: Loading a scene.");
             current = queue;
             queue->start();
@@ -36,12 +37,6 @@ namespace GameEngine
         {
             getCurrentScene()->update();
         }
-    }
-
-    void initScene()
-    {
-        clearSprites();
-        clearAnimations();
     }
 
     Scene* getCurrentScene()

@@ -25,9 +25,6 @@ namespace GameEngine
     // Call this to get the current Scene class.
     Scene* getCurrentScene();
 
-    // Initialize the update and rendering systems. Call this function every time you start a scene.
-    void initScene();
-
     // Reload the current scene.
     void reloadCurrentScene();
 
