@@ -46,6 +46,12 @@ namespace GameEngine
 
     void reloadCurrentScene()
     {
+        if (current == nullptr)
+        {
+            printErrorGE("reloadCurrentScene: Scene is not loaded.");
+            return;
+        }
+
         loadScene(current);
     }
 
