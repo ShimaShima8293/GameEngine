@@ -35,11 +35,11 @@ public:
         }
         if (getKeyPressed(SDLK_RIGHT))
         {
-            group.changePos(1.0f, 0.0f);
+            group.changeSize(-1.0f, -1.0f);
         }
         if (getKeyPressed(SDLK_LEFT))
         {
-            group.changePos(-1.0f, 0.0f);
+            group.changeSize(1.0f, 1.0f);
         }
         group.render({});
     }

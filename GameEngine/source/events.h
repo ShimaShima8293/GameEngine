@@ -28,6 +28,8 @@ namespace GameEngine
     // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
     void processEvents();
 
+    bool getMouseMoved();
+
     // Get if the window is focused.
     // \returns bool True if the window is focused; False if not.
     bool getWindowFocus();

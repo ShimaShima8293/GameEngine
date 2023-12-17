@@ -34,7 +34,7 @@ namespace GameEngine
 
     void processEvents()
     {
-        SDL_Event event;
+        SDL_Event event{};
         mouseMoved = false;
         keyPressedPulse.clear();
         buttonPressedPulse.clear();
@@ -141,6 +141,11 @@ namespace GameEngine
                 reloadCurrentScene();
             }
         }
+    }
+
+    bool getMouseMoved()
+    {
+        return mouseMoved;
     }
 
     bool getWindowFocus()
