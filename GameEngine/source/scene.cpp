@@ -49,4 +49,19 @@ namespace GameEngine
         loadScene(current);
     }
 
+    void unloadCurrentScene()
+    {
+        if (current == nullptr)
+        {
+            printErrorGE("unloadCurrentScene: Scene is not loaded.");
+            return;
+        }
+
+        current->free();
+        current = nullptr;
+
+        clearSprites();
+        clearAnimations();
+    }
+
 }

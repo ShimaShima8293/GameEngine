@@ -28,4 +28,7 @@ namespace GameEngine
     // Reload the current scene.
     void reloadCurrentScene();
 
+    // Unload the current scene.
+    void unloadCurrentScene();
+
 }
