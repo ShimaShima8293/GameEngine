@@ -23,10 +23,14 @@ namespace GameEngine
 
     void SpriteGroup::render(RenderInfo info)
     {
+        if (this->info.visible == false)
+        {
+            return;
+        }
         RenderInfo newInfo{};
         newInfo.position = this->info.position + info.position;
         newInfo.rotation = this->info.rotation + info.rotation;
-        newInfo.scale = this->info.scale + info.scale;
+        newInfo.scale = this->info.scale * info.scale;
 
         for (Renderable* child : this->children)
         {
@@ -75,6 +79,14 @@ namespace GameEngine
 
     void SpriteGroup::addChild(Renderable* child)
     {
+        for (int i = 0; i < this->children.size(); i++)
+        {
+            if (child == this->children[i])
+            {
+                printErrorGE("SpriteGroup::addChild: Trying to add an existing child. Don't forget to call `init()`");
+                return;
+            }
+        }
         this->children.push_back(child);
     }
 
