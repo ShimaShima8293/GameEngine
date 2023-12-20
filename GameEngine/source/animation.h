@@ -6,7 +6,7 @@ namespace GameEngine
 {
 
     typedef int (*AnimationFunc)(int frame, int len);
-    typedef int (*SpriteAnimationFunc)(Sprite* sprite, int frame, int len);
+    typedef int (*SpriteAnimationFunc)(Renderable* sprite, int frame, int len);
 
     class Animation
     {
@@ -23,7 +23,7 @@ namespace GameEngine
     void playAnimation(AnimationFunc func, int len = 0, bool reversed = false);
     void playAnimation(Animation animation, int len = 0, bool reversed = false);
 
-    void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
+    void playSpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len = 0, bool reversed = false);
 
     void stopAnimation(AnimationFunc func);
 

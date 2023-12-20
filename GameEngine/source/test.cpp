@@ -41,7 +41,28 @@ public:
         {
             group.changeSize(1.0f, 1.0f);
         }
-        group.render({});
+
+        if (getKeyPressed(SDLK_1))
+        {
+            group.setAlpha(group.getAlpha() - 1);
+            printInfo("Group alpha: " + std::to_string(group.getAlpha()));
+        }
+        if (getKeyPressed(SDLK_2))
+        {
+            group.setAlpha(group.getAlpha() + 1);
+            printInfo("Group alpha: " + std::to_string(group.getAlpha()));
+        }
+
+        if (getKeyPressed(SDLK_3))
+        {
+            child1.setAlpha(child1.getAlpha() - 1);
+            printInfo("Child alpha: " + std::to_string(child1.getAlpha()));
+        }
+        if (getKeyPressed(SDLK_4))
+        {
+            child1.setAlpha(child1.getAlpha() + 1);
+            printInfo("Child alpha: " + std::to_string(child1.getAlpha()));
+        }
     }
 } sceneTest;
 

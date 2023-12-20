@@ -14,7 +14,7 @@ namespace GameEngine
 
     struct SpriteAnimationData
     {
-        Sprite* sprite;
+        Renderable* sprite;
         SpriteAnimationFunc func;
         int frame;
         int len;
@@ -222,7 +222,7 @@ namespace GameEngine
         
     }
 
-    void playSpriteAnimation(Sprite* sprite, SpriteAnimationFunc func, int len, bool reversed)
+    void playSpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
