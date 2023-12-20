@@ -228,15 +228,14 @@ namespace GameEngine
             return;
         }
 
-        if (useAlphaMod)
+        Uint8 newAlpha = (Uint8)std::round(info.alpha * ((float)alpha / 255.0f));
+        if (SDL_SetTextureAlphaMod(texture, newAlpha) != 0)
         {
-            if (SDL_SetTextureAlphaMod(texture, alpha) != 0)
-            {
-                printErrorGE("Sprite::render: Failed to set alpha modulation.");
-                printSDLError();
-                return;
-            }
+            printErrorGE("Sprite::render: Failed to set alpha modulation.");
+            printSDLError();
+            return;
         }
+
         if (useColorMod)
         {
             if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
@@ -302,6 +301,10 @@ namespace GameEngine
     {
         useAlphaMod = true;
         alpha = _alpha;
+    }
+    Uint8 Sprite::getAlpha()
+    {
+        return alpha;
     }
     void Sprite::clearColor()
     {

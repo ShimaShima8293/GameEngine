@@ -14,6 +14,7 @@ namespace GameEngine
         float rotation = 0.0f;
         bool visible = true;
         SDL_RendererFlip flip = SDL_FLIP_NONE;
+        Uint8 alpha = 255;
     };
 
     class Renderable
@@ -121,6 +122,12 @@ namespace GameEngine
         virtual float getAngleTowards(Vec2 vector) = 0;
         virtual float getWindowCenterX() = 0;
         virtual float getWindowCenterY() = 0;
+
+        // Setting alpha
+
+        virtual void setAlpha(Uint8 _alpha) = 0;
+        virtual Uint8 getAlpha() = 0;
+
     };
 
 

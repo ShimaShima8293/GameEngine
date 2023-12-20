@@ -31,6 +31,7 @@ namespace GameEngine
         newInfo.position = this->info.position + info.position;
         newInfo.rotation = this->info.rotation + info.rotation;
         newInfo.scale = this->info.scale * info.scale;
+        newInfo.alpha = (Uint8)std::round(info.alpha * ((float)this->info.alpha / 255.0f));
 
         for (Renderable* child : this->children)
         {
@@ -258,5 +259,13 @@ namespace GameEngine
     float SpriteGroup::getWindowCenterY()
     {
         return 0.0f;
+    }
+    void SpriteGroup::setAlpha(Uint8 _alpha)
+    {
+        info.alpha = _alpha;
+    }
+    Uint8 SpriteGroup::getAlpha()
+    {
+        return info.alpha;
     }
 }

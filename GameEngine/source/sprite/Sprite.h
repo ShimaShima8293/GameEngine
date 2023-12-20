@@ -126,6 +126,11 @@ namespace GameEngine
         float getWindowCenterX();
         float getWindowCenterY();
 
+        // Setting and getting alpha
+
+        void setAlpha(Uint8 _alpha);
+        Uint8 getAlpha();
+
         // Sprite-specific methods:
 
         // Loads a image and set as the texture of the sprite.
@@ -164,10 +169,6 @@ namespace GameEngine
         // Change the color and alpha modulation of the texture.
         // \param color The Color for color modulation. (0-255)
         void setColor(Color _color);
-
-        // Change alpha modulation of the texture.
-        // \param alpha The new alpha value.
-        void setAlpha(Uint8 _alpha);
 
         // Clear color modulation. By calling this, the render function will bypass the color modulation part.
         void clearColor();

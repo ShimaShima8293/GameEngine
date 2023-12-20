@@ -118,6 +118,11 @@ namespace GameEngine
         float getWindowCenterX();
         float getWindowCenterY();
 
+        // Setting alpha
+
+        void setAlpha(Uint8 _alpha);
+        Uint8 getAlpha();
+
         // SpriteGroup-specific methods:
 
         std::vector<Renderable*> getChildren();
