@@ -288,6 +288,7 @@ namespace GameEngine
     void clearAnimations()
     {
         dataList.clear();
+        dataList2.clear();
     }
 
     void setGlobalAnimationSpeed(float speed)
