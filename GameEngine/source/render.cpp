@@ -5,6 +5,7 @@
 #include "events.h"
 #include "animation.h"
 #include "resource.h"
+#include "sprite/Renderable.h"
 
 namespace GameEngine
 {

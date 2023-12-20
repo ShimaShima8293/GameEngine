@@ -204,6 +204,7 @@
     <ClCompile Include="source\render.cpp" />
     <ClCompile Include="source\resource.cpp" />
     <ClCompile Include="source\scene.cpp" />
+    <ClCompile Include="source\sprite\Renderable.cpp" />
     <ClCompile Include="source\sprite\Sprite.cpp" />
     <ClCompile Include="source\sprite\SpriteGroup.cpp" />
     <ClCompile Include="source\test.cpp" />

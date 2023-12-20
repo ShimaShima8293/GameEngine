@@ -2,6 +2,7 @@
 
 #include "../internal.h"
 #include "../utilities.h"
+#include "../render.h"
 
 namespace GameEngine
 {
@@ -20,6 +21,8 @@ namespace GameEngine
     class Renderable
     {
     public:
+        ~Renderable();
+
         // Rendering
 
         virtual void render(RenderInfo info) = 0;

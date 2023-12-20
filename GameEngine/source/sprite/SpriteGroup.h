@@ -1,8 +1,7 @@
 #pragma once
-#include "Renderable.h"
-#include "Sprite.h"
 #include "../internal.h"
 #include "../utilities.h"
+#include "Renderable.h"
 
 namespace GameEngine
 {

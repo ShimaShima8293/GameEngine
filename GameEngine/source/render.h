@@ -1,9 +1,10 @@
 #pragma once
 #include "internal.h"
-#include "sprite.h"
 
 namespace GameEngine
 {
+    class Renderable;
+
     // Render sprites and update the window. This function will delay for about 16 miliseconds to maintain 60 fps.
     void renderEverything();
 
