@@ -8,6 +8,7 @@ namespace GameEngine
     class Scene
     {
     public:
+        virtual ~Scene() {}
         // This virtual function will be called when `processScene()` is called after `loadScene()` is called.
         virtual void start() {}
         // This virtual function will be called every frame when `processScene()` is called.
