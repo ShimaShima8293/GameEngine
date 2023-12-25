@@ -97,21 +97,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <ExternalIncludePath>C:\Users\Walter\VCLibs\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Users\Walter\VCLibs\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)\lib\</OutDir>
+    <ExternalIncludePath>$(ProjectDir)include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Build\</OutDir>
     <TargetName>$(ProjectName)_debug</TargetName>
+    <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|x64'">
-    <ExternalIncludePath>C:\Users\Walter\VCLibs\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Users\Walter\VCLibs\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)</OutDir>
+    <ExternalIncludePath>$(ProjectDir)include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Test\</OutDir>
     <TargetName>$(ProjectName)_test</TargetName>
+    <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <ExternalIncludePath>C:\Users\Walter\VCLibs\SDL2\include;$(ExternalIncludePath)</ExternalIncludePath>
-    <LibraryPath>C:\Users\Walter\VCLibs\SDL2\lib\x64;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)\lib\</OutDir>
+    <ExternalIncludePath>$(ProjectDir)include\;$(ExternalIncludePath)</ExternalIncludePath>
+    <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)Build\</OutDir>
+    <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
