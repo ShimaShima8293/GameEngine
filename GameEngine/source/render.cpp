@@ -58,7 +58,7 @@ namespace GameEngine
                 Renderable* currentSprite = (*layers[i])[j];
                 if (currentSprite == nullptr)
                 {
-                    printErrorGE("renderEverything: `currentSprite` was nullptr.");
+                    PrintErrorInternal("renderEverything: `currentSprite` was nullptr.");
                     continue;
                 }
                 currentSprite->render({});
@@ -79,7 +79,7 @@ namespace GameEngine
             Renderable* currentSprite = mainLayer[i];
             if (currentSprite == nullptr)
             {
-                printErrorGE("renderEverything: `currentSprite` was nullptr.");
+                PrintErrorInternal("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
             currentSprite->render({});
@@ -122,7 +122,7 @@ namespace GameEngine
 
             SDL_DisplayMode mode = getDisplayMode();
             debugText.setText(
-                "Game Engine Version: " + std::string(GE_VERSION_STR) + "\n" +
+                "Game Engine Version: " + std::string(VERSION_STR) + "\n" +
                 std::to_string(fps) + " fps\n"
                 "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
                 "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
@@ -135,7 +135,7 @@ namespace GameEngine
                 "Window mode: " + modeText + "\n"
                 "Platform: " + SDL_GetPlatform() + "\n"
                 "SDL version: " + std::to_string(SDL_MAJOR_VERSION) + "." + std::to_string(SDL_MINOR_VERSION) + "." + std::to_string(SDL_PATCHLEVEL) + "\n"
-                "SDL_image version: " + std::to_string(SDL_IMAGE_MAJOR_VERSION) + "." + std::to_string(SDL_IMAGE_MINOR_VERSION) + "." + std::to_string(SDL_IMAGE_PATCHLEVEL) + "\n"
+                "SDL_image version: " + std::to_string(SDL_IMAMAJOR_VERSION) + "." + std::to_string(SDL_IMAMINOR_VERSION) + "." + std::to_string(SDL_IMAPATCHLEVEL) + "\n"
                 "SDL_ttf version: " + std::to_string(SDL_TTF_MAJOR_VERSION) + "." + std::to_string(SDL_TTF_MINOR_VERSION) + "." + std::to_string(SDL_TTF_PATCHLEVEL) + "\n"
                 "SDL_mixer version: " + std::to_string(SDL_MIXER_MAJOR_VERSION) + "." + std::to_string(SDL_MIXER_MINOR_VERSION) + "." + std::to_string(SDL_MIXER_PATCHLEVEL) + "\n"
                 "Font: " + std::to_string(getFontCount()) + "\n"
@@ -176,7 +176,7 @@ namespace GameEngine
     {
         if (sprite == nullptr)
         {
-            printErrorGE("addSprite: Parameter `sprite` was nullptr.");
+            PrintErrorInternal("addSprite: Parameter `sprite` was nullptr.");
             return;
         }
         mainLayer.push_back(sprite);
@@ -202,7 +202,7 @@ namespace GameEngine
     {
         if (sprite == nullptr)
         {
-            printErrorGE("removeSprite: Parameter `sprite` was nullptr.");
+            PrintErrorInternal("removeSprite: Parameter `sprite` was nullptr.");
             return;
         }
         for (int i = 0; i < mainLayer.size(); i++)

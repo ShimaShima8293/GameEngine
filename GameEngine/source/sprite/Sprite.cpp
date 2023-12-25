@@ -43,8 +43,8 @@ namespace GameEngine
         newTexture = IMG_LoadTexture(renderer, path.c_str());
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromImage: Failed to create image texture. Path: " + path);
-            printSDLError();
+            PrintErrorInternal("Sprite::createFromImage: Failed to create image texture. Path: " + path);
+            PrintSDLError();
         }
         else
         {
@@ -58,13 +58,13 @@ namespace GameEngine
     {
         if (_font == NULL)
         {
-            printErrorGE("Sprite::createFromText: Parameter `font` was nullptr.");
+            PrintErrorInternal("Sprite::createFromText: Parameter `font` was nullptr.");
             return false;
         }
 
         if (_text == "")
         {
-            printErrorGE("Sprite::createFromText: Parameter `text` was empty.");
+            PrintErrorInternal("Sprite::createFromText: Parameter `text` was empty.");
             return false;
         }
 
@@ -76,8 +76,8 @@ namespace GameEngine
         SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
         if (textSurface == NULL)
         {
-            printErrorGE("Sprite::createFromText: Failed to create surface.");
-            printSDLError();
+            PrintErrorInternal("Sprite::createFromText: Failed to create surface.");
+            PrintSDLError();
             return false;
         }
 
@@ -85,8 +85,8 @@ namespace GameEngine
         newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromText: Failed to create texture.");
-            printSDLError();
+            PrintErrorInternal("Sprite::createFromText: Failed to create texture.");
+            PrintSDLError();
             return false;
         }
 
@@ -103,7 +103,7 @@ namespace GameEngine
     {
         if (_surface == nullptr)
         {
-            printErrorGE("Sprite::createFromSurface: Parameter `surface` was nullptr.");
+            PrintErrorInternal("Sprite::createFromSurface: Parameter `surface` was nullptr.");
             return false;
         }
 
@@ -111,8 +111,8 @@ namespace GameEngine
         SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromSurface: Failed to create texture.");
-            printSDLError();
+            PrintErrorInternal("Sprite::createFromSurface: Failed to create texture.");
+            PrintSDLError();
             return false;
         }
         else
@@ -131,12 +131,12 @@ namespace GameEngine
     {
         if (width < 1)
         {
-            printErrorGE("Sprite::createSolid: Parameter `width` was smaller than 1.");
+            PrintErrorInternal("Sprite::createSolid: Parameter `width` was smaller than 1.");
             return false;
         }
         if (height < 1)
         {
-            printErrorGE("Sprite::createSolid: Parameter `height` was smaller than 1.");
+            PrintErrorInternal("Sprite::createSolid: Parameter `height` was smaller than 1.");
             return false;
         }
 
@@ -165,7 +165,7 @@ namespace GameEngine
     {
         if (length < 1)
         {
-            printErrorGE("Sprite::createGradient: Parameter `length` was smaller than 1.");
+            PrintErrorInternal("Sprite::createGradient: Parameter `length` was smaller than 1.");
             return false;
         }
 
@@ -193,7 +193,7 @@ namespace GameEngine
     {
         if (_texture == nullptr)
         {
-            printErrorGE("Sprite::setTexture: Parameter `texture` was nullptr.");
+            PrintErrorInternal("Sprite::setTexture: Parameter `texture` was nullptr.");
             return;
         }
 
@@ -219,7 +219,7 @@ namespace GameEngine
     {
         if (texture == nullptr)
         {
-            printErrorGE("Sprite::render: Texture was nullptr.");
+            PrintErrorInternal("Sprite::render: Texture was nullptr.");
             return;
         }
 
@@ -231,8 +231,8 @@ namespace GameEngine
         Uint8 newAlpha = (Uint8)std::round(info.alpha * ((float)alpha / 255.0f));
         if (SDL_SetTextureAlphaMod(texture, newAlpha) != 0)
         {
-            printErrorGE("Sprite::render: Failed to set alpha modulation.");
-            printSDLError();
+            PrintErrorInternal("Sprite::render: Failed to set alpha modulation.");
+            PrintSDLError();
             return;
         }
 
@@ -240,8 +240,8 @@ namespace GameEngine
         {
             if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
             {
-                printErrorGE("Sprite::render: Failed to set color modulation.");
-                printSDLError();
+                PrintErrorInternal("Sprite::render: Failed to set color modulation.");
+                PrintSDLError();
                 return;
             }
         }
@@ -256,8 +256,8 @@ namespace GameEngine
 
             if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                printErrorGE("Sprite::render: Failed to render.");
-                printSDLError();
+                PrintErrorInternal("Sprite::render: Failed to render.");
+                PrintSDLError();
                 return;
             }
         }
@@ -265,8 +265,8 @@ namespace GameEngine
         {
             if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                printErrorGE("Sprite::render: Failed to render.");
-                printSDLError();
+                PrintErrorInternal("Sprite::render: Failed to render.");
+                PrintSDLError();
                 return;
             }
             if (showBorders)
@@ -348,12 +348,12 @@ namespace GameEngine
     {
         if (_w <= 0)
         {
-            printErrorGE("Sprite::setSize: Parameter `_w` was smaller than 1.");
+            PrintErrorInternal("Sprite::setSize: Parameter `_w` was smaller than 1.");
             return;
         }
         if (_h <= 0)
         {
-            printErrorGE("Sprite::setSize: Parameter `_h` was smaller than 1.");
+            PrintErrorInternal("Sprite::setSize: Parameter `_h` was smaller than 1.");
             return;
         }
         // width * scaleW = _w

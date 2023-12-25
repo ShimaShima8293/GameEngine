@@ -1,42 +1,15 @@
-#include "animation.h"
+#include "AnimationPlayer.h"
 #include "macros.h"
 #include "utilities.h"
 
 namespace GameEngine
 {
-    struct AnimationData
-    {
-        AnimationFunc func;
-        int frame;
-        int len;
-        bool reversed;
-    };
-
-    struct SpriteAnimationData
-    {
-        Renderable* sprite;
-        SpriteAnimationFunc func;
-        int frame;
-        int len;
-        bool reversed;
-    };
-
-    std::vector<AnimationData> dataList;
-    std::vector<AnimationData> playQueue;
-    std::vector<AnimationFunc> stopQueue;
-
-    std::vector<SpriteAnimationData> dataList2;
-    std::vector<SpriteAnimationData> playQueue2;
-    std::vector<SpriteAnimationFunc> stopQueue2;
-
-    float animationSpeed = 1.0f;
-
-    size_t getAnimationCount()
+    size_t AnimationPlayer::getAnimationCount()
     {
         return dataList.size();
     }
 
-    void processAnimations()
+    void AnimationPlayer::processAnimations()
     {
         for (int i = 0; i < playQueue.size(); i++)
         {
@@ -81,7 +54,7 @@ namespace GameEngine
             AnimationData* currentData = &dataList[i];
             if (currentData->func == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->func` was nullptr");
+                PrintErrorInternal("processAnimations: `currentData->func` was nullptr");
                 continue;
             }
 
@@ -129,12 +102,12 @@ namespace GameEngine
             SpriteAnimationData* currentData = &dataList2[i];
             if (currentData->func == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->func` was nullptr");
+                PrintErrorInternal("processAnimations: `currentData->func` was nullptr");
                 continue;
             }
             if (currentData->sprite == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->sprite` was nullptr");
+                PrintErrorInternal("processAnimations: `currentData->sprite` was nullptr");
                 continue;
             }
 
@@ -179,17 +152,17 @@ namespace GameEngine
     }
 
 
-    void playAnimation(AnimationFunc func, int len, bool reversed)
+    void AnimationPlayer::playAnimation(AnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
-            printErrorGE("playAnimation: Parameter `func` was nullptr.");
+            PrintErrorInternal("playAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printErrorGE("playAnimation: Parameter `len` was equal to or smaller than 0.");
+            PrintErrorInternal("playAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -217,22 +190,22 @@ namespace GameEngine
         playQueue.push_back(newData);
     }
 
-    void playAnimation(Animation animation, int len, bool reversed)
+    void AnimationPlayer::playAnimation(Animation animation, int len, bool reversed)
     {
         
     }
 
-    void playSpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len, bool reversed)
+    void AnimationPlayer::playSpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
-            printErrorGE("playSpriteAnimation: Parameter `func` was nullptr.");
+            PrintErrorInternal("playSpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printErrorGE("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
+            PrintErrorInternal("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -261,11 +234,11 @@ namespace GameEngine
         playQueue2.push_back(newData);
     }
 
-    void stopAnimation(AnimationFunc func)
+    void AnimationPlayer::stopAnimation(AnimationFunc func)
     {
         if (func == nullptr)
         {
-            printErrorGE("stopAnimation: Parameter `func` was nullptr.");
+            PrintErrorInternal("stopAnimation: Parameter `func` was nullptr.");
             return;
         }
 
@@ -274,29 +247,29 @@ namespace GameEngine
 
     }
 
-    void stopSpriteAnimation(SpriteAnimationFunc func)
+    void AnimationPlayer::stopSpriteAnimation(SpriteAnimationFunc func)
     {
         if (func == nullptr)
         {
-            printErrorGE("stopSpriteAnimation: Parameter `func` was nullptr.");
+            PrintErrorInternal("stopSpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         stopQueue2.push_back(func);
     }
 
-    void clearAnimations()
+    void AnimationPlayer::clearAnimations()
     {
         dataList.clear();
         dataList2.clear();
     }
 
-    void setGlobalAnimationSpeed(float speed)
+    void AnimationPlayer::setGlobalAnimationSpeed(float speed)
     {
         animationSpeed = speed;
     }
 
-    float getGlobalAnimationSpeed()
+    float AnimationPlayer::getGlobalAnimationSpeed()
     {
         return animationSpeed;
     }

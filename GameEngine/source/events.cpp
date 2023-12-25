@@ -84,7 +84,7 @@ namespace GameEngine
             {
                 joyButton[event.jbutton.button] = true;
                 joyButtonPulse[event.jbutton.button] = true;
-                //printInfoGE((int)event.jbutton.button);
+                //PrintInfoInternal((int)event.jbutton.button);
             }
             if (event.type == SDL_JOYBUTTONUP)
             {
@@ -93,7 +93,7 @@ namespace GameEngine
             if (event.type == SDL_JOYAXISMOTION)
             {
                 joyAxis[event.jaxis.axis] = event.jaxis.value;
-                //printInfoGE((int)event.jaxis.axis);
+                //PrintInfoInternal((int)event.jaxis.axis);
             }
             if (event.type == SDL_JOYHATMOTION)
             {
@@ -283,8 +283,8 @@ namespace GameEngine
         cursor = SDL_CreateSystemCursor(_cursor);
         if (cursor == nullptr)
         {
-            printErrorGE("setSystemCursor: Failed to create a system cursor.");
-            printSDLError();
+            PrintErrorInternal("setSystemCursor: Failed to create a system cursor.");
+            PrintSDLError();
             return -1;
         }
         SDL_SetCursor(cursor);
@@ -301,8 +301,8 @@ namespace GameEngine
         cursor = SDL_CreateCursor((Uint8*)cursorData, (Uint8*)cursorData, 8, 8, 4, 4);
         if (cursor == nullptr)
         {
-            printErrorGE("hideCursor: Failed to create a system cursor.");
-            printSDLError();
+            PrintErrorInternal("hideCursor: Failed to create a system cursor.");
+            PrintSDLError();
             return -1;
         }
         SDL_SetCursor(cursor);
@@ -342,12 +342,12 @@ namespace GameEngine
     {
         if (_gameWidth <= 0)
         {
-            printFatalErrorGE("init: Parameter `_gameWidth` was smaller than 1.");
+            PrintFatalErrorInternal("init: Parameter `_gameWidth` was smaller than 1.");
             return -1;
         }
         if (_gameHeight <= 0)
         {
-            printFatalErrorGE("init: Parameter `_gameHeight` was smaller than 1.");
+            PrintFatalErrorInternal("init: Parameter `_gameHeight` was smaller than 1.");
             return -1;
         }
 #ifdef _WIN32
@@ -361,37 +361,37 @@ namespace GameEngine
         gameWidth = _gameWidth;
         gameHeight = _gameHeight;
 
-        printInfoGE("Game Engine Version " GE_VERSION_STR);
+        PrintInfoInternal("Game Engine Version " VERSION_STR);
 
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL.");
+            PrintFatalErrorInternal("init: Failed to initialize SDL.");
             return -1;
         }
         if (IMG_Init(0) < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_Image.");
-            printSDLError();
+            PrintFatalErrorInternal("init: Failed to initialize SDL_Image.");
+            PrintSDLError();
             return -1;
         }
         if (TTF_Init() < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_TTF.");
-            printSDLError();
+            PrintFatalErrorInternal("init: Failed to initialize SDL_TTF.");
+            PrintSDLError();
             return -1;
         }
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) != 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_Mixer.");
-            printSDLError();
+            PrintFatalErrorInternal("init: Failed to initialize SDL_Mixer.");
+            PrintSDLError();
             return -1;
         }
 
         window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (window == nullptr)
         {
-            printFatalErrorGE("init: Failed to create a window.");
-            printSDLError();
+            PrintFatalErrorInternal("init: Failed to create a window.");
+            PrintSDLError();
             return -1;
         }
 
@@ -399,8 +399,8 @@ namespace GameEngine
         {
             if (SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") != SDL_TRUE)
             {
-                printErrorGE("init: Failed to set antialiasing.");
-                printSDLError();
+                PrintErrorInternal("init: Failed to set antialiasing.");
+                PrintSDLError();
             }
             else
             {
@@ -435,8 +435,8 @@ namespace GameEngine
         TTF_Font* debugFont = TTF_OpenFont(PATH_DEFAULT_FONT, 24);
         if (debugFont == NULL)
         {
-            printErrorGE("init: Failed to create `debugFont`.");
-            printSDLError();
+            PrintErrorInternal("init: Failed to create `debugFont`.");
+            PrintSDLError();
         }
 
         debugText.createFromText(DEFAULT_TEXT, debugFont);
@@ -446,12 +446,12 @@ namespace GameEngine
 
         if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
         {
-            printErrorGE("init: Failed to set fullscreen resolution.");
+            PrintErrorInternal("init: Failed to set fullscreen resolution.");
         }
 
         if (SDL_JoystickOpen(0) == nullptr)
         {
-            printInfoGE("init: Joystick not found.");
+            PrintInfoInternal("init: Joystick not found.");
         }
 
         running = true;
@@ -469,12 +469,12 @@ namespace GameEngine
     {
         if (w <= 0)
         {
-            printErrorGE("setFullscreenResolution: Parameter `w` was smaller than 1.");
+            PrintErrorInternal("setFullscreenResolution: Parameter `w` was smaller than 1.");
             return -1;
         }
         if (h <= 0)
         {
-            printErrorGE("setFullscreenResolution: Parameter `h` was smaller than 1.");
+            PrintErrorInternal("setFullscreenResolution: Parameter `h` was smaller than 1.");
             return -1;
         }
 
@@ -483,14 +483,14 @@ namespace GameEngine
         mode.h = h;
         if (SDL_SetWindowDisplayMode(window, &mode) != 0)
         {
-            printErrorGE("setFullscreenResolution: Failed to set window display mode.");
-            printSDLError();
+            PrintErrorInternal("setFullscreenResolution: Failed to set window display mode.");
+            PrintSDLError();
             return -1;
         }
         return 0;
     }
 
-    GE_HWND getHWND()
+    HWND getHWND()
     {
 #ifdef _WIN32
         SDL_SysWMinfo wmInfo{};
@@ -499,7 +499,7 @@ namespace GameEngine
         HWND hwnd = wmInfo.info.win.window;
         return hwnd;
 #else
-        printErrorGE("getHWND: Unsupported OS.");
+        PrintErrorInternal("getHWND: Unsupported OS.");
         return nullptr;
 #endif
     }

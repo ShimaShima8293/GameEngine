@@ -14,44 +14,44 @@ namespace GameEngine
     };
 
     // Print an info message to the console.
-    void printInfo(std::string text);
+    void PrintInfo(std::string text);
 
     // Print an error message to the console.
-    void printError(std::string text);
+    void PrintError(std::string text);
 
     // Print a fatal error message to the console.
-    void printFatalError(std::string text);
+    void PrintFatalError(std::string text);
 
     // Print an info message to the console.
-    void printInfoGE(std::string text);
+    void PrintInfoInternal(std::string text);
 
     // Print an error message to the console.
-    void printErrorGE(std::string text);
+    void PrintErrorInternal(std::string text);
 
     // Print a fatal error message to the console.
-    void printFatalErrorGE(std::string text);
+    void PrintFatalErrorInternal(std::string text);
 
     // Print an SDL error message to the console.
-    void printSDLError();
+    void PrintSDLError();
 
-    void errorPopup(std::string title, std::string text);
+    void ErrorPopup(std::string title, std::string text);
 
-    void infoPopup(std::string title, std::string text);
-
-    // Set the minimal console output level.
-    // \param _level Pick from the `DebugLevel` enum.
-    void setConsoleLogLevel(DebugLevel _level);
-
-    // Set the minimal popup output level.
-    // \param _level Pick from the `DebugLevel` enum.
-    void setPopupLogLevel(DebugLevel _level);
+    void InfoPopup(std::string title, std::string text);
 
     // Set the minimal console output level.
     // \param _level Pick from the `DebugLevel` enum.
-    void setConsoleLogLevelGE(DebugLevel _level);
+    void SetConsoleLogLevel(DebugLevel _level);
 
     // Set the minimal popup output level.
     // \param _level Pick from the `DebugLevel` enum.
-    void setPopupLogLevelGE(DebugLevel _level);
+    void SetPopupLogLevel(DebugLevel _level);
+
+    // Set the minimal console output level.
+    // \param _level Pick from the `DebugLevel` enum.
+    void SetConsoleLogLevelGE(DebugLevel _level);
+
+    // Set the minimal popup output level.
+    // \param _level Pick from the `DebugLevel` enum.
+    void SetPopupLogLevelGE(DebugLevel _level);
 
 }

@@ -1,10 +1,10 @@
 #pragma once
 
-#define GE_VERSION_MAJOR 1
+#define GE_VERSION_MAJOR 2
 #define GE_VERSION_MINOR 0
 #define GE_VERSION_PATCH 0
 
-#define GE_VERSION_STR "Alpha-1.0"
+#define GE_VERSION_STR "Alpha-2.0"
 
 #define DEFAULT_TEXT "Error"
 

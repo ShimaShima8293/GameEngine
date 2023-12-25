@@ -9,27 +9,27 @@ namespace GameEngine
     {
         if (intro == nullptr)
         {
-            printErrorGE("playMusicSet: Parameter `intro` was nullptr.");
+            PrintErrorInternal("playMusicSet: Parameter `intro` was nullptr.");
             return;
         }
         if (intro == nullptr)
         {
-            printErrorGE("playMusicSet: Parameter `loop` was nullptr.");
+            PrintErrorInternal("playMusicSet: Parameter `loop` was nullptr.");
             return;
         }
         haltMusic();
         if (Mix_PlayChannel(CH_INTRO, intro, 0) == -1)
         {
-            printErrorGE("playMusicSet: Failed to play an intro WAV chunk.");
-            printSDLError();
+            PrintErrorInternal("playMusicSet: Failed to play an intro WAV chunk.");
+            PrintSDLError();
             return;
         }
         Mix_FadeOutChannel(CH_INTRO, fade);
 
         if (Mix_FadeInChannel(CH_LOOP, loop, -1, fade) == -1)
         {
-            printErrorGE("playMusicSet: Failed to play a loop WAV chunk.");
-            printSDLError();
+            PrintErrorInternal("playMusicSet: Failed to play a loop WAV chunk.");
+            PrintSDLError();
             return;
         };
     }
@@ -38,13 +38,13 @@ namespace GameEngine
     {
         if (chunk == nullptr)
         {
-            printErrorGE("playSoundEffect: Parameter `chunk` was nullptr.");
+            PrintErrorInternal("playSoundEffect: Parameter `chunk` was nullptr.");
             return;
         }
         if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)
         {
-            printErrorGE("playSoundEffect: Failed to play a sound effect WAV chunk.");
-            printSDLError();
+            PrintErrorInternal("playSoundEffect: Failed to play a sound effect WAV chunk.");
+            PrintSDLError();
             return;
         }
     }

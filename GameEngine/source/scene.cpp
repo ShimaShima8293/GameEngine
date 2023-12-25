@@ -24,7 +24,7 @@ namespace GameEngine
 
             clearSprites();
             clearAnimations();
-            printInfoGE("processScene: Loading a scene.");
+            PrintInfoInternal("processScene: Loading a scene.");
             current = queue;
             queue->start();
             if (current == queue)
@@ -48,7 +48,7 @@ namespace GameEngine
     {
         if (current == nullptr)
         {
-            printErrorGE("reloadCurrentScene: Scene is not loaded.");
+            PrintErrorInternal("reloadCurrentScene: Scene is not loaded.");
             return;
         }
 
@@ -59,7 +59,7 @@ namespace GameEngine
     {
         if (current == nullptr)
         {
-            printErrorGE("unloadCurrentScene: Scene is not loaded.");
+            PrintErrorInternal("unloadCurrentScene: Scene is not loaded.");
             return;
         }
 

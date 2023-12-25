@@ -12,13 +12,13 @@ namespace GameEngine
         TTF_Font* _font = TTF_OpenFont(path.c_str(), size);
         if (_font == NULL)
         {
-            printErrorGE("openFont: Failed to open a font.");
-            printSDLError();
+            PrintErrorInternal("openFont: Failed to open a font.");
+            PrintSDLError();
             return nullptr;
         }
 
         fontList.push_back(_font);
-        printInfoGE("openFont: Opened a font at " + path);
+        PrintInfoInternal("openFont: Opened a font at " + path);
         return _font;
     }
     Mix_Music* openMusic(std::string path)
@@ -26,13 +26,13 @@ namespace GameEngine
         Mix_Music* _music = Mix_LoadMUS(path.c_str());
         if (_music == NULL)
         {
-            printErrorGE("openMusic: Failed to open a music.");
-            printSDLError();
+            PrintErrorInternal("openMusic: Failed to open a music.");
+            PrintSDLError();
             return nullptr;
         }
 
         musicList.push_back(_music);
-        printInfoGE("openMusic: Opened a music at " + path);
+        PrintInfoInternal("openMusic: Opened a music at " + path);
         return _music;
     }
     Mix_Chunk* openWAV(std::string path)
@@ -40,13 +40,13 @@ namespace GameEngine
         Mix_Chunk* _chunk = Mix_LoadWAV(path.c_str());
         if (_chunk == NULL)
         {
-            printErrorGE("openWAV: Failed to open a WAV chunk.");
-            printSDLError();
+            PrintErrorInternal("openWAV: Failed to open a WAV chunk.");
+            PrintSDLError();
             return nullptr;
         }
 
         chunkList.push_back(_chunk);
-        printInfoGE("openWAV: Opened a WAV chunk at " + path);
+        PrintInfoInternal("openWAV: Opened a WAV chunk at " + path);
         return _chunk;
     }
 
@@ -56,8 +56,8 @@ namespace GameEngine
         texture = IMG_LoadTexture(getRenderer(), path.c_str());
         if (texture == nullptr)
         {
-            printErrorGE("createFromImage: Failed to create image texture.");
-            printSDLError();
+            PrintErrorInternal("createFromImage: Failed to create image texture.");
+            PrintSDLError();
         }
 
         return texture;
@@ -67,7 +67,7 @@ namespace GameEngine
     {
         if (font == nullptr)
         {
-            printErrorGE("closeFont: Parameter `font` was nullptr.");
+            PrintErrorInternal("closeFont: Parameter `font` was nullptr.");
             return;
         }
         for (int i = 0; i < fontList.size(); i++)
@@ -77,7 +77,7 @@ namespace GameEngine
                 TTF_CloseFont(fontList[i]);
                 fontList.erase(fontList.begin() + i);
                 i--;
-                printInfoGE("closeFont: Closed a font");
+                PrintInfoInternal("closeFont: Closed a font");
             }
         }
         font = nullptr;
@@ -87,7 +87,7 @@ namespace GameEngine
     {
         if (music == nullptr)
         {
-            printErrorGE("closeMusic: Parameter `music` was nullptr.");
+            PrintErrorInternal("closeMusic: Parameter `music` was nullptr.");
             return;
         }
         for (int i = 0; i < musicList.size(); i++)
@@ -97,7 +97,7 @@ namespace GameEngine
                 Mix_FreeMusic(musicList[i]);
                 musicList.erase(musicList.begin() + i);
                 i--;
-                printInfoGE("closeMusic: Closed a music");
+                PrintInfoInternal("closeMusic: Closed a music");
             }
         }
         music = nullptr;
@@ -107,7 +107,7 @@ namespace GameEngine
     {
         if (chunk == nullptr)
         {
-            printErrorGE("closeWAV: Parameter `chunk` was nullptr.");
+            PrintErrorInternal("closeWAV: Parameter `chunk` was nullptr.");
             return;
         }
         for (int i = 0; i < chunkList.size(); i++)
@@ -117,7 +117,7 @@ namespace GameEngine
                 Mix_FreeChunk(chunkList[i]);
                 chunkList.erase(chunkList.begin() + i);
                 i--;
-                printInfoGE("closeWAV: Closed a WAV chunk");
+                PrintInfoInternal("closeWAV: Closed a WAV chunk");
             }
         }
         chunk = nullptr;
@@ -129,19 +129,19 @@ namespace GameEngine
         for (int i = 0; i < fontList.size(); i++)
         {
             TTF_CloseFont(fontList[i]);
-            printInfoGE("closeResources: Closed a font");
+            PrintInfoInternal("closeResources: Closed a font");
         }
         fontList.clear();
         for (int i = 0; i < musicList.size(); i++)
         {
             Mix_FreeMusic(musicList[i]);
-            printInfoGE("closeResources: Closed a music");
+            PrintInfoInternal("closeResources: Closed a music");
         }
         musicList.clear();
         for (int i = 0; i < chunkList.size(); i++)
         {
             Mix_FreeChunk(chunkList[i]);
-            printInfoGE("closeResources: Closed a WAV chunk");
+            PrintInfoInternal("closeResources: Closed a WAV chunk");
         }
         chunkList.clear();
     }

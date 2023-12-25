@@ -84,7 +84,7 @@ namespace GameEngine
         {
             if (child == this->children[i])
             {
-                printErrorGE("SpriteGroup::addChild: Trying to add an existing child. Don't forget to call `init()`");
+                PrintErrorInternal("SpriteGroup::addChild: Trying to add an existing child. Don't forget to call `init()`");
                 return;
             }
         }

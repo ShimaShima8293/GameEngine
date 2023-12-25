@@ -102,6 +102,8 @@
     <OutDir>$(SolutionDir)Build\</OutDir>
     <TargetName>$(ProjectName)_debug</TargetName>
     <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)source\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Test|x64'">
     <ExternalIncludePath>$(ProjectDir)include\;$(ExternalIncludePath)</ExternalIncludePath>
@@ -109,12 +111,16 @@
     <OutDir>$(SolutionDir)Test\</OutDir>
     <TargetName>$(ProjectName)_test</TargetName>
     <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)source\;</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ExternalIncludePath>$(ProjectDir)include\;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)Build\</OutDir>
     <IntDir>$(ProjectDir)intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(ProjectDir)source\;</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -200,37 +206,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\animation.cpp" />
-    <ClCompile Include="source\audio.cpp" />
-    <ClCompile Include="source\debug.cpp" />
-    <ClCompile Include="source\events.cpp" />
-    <ClCompile Include="source\render.cpp" />
-    <ClCompile Include="source\resource.cpp" />
-    <ClCompile Include="source\scene.cpp" />
-    <ClCompile Include="source\sprite\Renderable.cpp" />
-    <ClCompile Include="source\sprite\Sprite.cpp" />
-    <ClCompile Include="source\sprite\SpriteGroup.cpp" />
-    <ClCompile Include="source\test.cpp" />
-    <ClCompile Include="source\utilities.cpp" />
-    <ClCompile Include="source\vars.cpp" />
+    <ClInclude Include="source\core\debug.h" />
+    <ClInclude Include="source\core\Game.h" />
+    <ClInclude Include="source\core\internal.h" />
+    <ClInclude Include="source\core\macros.h" />
+    <ClInclude Include="source\core\Scene.h" />
+    <ClInclude Include="source\core\utilities.h" />
+    <ClInclude Include="source\core\Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="source\animation.h" />
-    <ClInclude Include="source\audio.h" />
-    <ClInclude Include="source\debug.h" />
-    <ClInclude Include="source\internal.h" />
-    <ClInclude Include="source\sprite.h" />
-    <ClInclude Include="source\events.h" />
-    <ClInclude Include="source\gameEngine.h" />
-    <ClInclude Include="source\macros.h" />
-    <ClInclude Include="source\render.h" />
-    <ClInclude Include="source\resource.h" />
-    <ClInclude Include="source\scene.h" />
-    <ClInclude Include="source\sprite\Renderable.h" />
-    <ClInclude Include="source\sprite\Sprite.h" />
-    <ClInclude Include="source\sprite\SpriteGroup.h" />
-    <ClInclude Include="source\utilities.h" />
-    <ClInclude Include="source\vars.h" />
+    <ClCompile Include="source\core\debug.cpp" />
+    <ClCompile Include="source\core\Game.cpp" />
+    <ClCompile Include="source\core\Scene.cpp" />
+    <ClCompile Include="source\core\utilities.cpp" />
+    <ClCompile Include="source\core\Window.cpp" />
+    <ClCompile Include="source\test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

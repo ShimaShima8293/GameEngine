@@ -12,7 +12,7 @@ namespace GameEngine
     DebugLevel consoleLevelGE = DEBUG_LEVEL_EVERYTHING;
     DebugLevel popupLevelGE = DEBUG_LEVEL_FATAL_ERROR;
 
-    void printInfo(std::string text)
+    void PrintInfo(std::string text)
     {
         if (consoleLevel <= DEBUG_LEVEL_EVERYTHING)
         {
@@ -21,11 +21,11 @@ namespace GameEngine
 
         if (popupLevel <= DEBUG_LEVEL_EVERYTHING)
         {
-            infoPopup("Info Message", text);
+            InfoPopup("Info Message", text);
         }
     }
 
-    void printError(std::string text)
+    void PrintError(std::string text)
     {
         if (consoleLevel <= DEBUG_LEVEL_ERROR)
         {
@@ -34,11 +34,11 @@ namespace GameEngine
 
         if (popupLevel <= DEBUG_LEVEL_ERROR)
         {
-            errorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            ErrorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
-    void printFatalError(std::string text)
+    void PrintFatalError(std::string text)
     {
         if (consoleLevel <= DEBUG_LEVEL_FATAL_ERROR)
         {
@@ -47,11 +47,11 @@ namespace GameEngine
 
         if (popupLevel <= DEBUG_LEVEL_FATAL_ERROR)
         {
-            errorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            ErrorPopup("Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
-    void printInfoGE(std::string text)
+    void PrintInfoInternal(std::string text)
     {
         if (consoleLevelGE <= DEBUG_LEVEL_EVERYTHING)
         {
@@ -60,11 +60,11 @@ namespace GameEngine
 
         if (popupLevelGE <= DEBUG_LEVEL_EVERYTHING)
         {
-            infoPopup("GameEngine Info Message", text);
+            InfoPopup("GameEngine Info Message", text);
         }
     }
 
-    void printErrorGE(std::string text)
+    void PrintErrorInternal(std::string text)
     {
         if (consoleLevelGE <= DEBUG_LEVEL_ERROR)
         {
@@ -73,11 +73,11 @@ namespace GameEngine
 
         if (popupLevelGE <= DEBUG_LEVEL_ERROR)
         {
-            errorPopup("GameEngine Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            ErrorPopup("GameEngine Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
-    void printFatalErrorGE(std::string text)
+    void PrintFatalErrorInternal(std::string text)
     {
         if (consoleLevelGE <= DEBUG_LEVEL_FATAL_ERROR)
         {
@@ -86,11 +86,11 @@ namespace GameEngine
 
         if (popupLevelGE <= DEBUG_LEVEL_FATAL_ERROR)
         {
-            errorPopup("GameEngine Fatal Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            ErrorPopup("GameEngine Fatal Error Message", (std::string(text) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
-    void printSDLError()
+    void PrintSDLError()
     {
         if (consoleLevel <= DEBUG_LEVEL_ERROR)
         {
@@ -99,43 +99,44 @@ namespace GameEngine
 
         if (popupLevel <= DEBUG_LEVEL_ERROR)
         {
-            errorPopup("SDL Error Message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
+            ErrorPopup("SDL Error Message", (std::string(SDL_GetError()) + "\nDo you want to quit the program? (Yes/No)").c_str());
         }
     }
 
-    void errorPopup(std::string title, std::string text)
+    void ErrorPopup(std::string title, std::string text)
     {
 #ifdef _WIN32
-        if (MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONERROR | MB_YESNO) == IDYES)
+        if (MessageBoxA(nullptr, text.c_str(), title.c_str(), MB_ICONERROR | MB_YESNO) == IDYES)
         {
-            endMainloop();
+            //endMainloop();
+            exit(-1);
         }
 #endif
     }
 
-    void infoPopup(std::string title, std::string text)
+    void InfoPopup(std::string title, std::string text)
     {
 #ifdef _WIN32
-        MessageBoxA(getHWND(), text.c_str(), title.c_str(), MB_ICONINFORMATION | MB_OK);
+        MessageBoxA(nullptr, text.c_str(), title.c_str(), MB_ICONINFORMATION | MB_OK);
 #endif
     }
 
-    void setConsoleLogLevel(DebugLevel _level)
+    void SetConsoleLogLevel(DebugLevel _level)
     {
         consoleLevel = _level;
     }
 
-    void setPopupLogLevel(DebugLevel _level)
+    void SetPopupLogLevel(DebugLevel _level)
     {
         popupLevel = _level;
     }
 
-    void setConsoleLogLevelGE(DebugLevel _level)
+    void SetConsoleLogLevelGE(DebugLevel _level)
     {
         consoleLevelGE = _level;
     }
 
-    void setPopupLogLevelGE(DebugLevel _level)
+    void SetPopupLogLevelGE(DebugLevel _level)
     {
         popupLevelGE = _level;
     }
