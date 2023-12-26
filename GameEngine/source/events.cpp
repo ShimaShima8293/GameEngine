@@ -440,9 +440,9 @@ namespace GameEngine
         }
 
         debugText.createFromText(DEFAULT_TEXT, debugFont);
-        debugText.setPos(0, 0);
+        debugText.SetPos(0, 0);
 
-        debugBg.createSolid(1, 1, { 0, 0, 0, 128 });
+        debugBg.CreateSolid(1, 1, { 0, 0, 0, 128 });
 
         if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
         {

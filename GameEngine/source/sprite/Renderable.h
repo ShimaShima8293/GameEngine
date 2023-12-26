@@ -1,8 +1,7 @@
 #pragma once
 
-#include "../internal.h"
-#include "../utilities.h"
-#include "../render.h"
+#include "core/internal.h"
+#include "core/utilities.h"
 
 namespace GameEngine
 {
@@ -21,25 +20,25 @@ namespace GameEngine
     class Renderable
     {
     public:
-        ~Renderable();
+        virtual ~Renderable();
 
         // Rendering
 
-        virtual void render(RenderInfo info) = 0;
+        virtual void Render(RenderInfo info) = 0;
 
         // Grouping
 
-        virtual void setParent(SpriteGroup* parent) = 0;
+        virtual void SetParent(SpriteGroup* parent) = 0;
 
         // Visibility
 
-        virtual void setVisibility(bool _visible) = 0;
-        virtual bool getVisibility() = 0;
+        virtual void SetVisibility(bool _visible) = 0;
+        virtual bool GetVisibility() = 0;
 
         // Setting position
 
-        virtual void setPos(float _x, float _y) = 0;
-        virtual void setPos(Vec2 vector) = 0;
+        virtual void SetPos(float _x, float _y) = 0;
+        virtual void SetPos(Vec2 vector) = 0;
         virtual void setCPos(float _x, float _y) = 0;
         virtual void setCPos(Vec2 vector) = 0;
 

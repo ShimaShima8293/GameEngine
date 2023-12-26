@@ -2,7 +2,11 @@
 
 namespace GameEngine
 {
-    Window::Window(std::string title, int width, int height)
+    Window::Window(std::string title, int width, int height) :
+        gameWidth(width),
+        gameHeight(height),
+        renderer(nullptr),
+        window(nullptr)
     {
         window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (window == nullptr)
@@ -61,5 +65,26 @@ namespace GameEngine
         PrintErrorInternal("getHWND: Unsupported OS.");
         return nullptr;
 #endif
+    }
+    WindowDebugInfo Window::GetDebugInfo()
+    {
+        return this->debugInfo;
+    }
+
+    void Window::SetDebugInfo(WindowDebugInfo debugInfo)
+    {
+        this->debugInfo = debugInfo;
+    }
+    int Window::GetGameWidth()
+    {
+        return this->gameWidth;
+    }
+    int Window::GetGameHeight()
+    {
+        return this->gameHeight;
+    }
+    SDL_Renderer* Window::GetSDLRenderer()
+    {
+        return this->renderer;
     }
 }

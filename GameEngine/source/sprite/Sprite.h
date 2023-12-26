@@ -1,4 +1,6 @@
 #pragma once
+#include "core/internal.h"
+#include "core/Window.h"
 #include "Renderable.h"
 #include "SpriteGroup.h"
 
@@ -15,31 +17,31 @@ namespace GameEngine
     class Sprite : public Renderable
     {
     public:
-        Sprite();
+        Sprite(Window& window);
         ~Sprite();
 
         // Frees sprite's texture and initializes variables.
-        void free();
+        void Free();
 
         // Renderable methods:
 
         // Rendering
 
-        void render(RenderInfo info);
+        void Render(RenderInfo info);
 
         // Grouping
 
-        void setParent(SpriteGroup* parent);
+        void SetParent(SpriteGroup* parent);
 
         // Visibility
 
-        void setVisibility(bool _visible);
-        bool getVisibility();
+        void SetVisibility(bool _visible);
+        bool GetVisibility();
 
         // Setting position
 
-        void setPos(float _x, float _y);
-        void setPos(Vec2 vector);
+        void SetPos(float _x, float _y);
+        void SetPos(Vec2 vector);
         void setCPos(float _x, float _y);
         void setCPos(Vec2 vector);
 
@@ -152,7 +154,7 @@ namespace GameEngine
         // Creates texture from pixels. This will create a surface with white pixels and internally call `loadFromSurface` so you don't need to manually create/free the surface.
         // \param width The width of the pixels
         // \param height The height of the pixels
-        bool createSolid(int width, int height, Color color = { 255, 255, 255, 255 });
+        bool CreateSolid(int width, int height, Color color = { 255, 255, 255, 255 });
 
         bool createGradient(int length, Color color1, Color color2, Orientation orientation);
 
@@ -230,6 +232,7 @@ namespace GameEngine
         bool useCommonTexture = false;
         SDL_RendererFlip flip = SDL_FLIP_NONE;
         SpriteGroup* parent = nullptr;
+        Window& window;
 
     };
 }

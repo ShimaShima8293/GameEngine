@@ -61,10 +61,10 @@ namespace GameEngine
                     PrintErrorInternal("renderEverything: `currentSprite` was nullptr.");
                     continue;
                 }
-                currentSprite->render({});
+                currentSprite->Render({});
                 //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
                 //{
-                //    currentSprite->render();
+                //    currentSprite->Render();
                 //    renderedCount++;
                 //}
                 //if (currentSprite->getClip())
@@ -82,10 +82,10 @@ namespace GameEngine
                 PrintErrorInternal("renderEverything: `currentSprite` was nullptr.");
                 continue;
             }
-            currentSprite->render({});
+            currentSprite->Render({});
             //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
             //{
-            //    currentSprite->render();
+            //    currentSprite->Render();
             //    renderedCount++;
             //}
             //if (currentSprite->getClip())
@@ -144,8 +144,8 @@ namespace GameEngine
                 "Press F3 to hide"
             );
             debugBg.setSize(debugText.getW() + 10.0f, debugText.getH() + 10.0f);
-            debugBg.render({});
-            debugText.render({});
+            debugBg.Render({});
+            debugText.Render({});
         }
 
         SDL_RenderPresent(renderer);

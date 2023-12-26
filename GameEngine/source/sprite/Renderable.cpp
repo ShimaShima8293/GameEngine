@@ -1,10 +1,9 @@
 #include "Renderable.h"
-#include "../render.h"
+#include "core/Game.h"
 
 namespace GameEngine
 {
     Renderable::~Renderable()
     {
-        removeSprite(this);
     }
 }

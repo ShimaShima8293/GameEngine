@@ -4,24 +4,24 @@ namespace GameEngine
 {
     SpriteGroup::SpriteGroup()
     {
-        free();
+        Free();
     }
     SpriteGroup::~SpriteGroup()
     {
-        free();
+        Free();
     }
 
-    void SpriteGroup::free()
+    void SpriteGroup::Free()
     {
         for (Renderable* child : this->children)
         {
-            //child->free();
+            //child->Free();
         }
         this->children.clear();
         this->info = {};
     }
 
-    void SpriteGroup::render(RenderInfo info)
+    void SpriteGroup::Render(RenderInfo info)
     {
         if (this->info.visible == false)
         {
@@ -35,30 +35,30 @@ namespace GameEngine
 
         for (Renderable* child : this->children)
         {
-            child->render(newInfo);
+            child->Render(newInfo);
         }
     }
 
-    void SpriteGroup::setParent(SpriteGroup* parent)
+    void SpriteGroup::SetParent(SpriteGroup* parent)
     {
     }
 
-    void SpriteGroup::setVisibility(bool _visible)
+    void SpriteGroup::SetVisibility(bool _visible)
     {
         this->info.visible = _visible;
     }
 
-    bool SpriteGroup::getVisibility()
+    bool SpriteGroup::GetVisibility()
     {
         return this->info.visible;
     }
 
-    void SpriteGroup::setPos(float _x, float _y)
+    void SpriteGroup::SetPos(float _x, float _y)
     {
-        this->setPos({ _x, _y });
+        this->SetPos({ _x, _y });
     }
 
-    void SpriteGroup::setPos(Vec2 vector)
+    void SpriteGroup::SetPos(Vec2 vector)
     {
         this->info.position = vector;
     }
@@ -159,7 +159,7 @@ namespace GameEngine
     }
     void SpriteGroup::setRect(Rect rect)
     {
-        this->setPos(rect.x, rect.y);
+        this->SetPos(rect.x, rect.y);
         this->setSize(rect.w, rect.h);
     }
     Rect SpriteGroup::getRect()

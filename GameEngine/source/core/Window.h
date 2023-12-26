@@ -12,6 +12,13 @@
 
 namespace GameEngine
 {
+    class Renderable;
+
+    struct WindowDebugInfo
+    {
+        bool ShowSpriteBorders = false;
+    };
+
     class Window
     {
     public:
@@ -39,7 +46,7 @@ namespace GameEngine
 
         //int GetSpriteCount();
 
-        //void RemoveSprite(Renderable* sprite);
+        void RemoveSprite(Renderable* sprite) {};
 
         //void ClearSprites();
 
@@ -114,9 +121,20 @@ namespace GameEngine
 
         int SetFullscreenResolution(int w, int h);
 
+        WindowDebugInfo GetDebugInfo();
+
+        void SetDebugInfo(WindowDebugInfo debugInfo);
+
+
     private:
         SDL_Window* window;
         SDL_Renderer* renderer;
         std::unique_ptr<Scene> currentScene;
+        WindowDebugInfo debugInfo;
+
+        int gameWidth;
+        int gameHeight;
+
+        int windowID;
     };
 }

@@ -1,6 +1,6 @@
 #pragma once
-#include "../internal.h"
-#include "../utilities.h"
+#include "core/internal.h"
+#include "core/utilities.h"
 #include "Renderable.h"
 
 namespace GameEngine
@@ -10,27 +10,27 @@ namespace GameEngine
     public:
         SpriteGroup();
         ~SpriteGroup();
-        void free();
+        void Free();
 
         // Renderable methods:
 
         // Rendering
 
-        void render(RenderInfo info);
+        void Render(RenderInfo info);
 
         // Grouping
 
-        void setParent(SpriteGroup* parent);
+        void SetParent(SpriteGroup* parent);
 
         // Visibility
 
-        void setVisibility(bool _visible);
-        bool getVisibility();
+        void SetVisibility(bool _visible);
+        bool GetVisibility();
 
         // Setting position
 
-        void setPos(float _x, float _y);
-        void setPos(Vec2 vector);
+        void SetPos(float _x, float _y);
+        void SetPos(Vec2 vector);
         void setCPos(float _x, float _y);
         void setCPos(Vec2 vector);
 

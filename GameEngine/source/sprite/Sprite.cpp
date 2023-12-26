@@ -1,24 +1,10 @@
 #include "Sprite.h"
-#include "../vars.h"
-#include "../events.h"
 
 namespace GameEngine
 {
-    Sprite::Sprite()
+    Sprite::Sprite(Window& window) :
+        window(window)
     {
-        free();
-    }
-    Sprite::~Sprite()
-    {
-        free();
-    }
-    void Sprite::free()
-    {
-        if (texture != NULL && !useCommonTexture)
-        {
-            SDL_DestroyTexture(texture);
-            texture = NULL;
-        }
         texture = NULL;
         scaleH = 1;
         scaleW = 1;
@@ -36,11 +22,29 @@ namespace GameEngine
         useColorMod = false;
         useAlphaMod = false;
     }
+    Sprite::~Sprite()
+    {
+        window.RemoveSprite(this);
+
+        if (texture != NULL && !useCommonTexture)
+        {
+            SDL_DestroyTexture(texture);
+            texture = NULL;
+        }
+    }
+    void Sprite::Free()
+    {
+        if (texture != NULL && !useCommonTexture)
+        {
+            SDL_DestroyTexture(texture);
+            texture = NULL;
+        }
+    }
     bool Sprite::createFromImage(std::string path)
     {
-        free();
+        Free();
         SDL_Texture* newTexture = NULL;
-        newTexture = IMG_LoadTexture(renderer, path.c_str());
+        newTexture = IMG_LoadTexture(window.GetSDLRenderer(), path.c_str());
         if (newTexture == NULL)
         {
             PrintErrorInternal("Sprite::createFromImage: Failed to create image texture. Path: " + path);
@@ -71,7 +75,7 @@ namespace GameEngine
         text = _text;
         font = _font;
         textColor = { 255, 255, 255, 255 };
-        free();
+        Free();
 
         SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
         if (textSurface == NULL)
@@ -82,7 +86,7 @@ namespace GameEngine
         }
 
         SDL_Texture* newTexture = NULL;
-        newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+        newTexture = SDL_CreateTextureFromSurface(window.GetSDLRenderer(), textSurface);
         if (newTexture == NULL)
         {
             PrintErrorInternal("Sprite::createFromText: Failed to create texture.");
@@ -107,8 +111,8 @@ namespace GameEngine
             return false;
         }
 
-        free();
-        SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
+        Free();
+        SDL_Texture* newTexture = SDL_CreateTextureFromSurface(window.GetSDLRenderer(), _surface);
         if (newTexture == NULL)
         {
             PrintErrorInternal("Sprite::createFromSurface: Failed to create texture.");
@@ -127,20 +131,20 @@ namespace GameEngine
         }
         return true;
     }
-    bool Sprite::createSolid(int width, int height, Color color)
+    bool Sprite::CreateSolid(int width, int height, Color color)
     {
         if (width < 1)
         {
-            PrintErrorInternal("Sprite::createSolid: Parameter `width` was smaller than 1.");
+            PrintErrorInternal("Sprite::CreateSolid: Parameter `width` was smaller than 1.");
             return false;
         }
         if (height < 1)
         {
-            PrintErrorInternal("Sprite::createSolid: Parameter `height` was smaller than 1.");
+            PrintErrorInternal("Sprite::CreateSolid: Parameter `height` was smaller than 1.");
             return false;
         }
 
-        free();
+        Free();
         SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
         if (surface == NULL)
         {
@@ -169,7 +173,7 @@ namespace GameEngine
             return false;
         }
 
-        free();
+        Free();
         SDL_Surface* surface = orientation == HORIZONTAL ?
             SDL_CreateRGBSurfaceWithFormat(0, length, 1, 32, SDL_PIXELFORMAT_RGBA32) :
             SDL_CreateRGBSurfaceWithFormat(0, 1, length, 32, SDL_PIXELFORMAT_RGBA32);
@@ -197,12 +201,12 @@ namespace GameEngine
             return;
         }
 
-        free();
+        Free();
         texture = _texture;
         useCommonTexture = !_free;
         SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
     }
-    void Sprite::setParent(SpriteGroup* parent)
+    void Sprite::SetParent(SpriteGroup* parent)
     {
         if (parent != nullptr)
         {
@@ -215,15 +219,15 @@ namespace GameEngine
         this->parent = parent;
     }
 
-    void Sprite::render(RenderInfo info)
+    void Sprite::Render(RenderInfo info)
     {
         if (texture == nullptr)
         {
-            PrintErrorInternal("Sprite::render: Texture was nullptr.");
+            PrintErrorInternal("Sprite::Render: Texture was nullptr.");
             return;
         }
 
-        if (getVisibility() == false || alpha == 0 || info.visible == false)
+        if (GetVisibility() == false || alpha == 0 || info.visible == false)
         {
             return;
         }
@@ -231,7 +235,7 @@ namespace GameEngine
         Uint8 newAlpha = (Uint8)std::round(info.alpha * ((float)alpha / 255.0f));
         if (SDL_SetTextureAlphaMod(texture, newAlpha) != 0)
         {
-            PrintErrorInternal("Sprite::render: Failed to set alpha modulation.");
+            PrintErrorInternal("Sprite::Render: Failed to set alpha modulation.");
             PrintSDLError();
             return;
         }
@@ -240,7 +244,7 @@ namespace GameEngine
         {
             if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
             {
-                PrintErrorInternal("Sprite::render: Failed to set color modulation.");
+                PrintErrorInternal("Sprite::Render: Failed to set color modulation.");
                 PrintSDLError();
                 return;
             }
@@ -254,28 +258,28 @@ namespace GameEngine
             SDL_Rect clipRect = { clipW * clipI, 0, clipW, height };
             rect.w = clipRect.w * scaleW * info.scale.x;
 
-            if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation + info.rotation, NULL, flip) != 0)
+            if (SDL_RenderCopyExF(window.GetSDLRenderer(), texture, &clipRect, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                PrintErrorInternal("Sprite::render: Failed to render.");
+                PrintErrorInternal("Sprite::Render: Failed to render.");
                 PrintSDLError();
                 return;
             }
         }
         else
         {
-            if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation + info.rotation, NULL, flip) != 0)
+            if (SDL_RenderCopyExF(window.GetSDLRenderer(), texture, NULL, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                PrintErrorInternal("Sprite::render: Failed to render.");
+                PrintErrorInternal("Sprite::Render: Failed to render.");
                 PrintSDLError();
                 return;
             }
-            if (showBorders)
+            if (window.GetDebugInfo().ShowSpriteBorders == true)
             {
-                SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-                SDL_RenderDrawRectF(renderer, &rect);
-                SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-                SDL_RenderDrawLineF(renderer, getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
-                SDL_RenderDrawLineF(renderer, getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
+                SDL_SetRenderDrawColor(window.GetSDLRenderer(), 0, 255, 0, 255);
+                SDL_RenderDrawRectF(window.GetSDLRenderer(), &rect);
+                SDL_SetRenderDrawColor(window.GetSDLRenderer(), 255, 0, 0, 255);
+                SDL_RenderDrawLineF(window.GetSDLRenderer(), getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
+                SDL_RenderDrawLineF(window.GetSDLRenderer(), getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
             }
         }
     }
@@ -385,17 +389,17 @@ namespace GameEngine
     }
     void Sprite::stretchToWindow()
     {
-        setSize((float)getGameWidth(), (float)getGameHeight());
-        setPos(0, 0);
+        setSize((float)window.GetGameWidth(), (float)window.GetGameHeight());
+        SetPos(0, 0);
     }
-    void Sprite::setPos(float _x, float _y)
+    void Sprite::SetPos(float _x, float _y)
     {
         position.x = _x;
         position.y = _y;
     }
-    void Sprite::setPos(Vec2 vector)
+    void Sprite::SetPos(Vec2 vector)
     {
-        setPos(vector.x, vector.y);
+        SetPos(vector.x, vector.y);
     }
     void Sprite::setX(float _x)
     {
@@ -424,7 +428,7 @@ namespace GameEngine
     }
     void Sprite::setRect(Rect rect)
     {
-        setPos(rect.x, rect.y);
+        SetPos(rect.x, rect.y);
         setSize(rect.w, rect.h);
     }
     Rect Sprite::getRect()
@@ -433,7 +437,7 @@ namespace GameEngine
     }
     void Sprite::setPosCentered()
     {
-        setPos(getWindowCenterX(), getWindowCenterY());
+        SetPos(getWindowCenterX(), getWindowCenterY());
     }
     void Sprite::changePos(float _x, float _y)
     {
@@ -508,11 +512,11 @@ namespace GameEngine
     }
     float Sprite::getWindowCenterX()
     {
-        return getGameWidth() / 2.0f - getW() / 2.0f;
+        return window.GetGameWidth() / 2.0f - getW() / 2.0f;
     }
     float Sprite::getWindowCenterY()
     {
-        return getGameHeight() / 2.0f - getH() / 2.0f;
+        return window.GetGameHeight() / 2.0f - getH() / 2.0f;
     }
     std::string Sprite::getName()
     {
@@ -558,12 +562,12 @@ namespace GameEngine
         return rotation;
     }
 
-    void Sprite::setVisibility(bool _visible)
+    void Sprite::SetVisibility(bool _visible)
     {
         visible = _visible;
     }
 
-    bool Sprite::getVisibility()
+    bool Sprite::GetVisibility()
     {
         return visible;
     }

@@ -210,17 +210,25 @@
     <ClInclude Include="source\core\Game.h" />
     <ClInclude Include="source\core\internal.h" />
     <ClInclude Include="source\core\macros.h" />
+    <ClInclude Include="source\core\Renderer.h" />
     <ClInclude Include="source\core\Scene.h" />
     <ClInclude Include="source\core\utilities.h" />
     <ClInclude Include="source\core\Window.h" />
+    <ClInclude Include="source\sprite\Renderable.h" />
+    <ClInclude Include="source\sprite\Sprite.h" />
+    <ClInclude Include="source\sprite\SpriteGroup.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\core\debug.cpp" />
     <ClCompile Include="source\core\Game.cpp" />
+    <ClCompile Include="source\core\Renderer.cpp" />
     <ClCompile Include="source\core\Scene.cpp" />
     <ClCompile Include="source\core\utilities.cpp" />
     <ClCompile Include="source\core\Window.cpp" />
-    <ClCompile Include="source\test.cpp" />
+    <ClCompile Include="source\sprite\Renderable.cpp" />
+    <ClCompile Include="source\sprite\Sprite.cpp" />
+    <ClCompile Include="source\sprite\SpriteGroup.cpp" />
+    <ClCompile Include="test\test.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
