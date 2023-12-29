@@ -26,71 +26,71 @@ namespace GameEngine
     };
 
     // Processes events. Updates `KeyPressed` and `KeyPressedPulse`.
-    void processEvents();
+    void ProcessEvents();
 
-    bool getMouseMoved();
+    bool GetMouseMoved();
 
     // Get if the window is focused.
     // \returns bool True if the window is focused; False if not.
-    bool getWindowFocus();
+    bool GetWindowFocus();
 
     // Get if a key is pressed.
     // \param code The key code from SDL_KeyCode.
     // \returns bool True if the requested key is pressed down.
-    bool getKeyPressed(SDL_KeyCode code);
+    bool GetKeyPressed(SDL_KeyCode code);
 
-    // Get if a key is pressed. It is similar to `getKeyPressed()` but this function will only return true when the requested key got pressed on current frame.
+    // Get if a key is pressed. It is similar to `GetKeyPressed()` but this function will only return true when the requested key got pressed on current frame.
     // \param code The key code from SDL_KeyCode.
     // \returns bool True if the requested key is pressed down on current frame.
-    bool getKeyPressedPulse(SDL_KeyCode code);
+    bool GetKeyPressedPulse(SDL_KeyCode code);
 
     // Get if a joycon button is pressed.
     // \param button The index of the button.
     // \returns bool True if the requested button is pressed down.
-    bool getJoyButton(int button);
+    bool GetJoyButton(int button);
 
     // Get if a joycon button is pressed.
     // \param button The index of the button.
     // \returns bool True if the requested button is pressed down.
-    bool getJoyButtonPulse(int button);
+    bool GetJoyButtonPulse(int button);
 
-    int getJoyAxis(int axis);
+    int GetJoyAxis(int axis);
 
-    bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
+    bool GetJoyAxisPulse(int axis, AxisDirection direction, int deadzone);
 
-    bool getMouseButton(int button);
+    bool GetMouseButton(int button);
 
-    bool getMouseButtonPulse(int button);
+    bool GetMouseButtonPulse(int button);
 
-    bool getRunning();
+    bool GetRunning();
 
-    void endMainloop();
+    void EndMainloop();
 
     // Frees things and quits SDL.
-    void close();
+    void Close();
 
-    int getGameWidth();
+    int GetGameWidth();
 
-    int getGameHeight();
+    int GetGameHeight();
 
-    SDL_Window* getWindow();
+    SDL_Window* GetWindow();
 
-    SDL_Renderer* getRenderer();
+    SDL_Renderer* GetRenderer();
 
-    int getWindowWidth();
+    int GetWindowWidth();
 
-    int getWindowHeight();
+    int GetWindowHeight();
 
-    void setWindowMode(WindowMode mode);
+    void SetWindowMode(WindowMode mode);
 
-    WindowMode getWindowMode();
+    WindowMode GetWindowMode();
 
-    int setSystemCursor(SDL_SystemCursor _cursor);
+    int SetSystemCursor(SDL_SystemCursor _cursor);
 
-    int hideCursor();
+    int HideCursor();
 
-    Vec2 getCursorPos();
-    Vec2 getCursorWindowPos();
+    Vec2 GetCursorPos();
+    Vec2 GetCursorWindowPos();
 
 
     typedef enum InitFlags
@@ -100,14 +100,14 @@ namespace GameEngine
     } InitFlags;
 
     // Initialize everything.
-    int init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
+    int Init(std::string windowTitle, int _windowWidth, int _windowHeight, int initFlags);
 
-    SDL_DisplayMode getDisplayMode();
+    SDL_DisplayMode GetDisplayMode();
 
-    int setFullscreenResolution(int w, int h);
+    int SetFullscreenResolution(int w, int h);
 
-    GE_HWND getHWND();
+    GE_HWND GetHWND();
 
-    void startMainloop();
+    void Mainloop();
 
 }

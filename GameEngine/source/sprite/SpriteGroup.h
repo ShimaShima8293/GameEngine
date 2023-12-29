@@ -10,124 +10,124 @@ namespace GameEngine
     public:
         SpriteGroup();
         ~SpriteGroup();
-        void free();
+        void Free();
 
         // Renderable methods:
 
         // Rendering
 
-        void render(RenderInfo info);
+        void Render(RenderInfo info);
 
         // Grouping
 
-        void setParent(SpriteGroup* parent);
+        void SetParent(SpriteGroup* parent);
 
         // Visibility
 
-        void setVisibility(bool _visible);
-        bool getVisibility();
+        void SetVisibility(bool _visible);
+        bool GetVisibility();
 
         // Setting position
 
-        void setPos(float _x, float _y);
-        void setPos(Vec2 vector);
-        void setCPos(float _x, float _y);
-        void setCPos(Vec2 vector);
+        void SetPos(float _x, float _y);
+        void SetPos(Vec2 vector);
+        void SetCPos(float _x, float _y);
+        void SetCPos(Vec2 vector);
 
         // Changing position
 
-        void changePos(float _x, float _y);
-        void changePos(Vec2 vector);
+        void ChangePos(float _x, float _y);
+        void ChangePos(Vec2 vector);
 
         // Getting position
 
-        Vec2 getPos();
-        Vec2 getCPos();
+        Vec2 GetPos();
+        Vec2 GetCPos();
 
         // Setting position (by each axis)
 
-        void setX(float _x);
-        void setY(float _y);
-        void setCX(float _x);
-        void setCY(float _y);
+        void SetX(float _x);
+        void SetY(float _y);
+        void SetCX(float _x);
+        void SetCY(float _y);
 
         // Getting position (by each axis)
 
-        float getX();
-        float getY();
-        float getCX();
-        float getCY();
+        float GetX();
+        float GetY();
+        float GetCX();
+        float GetCY();
 
         // Setting and getting rectangle
 
-        void setRect(Rect rect);
-        Rect getRect();
+        void SetRect(Rect rect);
+        Rect GetRect();
 
         // Getting sprite borders
 
-        float getLeftB();
-        float getRightB();
-        float getTopB();
-        float getBottomB();
+        float GetLeftB();
+        float GetRightB();
+        float GetTopB();
+        float GetBottomB();
 
         // Setting scale
 
-        void setScale(float _w, float _h);
-        void setScale(Vec2 vector);
+        void SetScale(float _w, float _h);
+        void SetScale(Vec2 vector);
 
         // Getting scale
 
-        float getScaleW();
-        float getScaleH();
+        float GetScaleW();
+        float GetScaleH();
 
         // Setting and changing size
 
-        void setSize(float _w, float _h);
-        void setSize(Vec2 vector);
-        void changeSize(float _w, float _h);
-        void changeSize(Vec2 vector);
+        void SetSize(float _w, float _h);
+        void SetSize(Vec2 vector);
+        void ChangeSize(float _w, float _h);
+        void ChangeSize(Vec2 vector);
 
         // Getting size
 
-        float getW();
-        float getH();
+        float GetW();
+        float GetH();
 
         // Setting, changing, and getting rotation
 
-        void setRotation(float _rotation);
-        void changeRotation(float _rotation);
-        float getRotation();
+        void SetRotation(float _rotation);
+        void ChangeRotation(float _rotation);
+        float GetRotation();
 
         // Setting and getting flip
 
-        void setFlip(SDL_RendererFlip _flip);
-        SDL_RendererFlip getFlip();
+        void SetFlip(SDL_RendererFlip _flip);
+        SDL_RendererFlip GetFlip();
 
         // Useful macros for setting position and scale
 
-        void stretchToWindow();
+        void StretchToWindow();
         //void fitToWindow();
-        void setPosCentered();
-        void moveTo(float _speed, float _angle);
+        void SetPosCentered();
+        void MoveTo(float _speed, float _angle);
 
         // Useful macros for getting positions
 
-        float getAngleTowards(float x, float y);
-        float getAngleTowards(Vec2 vector);
-        float getWindowCenterX();
-        float getWindowCenterY();
+        float GetAngleTowards(float x, float y);
+        float GetAngleTowards(Vec2 vector);
+        float GetWindowCenterX();
+        float GetWindowCenterY();
 
         // Setting alpha
 
-        void setAlpha(Uint8 _alpha);
-        Uint8 getAlpha();
+        void SetAlpha(Uint8 _alpha);
+        Uint8 GetAlpha();
 
         // SpriteGroup-specific methods:
 
-        std::vector<Renderable*> getChildren();
-        void addChild(Renderable* child);
-        void removeChild(Renderable* child);
-        void setChildren(std::vector<Renderable*> children);
+        std::vector<Renderable*> GetChildren();
+        void AddChild(Renderable* child);
+        void RemoveChild(Renderable* child);
+        void SetChildren(std::vector<Renderable*> children);
 
     private:
         std::string name = "Unnamed";

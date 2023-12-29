@@ -8,66 +8,66 @@ namespace GameEngine
     Scene* queue;
     Scene* current;
 
-    void loadScene(Scene* scene)
+    void LoadScene(Scene* scene)
     {
         queue = scene;
     }
 
-    void processScene()
+    void ProcessScene()
     {
         if (queue != nullptr)
         {
             if (current != nullptr)
             {
-                current->free();
+                current->Free();
             }
 
-            clearSprites();
-            clearAnimations();
-            printInfoGE("processScene: Loading a scene.");
+            ClearSprites();
+            ClearAnimations();
+            PrintInfoGE("ProcessScene: Loading a scene.");
             current = queue;
-            queue->start();
+            queue->Start();
             if (current == queue)
             {
                 queue = nullptr;
             }
         }
 
-        if (getCurrentScene() != nullptr)
+        if (GetCurrentScene() != nullptr)
         {
-            getCurrentScene()->update();
+            GetCurrentScene()->Update();
         }
     }
 
-    Scene* getCurrentScene()
+    Scene* GetCurrentScene()
     {
         return current;
     }
 
-    void reloadCurrentScene()
+    void ReloadCurrentScene()
     {
         if (current == nullptr)
         {
-            printErrorGE("reloadCurrentScene: Scene is not loaded.");
+            PrintErrorGE("ReloadCurrentScene: Scene is not loaded.");
             return;
         }
 
-        loadScene(current);
+        LoadScene(current);
     }
 
-    void unloadCurrentScene()
+    void UnloadCurrentScene()
     {
         if (current == nullptr)
         {
-            printErrorGE("unloadCurrentScene: Scene is not loaded.");
+            PrintErrorGE("UnloadCurrentScene: Scene is not loaded.");
             return;
         }
 
-        current->free();
+        current->Free();
         current = nullptr;
 
-        clearSprites();
-        clearAnimations();
+        ClearSprites();
+        ClearAnimations();
     }
 
 }

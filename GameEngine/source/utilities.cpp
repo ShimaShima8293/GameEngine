@@ -42,17 +42,17 @@ namespace GameEngine
     //    *this = *this + vector;
     //}
 
-    int roundToInt(float input)
+    int RountToInt(float input)
     {
         return static_cast<int>(std::round(input));
     }
 
-    std::string bool2string(bool _bool)
+    std::string BoolToString(bool _bool)
     {
         return _bool ? "On" : "Off";
     }
 
-    float linear(float beg, float end, float len, float frame)
+    float Linear(float beg, float end, float len, float frame)
     {
         if (frame == 0)
         {
@@ -65,64 +65,25 @@ namespace GameEngine
         return (((end - beg) / len) * frame) + beg;
     }
 
-    float limit(float input, float min, float max)
-    {
-        if (input < min)
-        {
-            return min;
-        }
-        if (input > max)
-        {
-            return max;
-        }
-        return input;
-    }
-
-    void wrap(float& target, float min, float max)
-    {
-        if (target < min)
-        {
-            target = max;
-        }
-        if (target > max)
-        {
-            target = min;
-        }
-    }
-
-    bool between(float target, float min, float max)
-    {
-        if (target < min)
-        {
-            return false;
-        }
-        if (target > max)
-        {
-            return false;
-        }
-        return true;
-
-    }
-
     std::string wstringToString(std::wstring wstr)
     {
         return "";
     }
 
 
-    int randomRange(int min, int max)
+    int RandomRange(int min, int max)
     {
         return (rand() % (max - min)) + min;
     }
 
-    int randomCentered(int center, int difference)
+    int RandomCentered(int center, int difference)
     {
         return ((rand() % difference) - (difference / 2)) + center;
     }
 
-    int randomEx(int center, int difference, int min, int max)
+    int RandomEx(int center, int difference, int min, int max)
     {
-        int tmp = randomCentered(center, difference);
+        int tmp = RandomCentered(center, difference);
         if (tmp < min)
         {
             tmp = min;
@@ -134,7 +95,7 @@ namespace GameEngine
         return tmp;
     }
 
-    bool checkCollision(Rect a, Rect b)
+    bool CheckCollision(Rect a, Rect b)
     {
         if (a.y + a.h <= b.y)
         {
@@ -157,15 +118,15 @@ namespace GameEngine
 
     Timer::Timer()
     {
-        start();
+        Start();
     }
 
-    void Timer::start()
+    void Timer::Start()
     {
         startTime = std::chrono::high_resolution_clock::now();
     }
 
-    float Timer::get()
+    float Timer::Get()
     {
         endTime = std::chrono::high_resolution_clock::now();
         duration = endTime - startTime;

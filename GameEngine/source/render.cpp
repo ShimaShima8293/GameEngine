@@ -16,31 +16,31 @@ namespace GameEngine
     std::vector<Renderable*> mainLayer;
     std::vector<std::vector<Renderable*>*> layers = {};
 
-    void renderEverything()
+    void RenderEverything()
     {
-        float renderDuration = renderTimer.get();
-        renderTimer.start();
+        float renderDuration = renderTimer.Get();
+        renderTimer.Start();
 
         SDL_Rect destRect = {};
 
-        double gameRatio = (double)getGameWidth() / (double)getGameHeight(); // Calculate the ratio of the game view
-        double screenRatio = (double)getWindowWidth() / (double)getWindowHeight(); // Calculate the ratio of the window
+        double gameRatio = (double)GetGameWidth() / (double)GetGameHeight(); // Calculate the ratio of the game view
+        double screenRatio = (double)GetWindowWidth() / (double)GetWindowHeight(); // Calculate the ratio of the window
         if (gameRatio == screenRatio)
         {
-            destRect = { 0, 0, getWindowWidth(), getWindowHeight() };
+            destRect = { 0, 0, GetWindowWidth(), GetWindowHeight() };
         }
         else if (gameRatio > screenRatio)
         {
-            destRect = { 0, (getWindowHeight() - getGameHeight() * getWindowWidth() / getGameWidth()) / 2, getWindowWidth(), getGameHeight() * getWindowWidth() / getGameWidth() };
+            destRect = { 0, (GetWindowHeight() - GetGameHeight() * GetWindowWidth() / GetGameWidth()) / 2, GetWindowWidth(), GetGameHeight() * GetWindowWidth() / GetGameWidth() };
         }
         else
         {
-            destRect = { (getWindowWidth() - getGameWidth() * getWindowHeight() / getGameHeight()) / 2, 0, getGameWidth() * getWindowHeight() / getGameHeight(), getWindowHeight() };
+            destRect = { (GetWindowWidth() - GetGameWidth() * GetWindowHeight() / GetGameHeight()) / 2, 0, GetGameWidth() * GetWindowHeight() / GetGameHeight(), GetWindowHeight() };
         }
 
 
         SDL_DestroyTexture(gamePlayTexture);
-        gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, getGameWidth(), getGameHeight());
+        gamePlayTexture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, GetGameWidth(), GetGameHeight());
         SDL_SetTextureScaleMode(gamePlayTexture, SDL_ScaleModeBest);
 
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -58,16 +58,16 @@ namespace GameEngine
                 Renderable* currentSprite = (*layers[i])[j];
                 if (currentSprite == nullptr)
                 {
-                    printErrorGE("renderEverything: `currentSprite` was nullptr.");
+                    PrintErrorGE("RenderEverything: `currentSprite` was nullptr.");
                     continue;
                 }
-                currentSprite->render({});
-                //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+                currentSprite->Render({});
+                //if (CheckCollision(currentSprite->GetRect(), { 0.0f, 0.0f, (float)GetGameWidth(), (float)GetGameHeight() }))
                 //{
-                //    currentSprite->render();
+                //    currentSprite->Render();
                 //    renderedCount++;
                 //}
-                //if (currentSprite->getClip())
+                //if (currentSprite->GetClip())
                 //{
                 //    clipCount++;
                 //}
@@ -79,16 +79,16 @@ namespace GameEngine
             Renderable* currentSprite = mainLayer[i];
             if (currentSprite == nullptr)
             {
-                printErrorGE("renderEverything: `currentSprite` was nullptr.");
+                PrintErrorGE("RenderEverything: `currentSprite` was nullptr.");
                 continue;
             }
-            currentSprite->render({});
-            //if (checkCollision(currentSprite->getRect(), { 0.0f, 0.0f, (float)getGameWidth(), (float)getGameHeight() }))
+            currentSprite->Render({});
+            //if (CheckCollision(currentSprite->GetRect(), { 0.0f, 0.0f, (float)GetGameWidth(), (float)GetGameHeight() }))
             //{
-            //    currentSprite->render();
+            //    currentSprite->Render();
             //    renderedCount++;
             //}
-            //if (currentSprite->getClip())
+            //if (currentSprite->GetClip())
             //{
             //    clipCount++;
             //}
@@ -104,7 +104,7 @@ namespace GameEngine
             int fps = static_cast<int>(std::round(1.0f / renderDuration));
 
             std::string modeText = "Error";
-            switch (getWindowMode())
+            switch (GetWindowMode())
             {
             case WINDOW_FULLSCREEN:
                 modeText = "Fullscreen";
@@ -120,37 +120,37 @@ namespace GameEngine
                 break;
             }
 
-            SDL_DisplayMode mode = getDisplayMode();
-            debugText.setText(
+            SDL_DisplayMode mode = GetDisplayMode();
+            debugText.SetText(
                 "Game Engine Version: " + std::string(GE_VERSION_STR) + "\n" +
                 std::to_string(fps) + " fps\n"
-                "Game resolution: " + std::to_string(getGameWidth()) + "x" + std::to_string(getGameHeight()) + "\n" +
-                "Window resolution: " + std::to_string(getWindowWidth()) + "x" + std::to_string(getWindowHeight()) + "\n" +
+                "Game resolution: " + std::to_string(GetGameWidth()) + "x" + std::to_string(GetGameHeight()) + "\n" +
+                "Window resolution: " + std::to_string(GetWindowWidth()) + "x" + std::to_string(GetWindowHeight()) + "\n" +
                 "Fullscreen resolution: " + std::to_string(mode.w) + "x" + std::to_string(mode.h) + "\n" +
-                std::to_string(getSpriteCount()) + " sprites (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
-                std::to_string(getAnimationCount()) + " animations\n"
-                "VSync: " + bool2string(vsync) + "\n"
-                "Anti-aliasing: " + bool2string(antialiasing) + "\n"
-                "Mute: " + bool2string(getMuteState()) + "\n"
+                std::to_string(GetSpriteCount()) + " sprites (Clip: " + std::to_string(clipCount) + ", Rendered: " + std::to_string(renderedCount) + ")\n" +
+                std::to_string(GetAnimationCount()) + " animations\n"
+                "VSync: " + BoolToString(vsync) + "\n"
+                "Anti-aliasing: " + BoolToString(antialiasing) + "\n"
+                "Mute: " + BoolToString(GetMuteState()) + "\n"
                 "Window mode: " + modeText + "\n"
                 "Platform: " + SDL_GetPlatform() + "\n"
                 "SDL version: " + std::to_string(SDL_MAJOR_VERSION) + "." + std::to_string(SDL_MINOR_VERSION) + "." + std::to_string(SDL_PATCHLEVEL) + "\n"
                 "SDL_image version: " + std::to_string(SDL_IMAGE_MAJOR_VERSION) + "." + std::to_string(SDL_IMAGE_MINOR_VERSION) + "." + std::to_string(SDL_IMAGE_PATCHLEVEL) + "\n"
                 "SDL_ttf version: " + std::to_string(SDL_TTF_MAJOR_VERSION) + "." + std::to_string(SDL_TTF_MINOR_VERSION) + "." + std::to_string(SDL_TTF_PATCHLEVEL) + "\n"
                 "SDL_mixer version: " + std::to_string(SDL_MIXER_MAJOR_VERSION) + "." + std::to_string(SDL_MIXER_MINOR_VERSION) + "." + std::to_string(SDL_MIXER_PATCHLEVEL) + "\n"
-                "Font: " + std::to_string(getFontCount()) + "\n"
-                "Music: " + std::to_string(getMusicCount()) + "\n"
-                "WAV: " + std::to_string(getWAVCount()) + "\n"
+                "Font: " + std::to_string(GetFontCount()) + "\n"
+                "Music: " + std::to_string(GetMusicCount()) + "\n"
+                "WAV: " + std::to_string(GetWAVCount()) + "\n"
                 "Press F3 to hide"
             );
-            debugBg.setSize(debugText.getW() + 10.0f, debugText.getH() + 10.0f);
-            debugBg.render({});
-            debugText.render({});
+            debugBg.SetSize(debugText.GetW() + 10.0f, debugText.GetH() + 10.0f);
+            debugBg.Render({});
+            debugText.Render({});
         }
 
         SDL_RenderPresent(renderer);
 
-        float gameDuration = gameTimer.get();
+        float gameDuration = gameTimer.Get();
 
         if (!vsync)
         {
@@ -169,25 +169,25 @@ namespace GameEngine
             }
         }
 
-        gameTimer.start();
+        gameTimer.Start();
     }
 
-    void addSprite(Renderable* sprite)
+    void AddSprite(Renderable* sprite)
     {
         if (sprite == nullptr)
         {
-            printErrorGE("addSprite: Parameter `sprite` was nullptr.");
+            PrintErrorGE("AddSprite: Parameter `sprite` was nullptr.");
             return;
         }
         mainLayer.push_back(sprite);
     }
 
-    void setLayers(std::vector<std::vector<Renderable*>*> _layers)
+    void SetLayers(std::vector<std::vector<Renderable*>*> _layers)
     {
         layers = _layers;
     }
 
-    int getSpriteCount()
+    int GetSpriteCount()
     {
         int size = (int)mainLayer.size();
 
@@ -198,11 +198,11 @@ namespace GameEngine
         return size;
     }
 
-    void removeSprite(Renderable* sprite)
+    void RemoveSprite(Renderable* sprite)
     {
         if (sprite == nullptr)
         {
-            printErrorGE("removeSprite: Parameter `sprite` was nullptr.");
+            PrintErrorGE("RemoveSprite: Parameter `sprite` was nullptr.");
             return;
         }
         for (int i = 0; i < mainLayer.size(); i++)
@@ -226,7 +226,7 @@ namespace GameEngine
         }
     }
 
-    void clearSprites()
+    void ClearSprites()
     {
         for (int i = 0; i < layers.size(); i++)
         {

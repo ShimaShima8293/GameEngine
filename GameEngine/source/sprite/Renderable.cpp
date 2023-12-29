@@ -5,6 +5,6 @@ namespace GameEngine
 {
     Renderable::~Renderable()
     {
-        removeSprite(this);
+        RemoveSprite(this);
     }
 }

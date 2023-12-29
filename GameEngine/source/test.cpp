@@ -14,65 +14,65 @@ private:
     int size = 3;
     int random = 5;
 public:
-    void start()
+    void Start()
     {
-        child1.createSolid(100, 100, { 255, 0, 0, 255 });
-        child1.setPos(100, 50);
-        child2.createSolid(100, 100, { 0, 255, 0, 255 });
-        group.addChild(&child1);
-        group.addChild(&child2);
-        addSprite(&group);
+        child1.CreateSolid(100, 100, { 255, 0, 0, 255 });
+        child1.SetPos(100, 50);
+        child2.CreateSolid(100, 100, { 0, 255, 0, 255 });
+        group.AddChild(&child1);
+        group.AddChild(&child2);
+        AddSprite(&group);
     }
-    void update()
+    void Update()
     {
-        if (getKeyPressed(SDLK_UP))
+        if (GetKeyPressed(SDLK_UP))
         {
-            group.changePos(0.0f, -1.0f);
+            group.ChangePos(0.0f, -1.0f);
         }
-        if (getKeyPressed(SDLK_DOWN))
+        if (GetKeyPressed(SDLK_DOWN))
         {
-            group.changePos(0.0f, 1.0f);
+            group.ChangePos(0.0f, 1.0f);
         }
-        if (getKeyPressed(SDLK_RIGHT))
+        if (GetKeyPressed(SDLK_RIGHT))
         {
-            group.changeSize(-1.0f, -1.0f);
+            group.ChangeSize(-1.0f, -1.0f);
         }
-        if (getKeyPressed(SDLK_LEFT))
+        if (GetKeyPressed(SDLK_LEFT))
         {
-            group.changeSize(1.0f, 1.0f);
-        }
-
-        if (getKeyPressed(SDLK_1))
-        {
-            group.setAlpha(group.getAlpha() - 1);
-            printInfo("Group alpha: " + std::to_string(group.getAlpha()));
-        }
-        if (getKeyPressed(SDLK_2))
-        {
-            group.setAlpha(group.getAlpha() + 1);
-            printInfo("Group alpha: " + std::to_string(group.getAlpha()));
+            group.ChangeSize(1.0f, 1.0f);
         }
 
-        if (getKeyPressed(SDLK_3))
+        if (GetKeyPressed(SDLK_1))
         {
-            child1.setAlpha(child1.getAlpha() - 1);
-            printInfo("Child alpha: " + std::to_string(child1.getAlpha()));
+            group.SetAlpha(group.GetAlpha() - 1);
+            PrintInfo("Group alpha: " + std::to_string(group.GetAlpha()));
         }
-        if (getKeyPressed(SDLK_4))
+        if (GetKeyPressed(SDLK_2))
         {
-            child1.setAlpha(child1.getAlpha() + 1);
-            printInfo("Child alpha: " + std::to_string(child1.getAlpha()));
+            group.SetAlpha(group.GetAlpha() + 1);
+            PrintInfo("Group alpha: " + std::to_string(group.GetAlpha()));
+        }
+
+        if (GetKeyPressed(SDLK_3))
+        {
+            child1.SetAlpha(child1.GetAlpha() - 1);
+            PrintInfo("Child alpha: " + std::to_string(child1.GetAlpha()));
+        }
+        if (GetKeyPressed(SDLK_4))
+        {
+            child1.SetAlpha(child1.GetAlpha() + 1);
+            PrintInfo("Child alpha: " + std::to_string(child1.GetAlpha()));
         }
     }
 } sceneTest;
 
 int main(int argc, char* args[])
 {
-    init("GameEngine test", 1920, 1080, 0);
+    Init("GameEngine test", 1920, 1080, 0);
 
-    loadScene(&sceneTest);
+    LoadScene(&sceneTest);
 
-    startMainloop();
+    Mainloop();
 
     return 0;
 }

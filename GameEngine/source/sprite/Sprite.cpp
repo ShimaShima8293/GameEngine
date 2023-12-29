@@ -6,13 +6,13 @@ namespace GameEngine
 {
     Sprite::Sprite()
     {
-        free();
+        Free();
     }
     Sprite::~Sprite()
     {
-        free();
+        Free();
     }
-    void Sprite::free()
+    void Sprite::Free()
     {
         if (texture != NULL && !useCommonTexture)
         {
@@ -36,15 +36,15 @@ namespace GameEngine
         useColorMod = false;
         useAlphaMod = false;
     }
-    bool Sprite::createFromImage(std::string path)
+    bool Sprite::CreateFromImage(std::string path)
     {
-        free();
+        Free();
         SDL_Texture* newTexture = NULL;
         newTexture = IMG_LoadTexture(renderer, path.c_str());
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromImage: Failed to create image texture. Path: " + path);
-            printSDLError();
+            PrintErrorGE("Sprite::CreateFromImage: Failed to create image texture. Path: " + path);
+            PrintSDLError();
         }
         else
         {
@@ -54,30 +54,30 @@ namespace GameEngine
 
         return newTexture != NULL;
     }
-    bool Sprite::createFromText(std::string _text, TTF_Font* _font)
+    bool Sprite::CreateFromText(std::string _text, TTF_Font* _font)
     {
         if (_font == NULL)
         {
-            printErrorGE("Sprite::createFromText: Parameter `font` was nullptr.");
+            PrintErrorGE("Sprite::CreateFromText: Parameter `font` was nullptr.");
             return false;
         }
 
         if (_text == "")
         {
-            printErrorGE("Sprite::createFromText: Parameter `text` was empty.");
+            PrintErrorGE("Sprite::CreateFromText: Parameter `text` was empty.");
             return false;
         }
 
         text = _text;
         font = _font;
         textColor = { 255, 255, 255, 255 };
-        free();
+        Free();
 
         SDL_Surface* textSurface = TTF_RenderUTF8_Blended_Wrapped(font, text.c_str(), textColor, 0);
         if (textSurface == NULL)
         {
-            printErrorGE("Sprite::createFromText: Failed to create surface.");
-            printSDLError();
+            PrintErrorGE("Sprite::CreateFromText: Failed to create surface.");
+            PrintSDLError();
             return false;
         }
 
@@ -85,8 +85,8 @@ namespace GameEngine
         newTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromText: Failed to create texture.");
-            printSDLError();
+            PrintErrorGE("Sprite::CreateFromText: Failed to create texture.");
+            PrintSDLError();
             return false;
         }
 
@@ -99,20 +99,20 @@ namespace GameEngine
 
         return newTexture != NULL;
     }
-    bool Sprite::createFromSurface(SDL_Surface* _surface, bool _free)
+    bool Sprite::CreateFromSurface(SDL_Surface* _surface, bool _free)
     {
         if (_surface == nullptr)
         {
-            printErrorGE("Sprite::createFromSurface: Parameter `surface` was nullptr.");
+            PrintErrorGE("Sprite::CreateFromSurface: Parameter `surface` was nullptr.");
             return false;
         }
 
-        free();
+        Free();
         SDL_Texture* newTexture = SDL_CreateTextureFromSurface(renderer, _surface);
         if (newTexture == NULL)
         {
-            printErrorGE("Sprite::createFromSurface: Failed to create texture.");
-            printSDLError();
+            PrintErrorGE("Sprite::CreateFromSurface: Failed to create texture.");
+            PrintSDLError();
             return false;
         }
         else
@@ -127,20 +127,20 @@ namespace GameEngine
         }
         return true;
     }
-    bool Sprite::createSolid(int width, int height, Color color)
+    bool Sprite::CreateSolid(int width, int height, Color color)
     {
         if (width < 1)
         {
-            printErrorGE("Sprite::createSolid: Parameter `width` was smaller than 1.");
+            PrintErrorGE("Sprite::CreateSolid: Parameter `width` was smaller than 1.");
             return false;
         }
         if (height < 1)
         {
-            printErrorGE("Sprite::createSolid: Parameter `height` was smaller than 1.");
+            PrintErrorGE("Sprite::CreateSolid: Parameter `height` was smaller than 1.");
             return false;
         }
 
-        free();
+        Free();
         SDL_Surface* surface = SDL_CreateRGBSurfaceWithFormat(0, width, height, 32, SDL_PIXELFORMAT_RGBA32);
         if (surface == NULL)
         {
@@ -154,22 +154,22 @@ namespace GameEngine
             pixels[i] = SDL_MapRGBA(surface->format, color.r, color.g, color.b, color.a);
         }
 
-        if (!createFromSurface(surface))
+        if (!CreateFromSurface(surface))
         {
             return false;
         }
 
         return true;
     }
-    bool Sprite::createGradient(int length, Color color1, Color color2, Orientation orientation)
+    bool Sprite::CreateGradient(int length, Color color1, Color color2, Orientation orientation)
     {
         if (length < 1)
         {
-            printErrorGE("Sprite::createGradient: Parameter `length` was smaller than 1.");
+            PrintErrorGE("Sprite::CreateGradient: Parameter `length` was smaller than 1.");
             return false;
         }
 
-        free();
+        Free();
         SDL_Surface* surface = orientation == HORIZONTAL ?
             SDL_CreateRGBSurfaceWithFormat(0, length, 1, 32, SDL_PIXELFORMAT_RGBA32) :
             SDL_CreateRGBSurfaceWithFormat(0, 1, length, 32, SDL_PIXELFORMAT_RGBA32);
@@ -179,51 +179,51 @@ namespace GameEngine
         {
             pixels[x] = SDL_MapRGBA(
                 surface->format,
-                roundToInt(linear((float)color1.r, (float)color2.r, (float)length, (float)x)),
-                roundToInt(linear((float)color1.g, (float)color2.g, (float)length, (float)x)),
-                roundToInt(linear((float)color1.b, (float)color2.b, (float)length, (float)x)),
-                roundToInt(linear((float)color1.a, (float)color2.a, (float)length, (float)x))
+                RountToInt(Linear((float)color1.r, (float)color2.r, (float)length, (float)x)),
+                RountToInt(Linear((float)color1.g, (float)color2.g, (float)length, (float)x)),
+                RountToInt(Linear((float)color1.b, (float)color2.b, (float)length, (float)x)),
+                RountToInt(Linear((float)color1.a, (float)color2.a, (float)length, (float)x))
             );
         }
-        createFromSurface(surface);
+        CreateFromSurface(surface);
 
         return true;
     }
-    void Sprite::setTexture(SDL_Texture* _texture, bool _free)
+    void Sprite::SetTexture(SDL_Texture* _texture, bool _free)
     {
         if (_texture == nullptr)
         {
-            printErrorGE("Sprite::setTexture: Parameter `texture` was nullptr.");
+            PrintErrorGE("Sprite::SetTexture: Parameter `texture` was nullptr.");
             return;
         }
 
-        free();
+        Free();
         texture = _texture;
         useCommonTexture = !_free;
         SDL_QueryTexture(_texture, nullptr, nullptr, &width, &height);
     }
-    void Sprite::setParent(SpriteGroup* parent)
+    void Sprite::SetParent(SpriteGroup* parent)
     {
         if (parent != nullptr)
         {
-            parent->addChild(this);
+            parent->AddChild(this);
         }
         else if (this->parent != nullptr)
         {
-            parent->removeChild(this);
+            parent->RemoveChild(this);
         }
         this->parent = parent;
     }
 
-    void Sprite::render(RenderInfo info)
+    void Sprite::Render(RenderInfo info)
     {
         if (texture == nullptr)
         {
-            printErrorGE("Sprite::render: Texture was nullptr.");
+            PrintErrorGE("Sprite::Render: Texture was nullptr.");
             return;
         }
 
-        if (getVisibility() == false || alpha == 0 || info.visible == false)
+        if (GetVisibility() == false || alpha == 0 || info.visible == false)
         {
             return;
         }
@@ -231,8 +231,8 @@ namespace GameEngine
         Uint8 newAlpha = (Uint8)std::round(info.alpha * ((float)alpha / 255.0f));
         if (SDL_SetTextureAlphaMod(texture, newAlpha) != 0)
         {
-            printErrorGE("Sprite::render: Failed to set alpha modulation.");
-            printSDLError();
+            PrintErrorGE("Sprite::Render: Failed to set alpha modulation.");
+            PrintSDLError();
             return;
         }
 
@@ -240,8 +240,8 @@ namespace GameEngine
         {
             if (SDL_SetTextureColorMod(texture, red, green, blue) != 0)
             {
-                printErrorGE("Sprite::render: Failed to set color modulation.");
-                printSDLError();
+                PrintErrorGE("Sprite::Render: Failed to set color modulation.");
+                PrintSDLError();
                 return;
             }
         }
@@ -256,8 +256,8 @@ namespace GameEngine
 
             if (SDL_RenderCopyExF(renderer, texture, &clipRect, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                printErrorGE("Sprite::render: Failed to render.");
-                printSDLError();
+                PrintErrorGE("Sprite::Render: Failed to render.");
+                PrintSDLError();
                 return;
             }
         }
@@ -265,8 +265,8 @@ namespace GameEngine
         {
             if (SDL_RenderCopyExF(renderer, texture, NULL, &rect, rotation + info.rotation, NULL, flip) != 0)
             {
-                printErrorGE("Sprite::render: Failed to render.");
-                printSDLError();
+                PrintErrorGE("Sprite::Render: Failed to render.");
+                PrintSDLError();
                 return;
             }
             if (showBorders)
@@ -274,13 +274,13 @@ namespace GameEngine
                 SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
                 SDL_RenderDrawRectF(renderer, &rect);
                 SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-                SDL_RenderDrawLineF(renderer, getCX() - 2.0f, getCY(), getCX() + 2.0f, getCY());
-                SDL_RenderDrawLineF(renderer, getCX(), getCY() - 2.0f, getCX(), getCY() + 2.0f);
+                SDL_RenderDrawLineF(renderer, GetCX() - 2.0f, GetCY(), GetCX() + 2.0f, GetCY());
+                SDL_RenderDrawLineF(renderer, GetCX(), GetCY() - 2.0f, GetCX(), GetCY() + 2.0f);
             }
         }
     }
 
-    void Sprite::setColor(Uint8 _red, Uint8 _green, Uint8 _blue)
+    void Sprite::SetColor(Uint8 _red, Uint8 _green, Uint8 _blue)
     {
         useColorMod = true;
         red = _red;
@@ -288,7 +288,7 @@ namespace GameEngine
         blue = _blue;
     }
 
-    void Sprite::setColor(Color _color)
+    void Sprite::SetColor(Color _color)
     {
         useColorMod = true;
         red = _color.r;
@@ -297,63 +297,63 @@ namespace GameEngine
         alpha = _color.a;
     }
 
-    void Sprite::setAlpha(Uint8 _alpha)
+    void Sprite::SetAlpha(Uint8 _alpha)
     {
         useAlphaMod = true;
         alpha = _alpha;
     }
-    Uint8 Sprite::getAlpha()
+    Uint8 Sprite::GetAlpha()
     {
         return alpha;
     }
-    void Sprite::clearColor()
+    void Sprite::ClearColor()
     {
-        setColor(255, 255, 255);
+        SetColor(255, 255, 255);
         useColorMod = false;
     }
-    void Sprite::clearAlpha()
+    void Sprite::ClearAlpha()
     {
-        setAlpha(255);
+        SetAlpha(255);
         useAlphaMod = false;
     }
-    void Sprite::moveTo(float speed, float angle)
+    void Sprite::MoveTo(float speed, float angle)
     {
-        changePos(speed * std::sin(angle * 3.14f / 180.0f), speed * std::cos(angle * 3.14f / 180.0f));
+        ChangePos(speed * std::sin(angle * 3.14f / 180.0f), speed * std::cos(angle * 3.14f / 180.0f));
     }
-    float Sprite::getAngleTowards(float x, float y)
+    float Sprite::GetAngleTowards(float x, float y)
     {
-        return 90.0f - atan2(y - getCY(), x - getCX()) * (180.0f / 3.14f);
+        return 90.0f - atan2(y - GetCY(), x - GetCX()) * (180.0f / 3.14f);
     }
-    float Sprite::getAngleTowards(Vec2 vector)
+    float Sprite::GetAngleTowards(Vec2 vector)
     {
-        return getAngleTowards(vector.x, vector.y);
+        return GetAngleTowards(vector.x, vector.y);
     }
-    float Sprite::getTopB()
+    float Sprite::GetTopB()
     {
         return position.y;
     }
-    float Sprite::getBottomB()
+    float Sprite::GetBottomB()
     {
-        return position.y + getH();
+        return position.y + GetH();
     }
-    float Sprite::getLeftB()
+    float Sprite::GetLeftB()
     {
         return position.x;
     }
-    float Sprite::getRightB()
+    float Sprite::GetRightB()
     {
-        return position.x + getW();
+        return position.x + GetW();
     }
-    void Sprite::setSize(float _w, float _h)
+    void Sprite::SetSize(float _w, float _h)
     {
         if (_w <= 0)
         {
-            printErrorGE("Sprite::setSize: Parameter `_w` was smaller than 1.");
+            PrintErrorGE("Sprite::SetSize: Parameter `_w` was smaller than 1.");
             return;
         }
         if (_h <= 0)
         {
-            printErrorGE("Sprite::setSize: Parameter `_h` was smaller than 1.");
+            PrintErrorGE("Sprite::SetSize: Parameter `_h` was smaller than 1.");
             return;
         }
         // width * scaleW = _w
@@ -361,114 +361,114 @@ namespace GameEngine
         scaleH = _h / height;
         // std::cout << "Input: " << _w << " Output: " << (_w / width * width) << std::endl;
     }
-    void Sprite::setSize(Vec2 vector)
+    void Sprite::SetSize(Vec2 vector)
     {
-        setSize(vector.x, vector.y);
+        SetSize(vector.x, vector.y);
     }
-    void Sprite::changeSize(float _w, float _h)
+    void Sprite::ChangeSize(float _w, float _h)
     {
         scaleW += _w;
         scaleH += _h;
     }
-    void Sprite::changeSize(Vec2 vector)
+    void Sprite::ChangeSize(Vec2 vector)
     {
-        changeSize(vector.x, vector.y);
+        ChangeSize(vector.x, vector.y);
     }
-    void Sprite::setScale(float _w, float _h)
+    void Sprite::SetScale(float _w, float _h)
     {
         scaleW = _w;
         scaleH = _h;
     }
-    void Sprite::setScale(Vec2 vector)
+    void Sprite::SetScale(Vec2 vector)
     {
-        setScale(vector.x, vector.y);
+        SetScale(vector.x, vector.y);
     }
-    void Sprite::stretchToWindow()
+    void Sprite::StretchToWindow()
     {
-        setSize((float)getGameWidth(), (float)getGameHeight());
-        setPos(0, 0);
+        SetSize((float)GetGameWidth(), (float)GetGameHeight());
+        SetPos(0, 0);
     }
-    void Sprite::setPos(float _x, float _y)
+    void Sprite::SetPos(float _x, float _y)
     {
         position.x = _x;
         position.y = _y;
     }
-    void Sprite::setPos(Vec2 vector)
+    void Sprite::SetPos(Vec2 vector)
     {
-        setPos(vector.x, vector.y);
+        SetPos(vector.x, vector.y);
     }
-    void Sprite::setX(float _x)
+    void Sprite::SetX(float _x)
     {
         position.x = _x;
     }
-    void Sprite::setY(float _y)
+    void Sprite::SetY(float _y)
     {
         position.y = _y;
     }
-    void Sprite::setCPos(float _x, float _y)
+    void Sprite::SetCPos(float _x, float _y)
     {
-        position.x = _x - (getW() / 2);
-        position.y = _y - (getH() / 2);
+        position.x = _x - (GetW() / 2);
+        position.y = _y - (GetH() / 2);
     }
-    void Sprite::setCPos(Vec2 vector)
+    void Sprite::SetCPos(Vec2 vector)
     {
-        setCPos(vector.x, vector.y);
+        SetCPos(vector.x, vector.y);
     }
-    void Sprite::setCX(float _x)
+    void Sprite::SetCX(float _x)
     {
-        position.x = _x - (getW() / 2);
+        position.x = _x - (GetW() / 2);
     }
-    void Sprite::setCY(float _y)
+    void Sprite::SetCY(float _y)
     {
-        position.y = _y - (getH() / 2);
+        position.y = _y - (GetH() / 2);
     }
-    void Sprite::setRect(Rect rect)
+    void Sprite::SetRect(Rect rect)
     {
-        setPos(rect.x, rect.y);
-        setSize(rect.w, rect.h);
+        SetPos(rect.x, rect.y);
+        SetSize(rect.w, rect.h);
     }
-    Rect Sprite::getRect()
+    Rect Sprite::GetRect()
     {
-        return { getX(), getY(), getW(), getH() };
+        return { GetX(), GetY(), GetW(), GetH() };
     }
-    void Sprite::setPosCentered()
+    void Sprite::SetPosCentered()
     {
-        setPos(getWindowCenterX(), getWindowCenterY());
+        SetPos(GetWindowCenterX(), GetWindowCenterY());
     }
-    void Sprite::changePos(float _x, float _y)
+    void Sprite::ChangePos(float _x, float _y)
     {
         position.x += _x;
         position.y += _y;
     }
-    void Sprite::changePos(Vec2 vector)
+    void Sprite::ChangePos(Vec2 vector)
     {
-        changePos(vector.x, vector.y);
+        ChangePos(vector.x, vector.y);
     }
-    Vec2 Sprite::getPos()
+    Vec2 Sprite::GetPos()
     {
         return position;
     }
-    Vec2 Sprite::getCPos()
+    Vec2 Sprite::GetCPos()
     {
-        return { position.x + (getW() / 2), position.y + (getH() / 2) };
+        return { position.x + (GetW() / 2), position.y + (GetH() / 2) };
     }
-    float Sprite::getX()
+    float Sprite::GetX()
     {
         return position.x;
     }
-    float Sprite::getY()
+    float Sprite::GetY()
     {
         return position.y;
     }
-    float Sprite::getCX()
+    float Sprite::GetCX()
     {
-        return position.x + (getW() / 2);
+        return position.x + (GetW() / 2);
     }
-    float Sprite::getCY()
+    float Sprite::GetCY()
     {
-        return position.y + (getH() / 2);
+        return position.y + (GetH() / 2);
     }
-    float Sprite::getW()
+    float Sprite::GetW()
     {
         if (doClip)
         {
@@ -476,29 +476,29 @@ namespace GameEngine
         }
         return (float)(width)*scaleW;
     }
-    float Sprite::getH()
+    float Sprite::GetH()
     {
         return (float)(height)*scaleH;
     }
 
-    int Sprite::getTextureW()
+    int Sprite::GetTextureW()
     {
         return width;
     }
-    int Sprite::getTextureH()
+    int Sprite::GetTextureH()
     {
         return height;
     }
-    float Sprite::getTextureRatio()
+    float Sprite::GetTextureRatio()
     {
         return (float)width / (float)height;
     }
-    void Sprite::setClipPos(int _clipW, int _clipI = 0)
+    void Sprite::SetClipPos(int _clipW, int _clipI = 0)
     {
         clipW = _clipW;
         clipI = _clipI;
     }
-    void Sprite::clipNext()
+    void Sprite::ClipNext()
     {
         clipI++;
         if (clipI * clipW >= width)
@@ -506,89 +506,89 @@ namespace GameEngine
             clipI = 0;
         }
     }
-    float Sprite::getWindowCenterX()
+    float Sprite::GetWindowCenterX()
     {
-        return getGameWidth() / 2.0f - getW() / 2.0f;
+        return GetGameWidth() / 2.0f - GetW() / 2.0f;
     }
-    float Sprite::getWindowCenterY()
+    float Sprite::GetWindowCenterY()
     {
-        return getGameHeight() / 2.0f - getH() / 2.0f;
+        return GetGameHeight() / 2.0f - GetH() / 2.0f;
     }
-    std::string Sprite::getName()
+    std::string Sprite::GetName()
     {
         return name;
     }
-    void Sprite::setName(std::string _name)
+    void Sprite::SetName(std::string _name)
     {
         name = _name;
     }
-    float Sprite::getScaleW()
+    float Sprite::GetScaleW()
     {
         return scaleW;
     }
-    float Sprite::getScaleH()
+    float Sprite::GetScaleH()
     {
         return scaleH;
     }
-    Color Sprite::getColor()
+    Color Sprite::GetColor()
     {
         return { red, green, blue, alpha };
     }
-    // Use this if you are only changing the text. Its lighter than `createFromText`
-    void Sprite::setText(std::string _text)
+    // Use this if you are only changing the text. Its lighter than `CreateFromText`
+    void Sprite::SetText(std::string _text)
     {
         if (text != _text)
         {
-            createFromText(_text, font);
+            CreateFromText(_text, font);
             text = _text;
         }
     }
 
     // Rotation
-    void Sprite::setRotation(float _rotation)
+    void Sprite::SetRotation(float _rotation)
     {
         rotation = _rotation;
     }
-    void Sprite::changeRotation(float _rotation)
+    void Sprite::ChangeRotation(float _rotation)
     {
-        setRotation(getRotation() + _rotation);
+        SetRotation(GetRotation() + _rotation);
     }
-    float Sprite::getRotation()
+    float Sprite::GetRotation()
     {
         return rotation;
     }
 
-    void Sprite::setVisibility(bool _visible)
+    void Sprite::SetVisibility(bool _visible)
     {
         visible = _visible;
     }
 
-    bool Sprite::getVisibility()
+    bool Sprite::GetVisibility()
     {
         return visible;
     }
 
-    void Sprite::setClip(bool _doClip)
+    void Sprite::SetClip(bool _doClip)
     {
         doClip = _doClip;
     }
 
-    bool Sprite::getClip()
+    bool Sprite::GetClip()
     {
         return doClip;
     }
 
-    void Sprite::setFlip(SDL_RendererFlip _flip)
+    void Sprite::SetFlip(SDL_RendererFlip _flip)
     {
         flip = _flip;
     }
 
-    SDL_RendererFlip Sprite::getFlip()
+    SDL_RendererFlip Sprite::GetFlip()
     {
         return flip;
     }
 
-    SDL_Texture* Sprite::getTexture()
+    SDL_Texture* Sprite::GetTexture()
     {
         return texture;
     }

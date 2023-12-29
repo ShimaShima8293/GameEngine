@@ -31,12 +31,12 @@ namespace GameEngine
 
     float animationSpeed = 1.0f;
 
-    size_t getAnimationCount()
+    size_t GetAnimationCount()
     {
         return dataList.size();
     }
 
-    void processAnimations()
+    void ProcessAnimations()
     {
         for (int i = 0; i < playQueue.size(); i++)
         {
@@ -81,7 +81,7 @@ namespace GameEngine
             AnimationData* currentData = &dataList[i];
             if (currentData->func == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->func` was nullptr");
+                PrintErrorGE("ProcessAnimations: `currentData->func` was nullptr");
                 continue;
             }
 
@@ -129,12 +129,12 @@ namespace GameEngine
             SpriteAnimationData* currentData = &dataList2[i];
             if (currentData->func == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->func` was nullptr");
+                PrintErrorGE("ProcessAnimations: `currentData->func` was nullptr");
                 continue;
             }
             if (currentData->sprite == nullptr)
             {
-                printErrorGE("processAnimations: `currentData->sprite` was nullptr");
+                PrintErrorGE("ProcessAnimations: `currentData->sprite` was nullptr");
                 continue;
             }
 
@@ -179,17 +179,17 @@ namespace GameEngine
     }
 
 
-    void playAnimation(AnimationFunc func, int len, bool reversed)
+    void PlayAnimation(AnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
-            printErrorGE("playAnimation: Parameter `func` was nullptr.");
+            PrintErrorGE("PlayAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printErrorGE("playAnimation: Parameter `len` was equal to or smaller than 0.");
+            PrintErrorGE("PlayAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -210,29 +210,24 @@ namespace GameEngine
         }
         else
         {
-            newData.frame = roundToInt(len * animationSpeed);
+            newData.frame = RountToInt(len * animationSpeed);
         }
-        newData.len = roundToInt(len * animationSpeed);
+        newData.len = RountToInt(len * animationSpeed);
         newData.reversed = reversed;
         playQueue.push_back(newData);
     }
 
-    void playAnimation(Animation animation, int len, bool reversed)
-    {
-        
-    }
-
-    void playSpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len, bool reversed)
+    void PlaySpriteAnimation(Renderable* sprite, SpriteAnimationFunc func, int len, bool reversed)
     {
         if (func == nullptr)
         {
-            printErrorGE("playSpriteAnimation: Parameter `func` was nullptr.");
+            PrintErrorGE("PlaySpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         if (len <= 0)
         {
-            printErrorGE("playSpriteAnimation: Parameter `len` was equal to or smaller than 0.");
+            PrintErrorGE("PlaySpriteAnimation: Parameter `len` was equal to or smaller than 0.");
             return;
         }
 
@@ -253,19 +248,19 @@ namespace GameEngine
         }
         else
         {
-            newData.frame = roundToInt(len * animationSpeed);
+            newData.frame = RountToInt(len * animationSpeed);
         }
-        newData.len = roundToInt(len * animationSpeed);
+        newData.len = RountToInt(len * animationSpeed);
         newData.reversed = reversed;
         newData.sprite = sprite;
         playQueue2.push_back(newData);
     }
 
-    void stopAnimation(AnimationFunc func)
+    void StopAnimation(AnimationFunc func)
     {
         if (func == nullptr)
         {
-            printErrorGE("stopAnimation: Parameter `func` was nullptr.");
+            PrintErrorGE("StopAnimation: Parameter `func` was nullptr.");
             return;
         }
 
@@ -274,29 +269,29 @@ namespace GameEngine
 
     }
 
-    void stopSpriteAnimation(SpriteAnimationFunc func)
+    void StopSpriteAnimation(SpriteAnimationFunc func)
     {
         if (func == nullptr)
         {
-            printErrorGE("stopSpriteAnimation: Parameter `func` was nullptr.");
+            PrintErrorGE("StopSpriteAnimation: Parameter `func` was nullptr.");
             return;
         }
 
         stopQueue2.push_back(func);
     }
 
-    void clearAnimations()
+    void ClearAnimations()
     {
         dataList.clear();
         dataList2.clear();
     }
 
-    void setGlobalAnimationSpeed(float speed)
+    void SetGlobalAnimationSpeed(float speed)
     {
         animationSpeed = speed;
     }
 
-    float getGlobalAnimationSpeed()
+    float GetGlobalAnimationSpeed()
     {
         return animationSpeed;
     }

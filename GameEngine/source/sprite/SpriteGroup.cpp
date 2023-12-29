@@ -4,24 +4,24 @@ namespace GameEngine
 {
     SpriteGroup::SpriteGroup()
     {
-        free();
+        Free();
     }
     SpriteGroup::~SpriteGroup()
     {
-        free();
+        Free();
     }
 
-    void SpriteGroup::free()
+    void SpriteGroup::Free()
     {
         for (Renderable* child : this->children)
         {
-            //child->free();
+            //child->Free();
         }
         this->children.clear();
         this->info = {};
     }
 
-    void SpriteGroup::render(RenderInfo info)
+    void SpriteGroup::Render(RenderInfo info)
     {
         if (this->info.visible == false)
         {
@@ -35,63 +35,63 @@ namespace GameEngine
 
         for (Renderable* child : this->children)
         {
-            child->render(newInfo);
+            child->Render(newInfo);
         }
     }
 
-    void SpriteGroup::setParent(SpriteGroup* parent)
+    void SpriteGroup::SetParent(SpriteGroup* parent)
     {
     }
 
-    void SpriteGroup::setVisibility(bool _visible)
+    void SpriteGroup::SetVisibility(bool _visible)
     {
         this->info.visible = _visible;
     }
 
-    bool SpriteGroup::getVisibility()
+    bool SpriteGroup::GetVisibility()
     {
         return this->info.visible;
     }
 
-    void SpriteGroup::setPos(float _x, float _y)
+    void SpriteGroup::SetPos(float _x, float _y)
     {
-        this->setPos({ _x, _y });
+        this->SetPos({ _x, _y });
     }
 
-    void SpriteGroup::setPos(Vec2 vector)
-    {
-        this->info.position = vector;
-    }
-
-    void SpriteGroup::setCPos(float _x, float _y)
-    {
-        this->setCPos({ _x, _y });
-    }
-
-    void SpriteGroup::setCPos(Vec2 vector)
+    void SpriteGroup::SetPos(Vec2 vector)
     {
         this->info.position = vector;
     }
 
-    std::vector<Renderable*> SpriteGroup::getChildren()
+    void SpriteGroup::SetCPos(float _x, float _y)
+    {
+        this->SetCPos({ _x, _y });
+    }
+
+    void SpriteGroup::SetCPos(Vec2 vector)
+    {
+        this->info.position = vector;
+    }
+
+    std::vector<Renderable*> SpriteGroup::GetChildren()
     {
         return this->children;
     }
 
-    void SpriteGroup::addChild(Renderable* child)
+    void SpriteGroup::AddChild(Renderable* child)
     {
         for (int i = 0; i < this->children.size(); i++)
         {
             if (child == this->children[i])
             {
-                printErrorGE("SpriteGroup::addChild: Trying to add an existing child. Don't forget to call `init()`");
+                PrintErrorGE("SpriteGroup::AddChild: Trying to add an existing child. Don't forGet to call `Init()`");
                 return;
             }
         }
         this->children.push_back(child);
     }
 
-    void SpriteGroup::removeChild(Renderable* child)
+    void SpriteGroup::RemoveChild(Renderable* child)
     {
         for (int i = 0; i < this->children.size(); i++)
         {
@@ -103,168 +103,168 @@ namespace GameEngine
         }
     }
 
-    void SpriteGroup::setChildren(std::vector<Renderable*> children)
+    void SpriteGroup::SetChildren(std::vector<Renderable*> children)
     {
         this->children = children;
     }
 
-    void SpriteGroup::changePos(float x, float y)
+    void SpriteGroup::ChangePos(float x, float y)
     {
-        this->changePos({ x, y });
+        this->ChangePos({ x, y });
     }
 
-    void SpriteGroup::changePos(Vec2 vector)
+    void SpriteGroup::ChangePos(Vec2 vector)
     {
         this->info.position = this->info.position + vector;
     }
-    Vec2 SpriteGroup::getPos()
+    Vec2 SpriteGroup::GetPos()
     {
         return this->info.position;
     }
-    Vec2 SpriteGroup::getCPos()
+    Vec2 SpriteGroup::GetCPos()
     {
-        return { this->info.position.x + (getW() / 2.0f), this->info.position.y + (getH() / 2.0f) };
+        return { this->info.position.x + (GetW() / 2.0f), this->info.position.y + (GetH() / 2.0f) };
     }
-    void SpriteGroup::setX(float _x)
+    void SpriteGroup::SetX(float _x)
     {
         this->info.position.x = _x;
     }
-    void SpriteGroup::setY(float _y)
+    void SpriteGroup::SetY(float _y)
     {
         this->info.position.y = _y;
     }
-    void SpriteGroup::setCX(float _x)
+    void SpriteGroup::SetCX(float _x)
     {
-        this->info.position.x = _x - this->getW() / 2.0f;
+        this->info.position.x = _x - this->GetW() / 2.0f;
     }
-    void SpriteGroup::setCY(float _y)
+    void SpriteGroup::SetCY(float _y)
     {
-        this->info.position.y = _y - this->getH() / 2.0f;
+        this->info.position.y = _y - this->GetH() / 2.0f;
     }
-    float SpriteGroup::getX()
+    float SpriteGroup::GetX()
     {
         return this->info.position.x;
     }
-    float SpriteGroup::getY()
+    float SpriteGroup::GetY()
     {
         return this->info.position.y;
     }
-    float SpriteGroup::getCX()
+    float SpriteGroup::GetCX()
     {
-        return this->info.position.x + this->getW() / 2.0f;
+        return this->info.position.x + this->GetW() / 2.0f;
     }
-    float SpriteGroup::getCY()
+    float SpriteGroup::GetCY()
     {
-        return this->info.position.y + this->getH() / 2.0f;
+        return this->info.position.y + this->GetH() / 2.0f;
     }
-    void SpriteGroup::setRect(Rect rect)
+    void SpriteGroup::SetRect(Rect rect)
     {
-        this->setPos(rect.x, rect.y);
-        this->setSize(rect.w, rect.h);
+        this->SetPos(rect.x, rect.y);
+        this->SetSize(rect.w, rect.h);
     }
-    Rect SpriteGroup::getRect()
+    Rect SpriteGroup::GetRect()
     {
-        return { this->getX(), this->getY(), this->getW(), this->getH() };
+        return { this->GetX(), this->GetY(), this->GetW(), this->GetH() };
     }
-    float SpriteGroup::getLeftB()
+    float SpriteGroup::GetLeftB()
     {
-        return this->getX();
+        return this->GetX();
     }
-    float SpriteGroup::getRightB()
+    float SpriteGroup::GetRightB()
     {
-        return this->getX() + this->getW();
+        return this->GetX() + this->GetW();
     }
-    float SpriteGroup::getTopB()
+    float SpriteGroup::GetTopB()
     {
-        return this->getY();
+        return this->GetY();
     }
-    float SpriteGroup::getBottomB()
+    float SpriteGroup::GetBottomB()
     {
-        return this->getY() + this->getH();
+        return this->GetY() + this->GetH();
     }
-    void SpriteGroup::setScale(float _w, float _h)
+    void SpriteGroup::SetScale(float _w, float _h)
     {
-        this->setScale({ _w, _h });
+        this->SetScale({ _w, _h });
     }
-    void SpriteGroup::setScale(Vec2 vector)
+    void SpriteGroup::SetScale(Vec2 vector)
     {
         this->info.scale = vector;
     }
-    float SpriteGroup::getScaleW()
+    float SpriteGroup::GetScaleW()
     {
         return this->info.scale.x;
     }
-    float SpriteGroup::getScaleH()
+    float SpriteGroup::GetScaleH()
     {
         return this->info.scale.y;
     }
-    void SpriteGroup::setSize(float _w, float _h)
+    void SpriteGroup::SetSize(float _w, float _h)
     {
     }
-    void SpriteGroup::setSize(Vec2 vector)
+    void SpriteGroup::SetSize(Vec2 vector)
     {
     }
-    void SpriteGroup::changeSize(float _w, float _h)
+    void SpriteGroup::ChangeSize(float _w, float _h)
     {
     }
-    void SpriteGroup::changeSize(Vec2 vector)
+    void SpriteGroup::ChangeSize(Vec2 vector)
     {
     }
-    float SpriteGroup::getW()
-    {
-        return 0.0f;
-    }
-    float SpriteGroup::getH()
+    float SpriteGroup::GetW()
     {
         return 0.0f;
     }
-    void SpriteGroup::setRotation(float _rotation)
-    {
-    }
-    void SpriteGroup::changeRotation(float _rotation)
-    {
-    }
-    float SpriteGroup::getRotation()
+    float SpriteGroup::GetH()
     {
         return 0.0f;
     }
-    void SpriteGroup::setFlip(SDL_RendererFlip _flip)
+    void SpriteGroup::SetRotation(float _rotation)
     {
     }
-    SDL_RendererFlip SpriteGroup::getFlip()
+    void SpriteGroup::ChangeRotation(float _rotation)
+    {
+    }
+    float SpriteGroup::GetRotation()
+    {
+        return 0.0f;
+    }
+    void SpriteGroup::SetFlip(SDL_RendererFlip _flip)
+    {
+    }
+    SDL_RendererFlip SpriteGroup::GetFlip()
     {
         return SDL_RendererFlip();
     }
-    void SpriteGroup::stretchToWindow()
+    void SpriteGroup::StretchToWindow()
     {
     }
-    void SpriteGroup::setPosCentered()
+    void SpriteGroup::SetPosCentered()
     {
     }
-    void SpriteGroup::moveTo(float _speed, float _angle)
+    void SpriteGroup::MoveTo(float _speed, float _angle)
     {
     }
-    float SpriteGroup::getAngleTowards(float x, float y)
-    {
-        return 0.0f;
-    }
-    float SpriteGroup::getAngleTowards(Vec2 vector)
+    float SpriteGroup::GetAngleTowards(float x, float y)
     {
         return 0.0f;
     }
-    float SpriteGroup::getWindowCenterX()
+    float SpriteGroup::GetAngleTowards(Vec2 vector)
     {
         return 0.0f;
     }
-    float SpriteGroup::getWindowCenterY()
+    float SpriteGroup::GetWindowCenterX()
     {
         return 0.0f;
     }
-    void SpriteGroup::setAlpha(Uint8 _alpha)
+    float SpriteGroup::GetWindowCenterY()
+    {
+        return 0.0f;
+    }
+    void SpriteGroup::SetAlpha(Uint8 _alpha)
     {
         info.alpha = _alpha;
     }
-    Uint8 SpriteGroup::getAlpha()
+    Uint8 SpriteGroup::GetAlpha()
     {
         return info.alpha;
     }

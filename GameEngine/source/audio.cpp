@@ -5,68 +5,68 @@ namespace GameEngine
 {
     bool mute = false;
 
-    void playMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
+    void PlayMusicSet(Mix_Chunk* intro, Mix_Chunk* loop, int fade)
     {
         if (intro == nullptr)
         {
-            printErrorGE("playMusicSet: Parameter `intro` was nullptr.");
+            PrintErrorGE("PlayMusicSet: Parameter `intro` was nullptr.");
             return;
         }
         if (intro == nullptr)
         {
-            printErrorGE("playMusicSet: Parameter `loop` was nullptr.");
+            PrintErrorGE("PlayMusicSet: Parameter `loop` was nullptr.");
             return;
         }
-        haltMusic();
+        HaltMusic();
         if (Mix_PlayChannel(CH_INTRO, intro, 0) == -1)
         {
-            printErrorGE("playMusicSet: Failed to play an intro WAV chunk.");
-            printSDLError();
+            PrintErrorGE("PlayMusicSet: Failed to play an intro WAV chunk.");
+            PrintSDLError();
             return;
         }
         Mix_FadeOutChannel(CH_INTRO, fade);
 
         if (Mix_FadeInChannel(CH_LOOP, loop, -1, fade) == -1)
         {
-            printErrorGE("playMusicSet: Failed to play a loop WAV chunk.");
-            printSDLError();
+            PrintErrorGE("PlayMusicSet: Failed to play a loop WAV chunk.");
+            PrintSDLError();
             return;
         };
     }
 
-    void playSoundEffect(Mix_Chunk* chunk)
+    void PlaySoundEffect(Mix_Chunk* chunk)
     {
         if (chunk == nullptr)
         {
-            printErrorGE("playSoundEffect: Parameter `chunk` was nullptr.");
+            PrintErrorGE("PlaySoundEffect: Parameter `chunk` was nullptr.");
             return;
         }
         if (Mix_PlayChannel(CH_FX, chunk, 0) == -1)
         {
-            printErrorGE("playSoundEffect: Failed to play a sound effect WAV chunk.");
-            printSDLError();
+            PrintErrorGE("PlaySoundEffect: Failed to play a sound effect WAV chunk.");
+            PrintSDLError();
             return;
         }
     }
 
-    void haltMusic()
+    void HaltMusic()
     {
         Mix_HaltChannel(CH_INTRO);
         Mix_HaltChannel(CH_LOOP);
     }
 
-    void fadeOutMusic(int fade)
+    void FadeOutMusic(int fade)
     {
         Mix_FadeOutChannel(CH_INTRO, fade);
         Mix_FadeOutChannel(CH_LOOP, fade);
     }
 
-    bool getMuteState()
+    bool GetMuteState()
     {
         return mute;
     }
 
-    void setMuteState(bool _mute)
+    void SetMuteState(bool _mute)
     {
         mute = _mute;
         if (mute)

@@ -32,7 +32,7 @@ namespace GameEngine
     bool disableDebugging = false;
 
 
-    void processEvents()
+    void ProcessEvents()
     {
         SDL_Event event{};
         mouseMoved = false;
@@ -84,7 +84,7 @@ namespace GameEngine
             {
                 joyButton[event.jbutton.button] = true;
                 joyButtonPulse[event.jbutton.button] = true;
-                //printInfoGE((int)event.jbutton.button);
+                //PrintInfoGE((int)event.jbutton.button);
             }
             if (event.type == SDL_JOYBUTTONUP)
             {
@@ -93,92 +93,92 @@ namespace GameEngine
             if (event.type == SDL_JOYAXISMOTION)
             {
                 joyAxis[event.jaxis.axis] = event.jaxis.value;
-                //printInfoGE((int)event.jaxis.axis);
+                //PrintInfoGE((int)event.jaxis.axis);
             }
             if (event.type == SDL_JOYHATMOTION)
             {
                 joyHat[event.jhat.hat] = event.jhat.value;
             }
         }
-        if (getKeyPressedPulse(SDLK_F11) && !getKeyPressed(SDLK_LSHIFT))
+        if (GetKeyPressedPulse(SDLK_F11) && !GetKeyPressed(SDLK_LSHIFT))
         {
-            if (getWindowMode() != WINDOW_FULLSCREEN)
+            if (GetWindowMode() != WINDOW_FULLSCREEN)
             {
-                setWindowMode(WINDOW_FULLSCREEN);
+                SetWindowMode(WINDOW_FULLSCREEN);
             }
             else
             {
-                setWindowMode(WINDOW_WINDOWED);
+                SetWindowMode(WINDOW_WINDOWED);
             }
         }
-        if (getKeyPressedPulse(SDLK_F11) && getKeyPressed(SDLK_LSHIFT))
+        if (GetKeyPressedPulse(SDLK_F11) && GetKeyPressed(SDLK_LSHIFT))
         {
-            if (getWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
+            if (GetWindowMode() != WINDOW_FULLSCREEN_DESKTOP)
             {
-                setWindowMode(WINDOW_FULLSCREEN_DESKTOP);
+                SetWindowMode(WINDOW_FULLSCREEN_DESKTOP);
             }
             else
             {
-                setWindowMode(WINDOW_WINDOWED);
+                SetWindowMode(WINDOW_WINDOWED);
             }
         }
         if (!disableDebugging)
         {
-            if (getKeyPressedPulse(SDLK_F3))
+            if (GetKeyPressedPulse(SDLK_F3))
             {
                 debug = !debug;
             }
-            if (getKeyPressedPulse(SDLK_F5))
+            if (GetKeyPressedPulse(SDLK_F5))
             {
                 showBorders = !showBorders;
             }
-            if (getKeyPressedPulse(SDLK_m))
+            if (GetKeyPressedPulse(SDLK_m))
             {
-                setMuteState(!getMuteState());
+                SetMuteState(!GetMuteState());
             }
-            if (getKeyPressedPulse(SDLK_F4))
+            if (GetKeyPressedPulse(SDLK_F4))
             {
-                reloadCurrentScene();
+                ReloadCurrentScene();
             }
         }
     }
 
-    bool getMouseMoved()
+    bool GetMouseMoved()
     {
         return mouseMoved;
     }
 
-    bool getWindowFocus()
+    bool GetWindowFocus()
     {
         return focused;
     }
 
-    bool getKeyPressed(SDL_KeyCode code)
+    bool GetKeyPressed(SDL_KeyCode code)
     {
         return keyPressed[code];
     }
 
-    bool getKeyPressedPulse(SDL_KeyCode code)
+    bool GetKeyPressedPulse(SDL_KeyCode code)
     {
         return keyPressedPulse[code];
     }
 
-    bool getJoyButton(int button)
+    bool GetJoyButton(int button)
     {
         return joyButton[button];
     }
 
-    bool getJoyButtonPulse(int button)
+    bool GetJoyButtonPulse(int button)
     {
         return joyButtonPulse[button];
     }
 
-    int getJoyAxis(int axis)
+    int GetJoyAxis(int axis)
     {
         return joyAxis[axis];
     }
 
-    bool getJoyAxisPulse(int axis, AxisDirection direction, int deadzone)
+    bool GetJoyAxisPulse(int axis, AxisDirection direction, int deadzone)
     {
         int prev = joyAxisPrev[axis];
         int curr = joyAxis[axis];
@@ -200,27 +200,27 @@ namespace GameEngine
         return false;
     }
 
-    bool getMouseButton(int button)
+    bool GetMouseButton(int button)
     {
         return buttonPressed[button];
     }
 
-    bool getMouseButtonPulse(int button)
+    bool GetMouseButtonPulse(int button)
     {
         return buttonPressedPulse[button];
     }
 
-    bool getRunning()
+    bool GetRunning()
     {
         return running;
     }
 
-    void endMainloop()
+    void EndMainloop()
     {
         running = false;
     }
 
-    void close()
+    void Close()
     {
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;
@@ -229,52 +229,52 @@ namespace GameEngine
         SDL_Quit();
     }
 
-    int getGameWidth()
+    int GetGameWidth()
     {
         return gameWidth;
     }
 
-    int getGameHeight()
+    int GetGameHeight()
     {
         return gameHeight;
     }
 
-    SDL_Window* getWindow()
+    SDL_Window* GetWindow()
     {
         return window;
     }
 
-    SDL_Renderer* getRenderer()
+    SDL_Renderer* GetRenderer()
     {
         return renderer;
     }
 
-    int getWindowWidth()
+    int GetWindowWidth()
     {
         int width;
         SDL_GetWindowSize(window, &width, nullptr);
         return width;
     }
 
-    int getWindowHeight()
+    int GetWindowHeight()
     {
         int height;
         SDL_GetWindowSize(window, nullptr, &height);
         return height;
     }
 
-    void setWindowMode(WindowMode mode)
+    void SetWindowMode(WindowMode mode)
     {
         SDL_SetWindowFullscreen(window, mode);
         windowMode = mode;
     }
 
-    WindowMode getWindowMode()
+    WindowMode GetWindowMode()
     {
         return windowMode;
     }
 
-    int setSystemCursor(SDL_SystemCursor _cursor)
+    int SetSystemCursor(SDL_SystemCursor _cursor)
     {
         if (cursor != nullptr)
         {
@@ -283,15 +283,15 @@ namespace GameEngine
         cursor = SDL_CreateSystemCursor(_cursor);
         if (cursor == nullptr)
         {
-            printErrorGE("setSystemCursor: Failed to create a system cursor.");
-            printSDLError();
+            PrintErrorGE("SetSystemCursor: Failed to create a system cursor.");
+            PrintSDLError();
             return -1;
         }
         SDL_SetCursor(cursor);
         return 0;
     }
 
-    int hideCursor()
+    int HideCursor()
     {
         if (cursor != nullptr)
         {
@@ -301,53 +301,53 @@ namespace GameEngine
         cursor = SDL_CreateCursor((Uint8*)cursorData, (Uint8*)cursorData, 8, 8, 4, 4);
         if (cursor == nullptr)
         {
-            printErrorGE("hideCursor: Failed to create a system cursor.");
-            printSDLError();
+            PrintErrorGE("HideCursor: Failed to create a system cursor.");
+            PrintSDLError();
             return -1;
         }
         SDL_SetCursor(cursor);
         return 0;
     }
 
-    Vec2 getCursorPos()
+    Vec2 GetCursorPos()
     {
         SDL_Rect destRect = {};
 
-        double gameRatio = (double)getGameWidth() / (double)getGameHeight(); // Calculate the ratio of the game view
-        double screenRatio = (double)getWindowWidth() / (double)getWindowHeight(); // Calculate the ratio of the window
+        double gameRatio = (double)GetGameWidth() / (double)GetGameHeight(); // Calculate the ratio of the game view
+        double screenRatio = (double)GetWindowWidth() / (double)GetWindowHeight(); // Calculate the ratio of the window
         if (gameRatio == screenRatio)
         {
-            destRect = { 0, 0, getWindowWidth(), getWindowHeight() };
+            destRect = { 0, 0, GetWindowWidth(), GetWindowHeight() };
         }
         else if (gameRatio > screenRatio)
         {
-            destRect = { 0, (getWindowHeight() - getGameHeight() * getWindowWidth() / getGameWidth()) / 2, getWindowWidth(), getGameHeight() * getWindowWidth() / getGameWidth() };
+            destRect = { 0, (GetWindowHeight() - GetGameHeight() * GetWindowWidth() / GetGameWidth()) / 2, GetWindowWidth(), GetGameHeight() * GetWindowWidth() / GetGameWidth() };
         }
         else
         {
-            destRect = { (getWindowWidth() - getGameWidth() * getWindowHeight() / getGameHeight()) / 2, 0, getGameWidth() * getWindowHeight() / getGameHeight(), getWindowHeight() };
+            destRect = { (GetWindowWidth() - GetGameWidth() * GetWindowHeight() / GetGameHeight()) / 2, 0, GetGameWidth() * GetWindowHeight() / GetGameHeight(), GetWindowHeight() };
         }
 
-        float wRatio = (float)getGameWidth() / destRect.w;
-        float hRatio = (float)getGameHeight() / destRect.h;
+        float wRatio = (float)GetGameWidth() / destRect.w;
+        float hRatio = (float)GetGameHeight() / destRect.h;
         return Vec2{ (cursorPos.x - destRect.x) * wRatio, (cursorPos.y - destRect.y) * hRatio };
     }
 
-    Vec2 getCursorWindowPos()
+    Vec2 GetCursorWindowPos()
     {
         return cursorPos;
     }
 
-    int init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
+    int Init(std::string windowTitle, int _gameWidth, int _gameHeight, int initFlags)
     {
         if (_gameWidth <= 0)
         {
-            printFatalErrorGE("init: Parameter `_gameWidth` was smaller than 1.");
+            PrintFatalErrorGE("Init: Parameter `_gameWidth` was smaller than 1.");
             return -1;
         }
         if (_gameHeight <= 0)
         {
-            printFatalErrorGE("init: Parameter `_gameHeight` was smaller than 1.");
+            PrintFatalErrorGE("Init: Parameter `_gameHeight` was smaller than 1.");
             return -1;
         }
 #ifdef _WIN32
@@ -361,37 +361,37 @@ namespace GameEngine
         gameWidth = _gameWidth;
         gameHeight = _gameHeight;
 
-        printInfoGE("Game Engine Version " GE_VERSION_STR);
+        PrintInfoGE("Game Engine Version " GE_VERSION_STR);
 
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL.");
+            PrintFatalErrorGE("Init: Failed to initialize SDL.");
             return -1;
         }
         if (IMG_Init(0) < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_Image.");
-            printSDLError();
+            PrintFatalErrorGE("Init: Failed to initialize SDL_Image.");
+            PrintSDLError();
             return -1;
         }
         if (TTF_Init() < 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_TTF.");
-            printSDLError();
+            PrintFatalErrorGE("Init: Failed to initialize SDL_TTF.");
+            PrintSDLError();
             return -1;
         }
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) != 0)
         {
-            printFatalErrorGE("init: Failed to initialize SDL_Mixer.");
-            printSDLError();
+            PrintFatalErrorGE("Init: Failed to initialize SDL_Mixer.");
+            PrintSDLError();
             return -1;
         }
 
         window = SDL_CreateWindow(windowTitle.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, _gameWidth, _gameHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
         if (window == nullptr)
         {
-            printFatalErrorGE("init: Failed to create a window.");
-            printSDLError();
+            PrintFatalErrorGE("Init: Failed to create a window.");
+            PrintSDLError();
             return -1;
         }
 
@@ -399,8 +399,8 @@ namespace GameEngine
         {
             if (SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1") != SDL_TRUE)
             {
-                printErrorGE("init: Failed to set antialiasing.");
-                printSDLError();
+                PrintErrorGE("Init: Failed to set antialiasing.");
+                PrintSDLError();
             }
             else
             {
@@ -435,23 +435,23 @@ namespace GameEngine
         TTF_Font* debugFont = TTF_OpenFont(PATH_DEFAULT_FONT, 24);
         if (debugFont == NULL)
         {
-            printErrorGE("init: Failed to create `debugFont`.");
-            printSDLError();
+            PrintErrorGE("Init: Failed to create `debugFont`.");
+            PrintSDLError();
         }
 
-        debugText.createFromText(DEFAULT_TEXT, debugFont);
-        debugText.setPos(0, 0);
+        debugText.CreateFromText(DEFAULT_TEXT, debugFont);
+        debugText.SetPos(0, 0);
 
-        debugBg.createSolid(1, 1, { 0, 0, 0, 128 });
+        debugBg.CreateSolid(1, 1, { 0, 0, 0, 128 });
 
-        if (setFullscreenResolution(_gameWidth, _gameHeight) != 0)
+        if (SetFullscreenResolution(_gameWidth, _gameHeight) != 0)
         {
-            printErrorGE("init: Failed to set fullscreen resolution.");
+            PrintErrorGE("Init: Failed to set fullscreen resolution.");
         }
 
         if (SDL_JoystickOpen(0) == nullptr)
         {
-            printInfoGE("init: Joystick not found.");
+            PrintInfoGE("Init: Joystick not found.");
         }
 
         running = true;
@@ -459,72 +459,72 @@ namespace GameEngine
         return 0;
     }
 
-    SDL_DisplayMode getDisplayMode()
+    SDL_DisplayMode GetDisplayMode()
     {
         SDL_GetWindowDisplayMode(window, &mode);
         return mode;
     }
 
-    int setFullscreenResolution(int w, int h)
+    int SetFullscreenResolution(int w, int h)
     {
         if (w <= 0)
         {
-            printErrorGE("setFullscreenResolution: Parameter `w` was smaller than 1.");
+            PrintErrorGE("SetFullscreenResolution: Parameter `w` was smaller than 1.");
             return -1;
         }
         if (h <= 0)
         {
-            printErrorGE("setFullscreenResolution: Parameter `h` was smaller than 1.");
+            PrintErrorGE("SetFullscreenResolution: Parameter `h` was smaller than 1.");
             return -1;
         }
 
-        SDL_DisplayMode mode = getDisplayMode();
+        SDL_DisplayMode mode = GetDisplayMode();
         mode.w = w;
         mode.h = h;
         if (SDL_SetWindowDisplayMode(window, &mode) != 0)
         {
-            printErrorGE("setFullscreenResolution: Failed to set window display mode.");
-            printSDLError();
+            PrintErrorGE("SetFullscreenResolution: Failed to set window display mode.");
+            PrintSDLError();
             return -1;
         }
         return 0;
     }
 
-    GE_HWND getHWND()
+    GE_HWND GetHWND()
     {
 #ifdef _WIN32
         SDL_SysWMinfo wmInfo{};
         SDL_VERSION(&wmInfo.version);
-        SDL_GetWindowWMInfo(getWindow(), &wmInfo);
+        SDL_GetWindowWMInfo(GetWindow(), &wmInfo);
         HWND hwnd = wmInfo.info.win.window;
         return hwnd;
 #else
-        printErrorGE("getHWND: Unsupported OS.");
+        PrintErrorGE("GetHWND: Unsupported OS.");
         return nullptr;
 #endif
     }
 
-    void startMainloop()
+    void Mainloop()
     {
-        while (getRunning())
+        while (GetRunning())
         {
-            processEvents();
+            ProcessEvents();
 
-            if (!getWindowFocus())
+            if (!GetWindowFocus())
             {
                 SDL_Delay(1000 / 60);
                 continue;
             }
 
-            processScene();
+            ProcessScene();
 
-            processAnimations();
+            ProcessAnimations();
 
-            renderEverything();
+            RenderEverything();
         }
 
-        closeResources();
-        close();
+        CloseResources();
+        Close();
     }
 
 }
