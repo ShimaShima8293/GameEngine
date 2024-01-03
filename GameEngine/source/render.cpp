@@ -53,15 +53,16 @@ namespace GameEngine
 
         for (int i = 0; i < layers.size(); i++)
         {
-            for (int j = 0; j < layers[i]->size(); j++)
+            for (auto currentSprite = layers[i]->begin(); currentSprite != layers[i]->end();)
             {
-                Renderable* currentSprite = (*layers[i])[j];
-                if (currentSprite == nullptr)
+                if ((*currentSprite) == nullptr)
                 {
                     PrintErrorGE("RenderEverything: `currentSprite` was nullptr.");
+                    currentSprite = layers[i]->erase(currentSprite);
                     continue;
                 }
-                currentSprite->Render({});
+                (*currentSprite)->Render({});
+                currentSprite++;
                 //if (CheckCollision(currentSprite->GetRect(), { 0.0f, 0.0f, (float)GetGameWidth(), (float)GetGameHeight() }))
                 //{
                 //    currentSprite->Render();
@@ -74,15 +75,16 @@ namespace GameEngine
             }
         }
 
-        for (int i = 0; i < mainLayer.size(); i++)
+        for (auto currentSprite = mainLayer.begin(); currentSprite != mainLayer.end();)
         {
-            Renderable* currentSprite = mainLayer[i];
-            if (currentSprite == nullptr)
+            if ((*currentSprite) == nullptr)
             {
                 PrintErrorGE("RenderEverything: `currentSprite` was nullptr.");
+                currentSprite = mainLayer.erase(currentSprite);
                 continue;
             }
-            currentSprite->Render({});
+            (*currentSprite)->Render({});
+            currentSprite++;
             //if (CheckCollision(currentSprite->GetRect(), { 0.0f, 0.0f, (float)GetGameWidth(), (float)GetGameHeight() }))
             //{
             //    currentSprite->Render();
@@ -205,23 +207,25 @@ namespace GameEngine
             PrintErrorGE("RemoveSprite: Parameter `sprite` was nullptr.");
             return;
         }
-        for (int i = 0; i < mainLayer.size(); i++)
+        for (auto currentSprite = mainLayer.begin(); currentSprite != mainLayer.end();)
         {
-            if (mainLayer[i] == sprite)
+            if ((*currentSprite) == sprite)
             {
-                mainLayer.erase(mainLayer.begin() + i);
-                i--;
+                currentSprite = mainLayer.erase(currentSprite);
+                continue;
             }
+            currentSprite++;
         }
         for (int i = 0; i < layers.size(); i++)
         {
-            for (int j = 0; j < layers[i]->size(); j++)
+            for (auto currentSprite = layers[i]->begin(); currentSprite != layers[i]->end();)
             {
-                if ((*layers[i])[j] == sprite)
+                if ((*currentSprite) == sprite)
                 {
-                    layers[i]->erase(layers[i]->begin() + j);
-                    j--;
+                    currentSprite = layers[i]->erase(currentSprite);
+                    continue;
                 }
+                currentSprite++;
             }
         }
     }
