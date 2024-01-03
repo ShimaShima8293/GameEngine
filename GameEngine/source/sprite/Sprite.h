@@ -147,7 +147,7 @@ namespace GameEngine
         // Creates texture from custom SDL_Surface.
         // \param surface The SDL_Surface struct for the texture
         // \param free (Optional) Pass false if you don't want to free the surface.
-        bool CreateFromSurface(SDL_Surface* _surface, bool free = true);
+        bool CreateFromSurface(SDL_Surface* _surface, bool free);
 
         // Creates texture from pixels. This will create a surface with white pixels and internally call `loadFromSurface` so you don't need to manually create/free the surface.
         // \param width The width of the pixels
@@ -158,7 +158,7 @@ namespace GameEngine
 
         // Replace the current texture with another one. This will automatically free the old texture.
         // \param texture A pointer to SDL_Texture.
-        void SetTexture(SDL_Texture* _texture, bool free = true);
+        void SetTexture(SDL_Texture* _texture, bool free);
 
         // Changes the color modulation of the texture.
         // \param red The red value for color modulation. (0-255)
