@@ -9,11 +9,8 @@
 #include <cmath>
 #include <chrono>
 #include <random>
-#ifdef _WIN32
-#include <Windows.h>
-#endif
-#include PATH_SDL
-#include PATH_SDL_IMAGE
-#include PATH_SDL_TTF
-#include PATH_SDL_MIXER
 
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+#include <SDL_mixer.h>

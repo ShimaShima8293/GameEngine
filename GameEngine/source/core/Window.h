@@ -26,13 +26,7 @@ namespace GameEngine
 
         void SetTitle(std::string title);
 
-        template <typename T, typename = std::enable_if_t<std::is_base_of<Scene, T>::value>>
-        inline int LoadScene()
-        {
-            currentScene = std::make_unique<T>();
-
-            return 0;
-        }
+        int LoadScene(std::unique_ptr<Scene> scene);
 
         void Update();
 

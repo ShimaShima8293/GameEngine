@@ -214,6 +214,7 @@
     <ClInclude Include="source\core\Scene.h" />
     <ClInclude Include="source\core\utilities.h" />
     <ClInclude Include="source\core\Window.h" />
+    <ClInclude Include="source\gameEngine.h" />
     <ClInclude Include="source\sprite\Renderable.h" />
     <ClInclude Include="source\sprite\Sprite.h" />
     <ClInclude Include="source\sprite\SpriteGroup.h" />

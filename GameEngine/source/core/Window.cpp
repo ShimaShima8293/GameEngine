@@ -40,6 +40,13 @@ namespace GameEngine
 
     }
 
+    int Window::LoadScene(std::unique_ptr<Scene> scene)
+    {
+        currentScene = std::move(scene);
+
+        return 0;
+    }
+
     void Window::Update()
     {
         if (this->GetFocus() == true)

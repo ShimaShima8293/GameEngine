@@ -8,16 +8,13 @@
 #pragma once
 
 // Core headers
-#include "animation.h"
-#include "audio.h"
-#include "debug.h"
-#include "events.h"
-#include "macros.h"
-#include "render.h"
-#include "resource.h"
-#include "scene.h"
-#include "sprite.h"
-#include "utilities.h"
+#include "core/debug.h"
+#include "core/Game.h"
+#include "core/macros.h"
+#include "core/Renderer.h"
+#include "core/Scene.h"
+#include "core/utilities.h"
+#include "core/Window.h"
 
 // SDL headers
 #include PATH_SDL
